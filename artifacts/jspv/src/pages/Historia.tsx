@@ -4,6 +4,7 @@ import { Layout } from "@/components/layout/Layout";
 import { Reveal } from "@/components/Reveal";
 import { useSEO } from "@/lib/seo";
 import { useT } from "@/i18n/context";
+import heroBg from "@assets/7_1781816874615.jpg";
 
 const HISTORY_EXTENDED_CA = [
   "El 15 d'agost de 1903, Tomás Meabe funda les Joventuts Socialistes d'Espanya a Erandio, Bizkaia, amb l'objectiu d'organitzar la joventut obrera entorn dels ideals socialistes i republicans. Des del primer moment, les JSE es convertixen en el braç militant juvenil del moviment obrer espanyol, formant quadres compromesos amb la transformació social i la defensa de la democràcia enfront del caciquisme i la monarquia restauracionista. La secció valenciana naix poc temps després, arrelant-se als centres industrials i universitaris del litoral mediterrani.",
@@ -41,16 +42,20 @@ export default function Historia() {
       ]}
     >
       {/* ── Hero ────────────────────────────────────────────────── */}
-      <section className="bg-white border-b border-border">
-        <div className="container-page py-16 md:py-24">
+      <section
+        className="relative text-white overflow-hidden"
+        style={{ backgroundImage: `url(${heroBg})`, backgroundSize: "cover", backgroundPosition: "center 40%" }}
+      >
+        <div className="absolute inset-0 bg-[#1A1A1A]/70" aria-hidden="true" />
+        <div className="relative z-10 container-page py-20 md:py-28">
           <Reveal>
             <p className="font-display font-bold text-xs uppercase tracking-[0.22em] text-primary mb-4">
               {t.nav.nosaltres}
             </p>
-            <h1 className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl leading-[1.05] max-w-3xl text-foreground">
+            <h1 className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl leading-[1.05] max-w-3xl">
               {t.historia.title}
             </h1>
-            <p className="mt-5 text-muted-foreground text-lg leading-relaxed max-w-2xl">
+            <p className="mt-5 text-white/75 text-lg leading-relaxed max-w-2xl">
               {t.historia.subtitle}
             </p>
           </Reveal>
