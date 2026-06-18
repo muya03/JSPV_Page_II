@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
-import { ArrowRight, Building2, MapPin, CalendarDays, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, MapPin, CalendarDays, ChevronLeft, ChevronRight } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { Reveal } from "@/components/Reveal";
 import { useSEO } from "@/lib/seo";
@@ -280,31 +280,6 @@ export default function Inicio() {
         </div>
       </section>
 
-      {/* ── Banner: Institucions ─────────────────────────────────── */}
-      <section className="bg-[#1A1A1A] text-white">
-        <div className="container-page py-16 md:py-20">
-          <Reveal className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
-            <div className="max-w-2xl">
-              <p className="font-display font-bold text-xs uppercase tracking-[0.18em] text-primary mb-3">
-                {t.home.emRepresenta}
-              </p>
-              <h2 className="font-display font-extrabold text-3xl sm:text-4xl leading-tight">
-                {t.home.activisme}
-              </h2>
-              <p className="mt-4 text-white/70 text-lg leading-relaxed">
-                {t.home.activismeDesc}
-              </p>
-            </div>
-            <Link
-              href="/institucions"
-              className="inline-flex items-center gap-2 h-13 px-7 py-3.5 rounded-md bg-primary text-primary-foreground font-display font-bold text-base hover:bg-primary/90 transition-colors shrink-0"
-            >
-              <Building2 size={18} aria-hidden="true" />
-              {t.home.ctaInstitucions}
-            </Link>
-          </Reveal>
-        </div>
-      </section>
     </Layout>
   );
 }
