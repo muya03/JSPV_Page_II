@@ -138,7 +138,7 @@ export default function Inicio() {
     description: t.seo.home.description,
   });
 
-  const featured = NEWS.slice(0, 3).map((item, i) => ({
+  const featured = NEWS.slice(0, 4).map((item, i) => ({
     ...item,
     ...t.data.news[i],
     caCategory: item.category,
@@ -178,14 +178,14 @@ export default function Inicio() {
                 </Link>
               </Reveal>
 
-              <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-6 content-start">
+              <div className="flex-1 grid grid-cols-2 xl:grid-cols-4 gap-6 content-start">
                 {featured.map((item, i) => (
                   <Reveal as="article" key={item.slug} delay={i * 90} className="h-full">
                     <Link
                       href={`/actualitat/${item.slug}`}
                       className="group flex flex-col h-full bg-white rounded-lg border border-border overflow-hidden hover:border-primary/40 transition-colors"
                     >
-                      <div className="aspect-[16/9] bg-[hsl(var(--surface-strong))] relative overflow-hidden">
+                      <div className="aspect-square bg-[hsl(var(--surface-strong))] relative overflow-hidden">
                         <img
                           src={item.image}
                           alt={item.imageAlt}
