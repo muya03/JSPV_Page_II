@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "JSPV — Joves Socialistes del País Valencià"
+version = "1.0.0"
+id = "artifacts/jspv"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21147
+
+[services.development]
+run = "pnpm --filter @workspace/jspv run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/jspv", "run", "build" ]
+publicDir = "artifacts/jspv/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21147"
+BASE_PATH = "/"
