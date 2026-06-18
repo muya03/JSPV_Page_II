@@ -178,7 +178,7 @@ export default function Inicio() {
                 </Link>
               </Reveal>
 
-              <div className="flex-1 grid grid-cols-2 xl:grid-cols-4 gap-6 content-start">
+              <div className="flex-1 grid grid-cols-2 grid-rows-2 gap-6">
                 {featured.map((item, i) => (
                   <Reveal as="article" key={item.slug} delay={i * 90} className="h-full">
                     <Link
