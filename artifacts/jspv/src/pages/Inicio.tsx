@@ -178,14 +178,14 @@ export default function Inicio() {
                 </Link>
               </Reveal>
 
-              <div className="flex-1 grid grid-cols-2 grid-rows-2 gap-6">
+              <div className="grid grid-cols-2 gap-6 content-start">
                 {featured.map((item, i) => (
                   <Reveal as="article" key={item.slug} delay={i * 90} className="h-full">
                     <Link
                       href={`/actualitat/${item.slug}`}
                       className="group flex flex-col h-full bg-white rounded-lg border border-border overflow-hidden hover:border-primary/40 transition-colors"
                     >
-                      <div className="aspect-square bg-[hsl(var(--surface-strong))] relative overflow-hidden">
+                      <div className="aspect-video bg-[hsl(var(--surface-strong))] relative overflow-hidden">
                         <img
                           src={item.image}
                           alt={item.imageAlt}
