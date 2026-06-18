@@ -1,0 +1,44 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "1Nr3R9fX8JJS51bYfuEOI"
+uri = "file://artifacts/jspv/src/assets/news/parc-public-habitatge.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "uimqIkEimATUAUsKgIHnS"
+uri = "file://artifacts/jspv/src/assets/news/defensa-educacio-publica.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "U31Bt3fGB8V2-Zco9lYFA"
+uri = "file://artifacts/jspv/src/assets/news/resposta-dana-generacio-de-ferro.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "ZhCe4ll-ZiDoEw8IPmR0e"
+uri = "file://artifacts/jspv/src/assets/news/xiv-congres-alcoi-marcos-dura.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "9EetKKHU8SeFwN3_7lKZO"
+uri = "file://artifacts/jspv/src/assets/news/feminisme-eix-transversal.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "jukstETeGYh9-cKy8-H9l"
+uri = "file://artifacts/jspv/src/assets/news/memoria-democratica-valencia.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "Usvm6RZEJtJj5lSenfBlK"
+uri = "file://attached_assets/jspv_tmp/opengraph.png"
+type = "image"
+title = "generated_image"

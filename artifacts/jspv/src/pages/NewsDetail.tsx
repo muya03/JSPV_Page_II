@@ -36,7 +36,13 @@ export default function NewsDetail() {
             </time>
           </Reveal>
 
-          <div className="mt-8 aspect-[16/9] bg-[hsl(var(--surface-strong))] rounded-lg" />
+          <div className="mt-8 aspect-[16/9] bg-[hsl(var(--surface-strong))] rounded-lg overflow-hidden">
+            <img
+              src={item.image}
+              alt={item.imageAlt}
+              className="w-full h-full object-cover"
+            />
+          </div>
 
           <Reveal className="mt-10 space-y-5">
             {item.body.map((p, i) => (

@@ -1,1 +1,2 @@
 - [JSPV SSR prerender](jspv-ssr-prerender.md) — jspv artifact has a custom 3-step static prerender build (client + ssr + prerender script), not the default react-vite single `vite build`.
+- [JSPV opengraph.jpg](jspv-opengraph.md) — public/opengraph.jpg is a real homepage screenshot the platform restores; custom OG art doesn't persist.

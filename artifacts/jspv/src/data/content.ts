@@ -1,6 +1,13 @@
 // Placeholder / simulated institutional content for the JSPV portal.
 // All copy is fictional placeholder material as indicated by the design brief.
 
+import habitatgeImg from "@/assets/news/parc-public-habitatge.jpg";
+import educacioImg from "@/assets/news/defensa-educacio-publica.jpg";
+import danaImg from "@/assets/news/resposta-dana-generacio-de-ferro.jpg";
+import congresImg from "@/assets/news/xiv-congres-alcoi-marcos-dura.jpg";
+import feminismeImg from "@/assets/news/feminisme-eix-transversal.jpg";
+import memoriaImg from "@/assets/news/memoria-democratica-valencia.jpg";
+
 export interface NavLink {
   label: string;
   href: string;
@@ -29,6 +36,8 @@ export interface NewsItem {
   date: string;
   iso: string;
   excerpt: string;
+  image: string;
+  imageAlt: string;
   body: string[];
 }
 
@@ -41,6 +50,8 @@ export const NEWS: NewsItem[] = [
     iso: "2026-06-15",
     excerpt:
       "Davant la crisi que expulsa la joventut dels seus barris, proposem un pla de xoc per a l'emancipació i la regulació dels lloguers abusius.",
+    image: habitatgeImg,
+    imageAlt: "Blocs d'habitatges residencials en una ciutat valenciana",
     body: [
       "La crisi de l'habitatge s'ha convertit en la principal barrera per a l'emancipació de la joventut valenciana. Joves Socialistes del País Valencià reclama un parc públic d'habitatge accessible i una regulació decidida dels preus del lloguer en les zones tensionades.",
       "La proposta inclou la mobilització de sòl públic per a promoció en règim de lloguer assequible, ajudes directes a l'emancipació i la persecució dels usos especulatius que buiden els centres històrics de les nostres ciutats.",
@@ -55,6 +66,8 @@ export const NEWS: NewsItem[] = [
     iso: "2026-06-10",
     excerpt:
       "L'educació pública valenciana és la columna vertebral de la igualtat d'oportunitats. No permetrem que patisca retalls.",
+    image: educacioImg,
+    imageAlt: "Aula lluminosa d'un centre educatiu públic",
     body: [
       "L'educació pública és la principal eina de transformació social i d'igualtat d'oportunitats. JSPV acompanya les mobilitzacions de la comunitat educativa enfront de les retallades pressupostàries impulsades pel Consell.",
       "Defensem una xarxa pública forta, beques suficients i unes condicions laborals dignes per al professorat. La igualtat comença a les aules i es construïx cada dia.",
@@ -68,6 +81,8 @@ export const NEWS: NewsItem[] = [
     iso: "2026-06-02",
     excerpt:
       "Quan altres van fugir, la joventut valenciana va estar en primera línia ajudant els pobles afectats. No som la generació de cristall.",
+    image: danaImg,
+    imageAlt: "Voluntaris retirant fang d'un carrer després de les inundacions",
     body: [
       "La gestió de la DANA va demostrar que la joventut valenciana no és la «generació de cristall» que alguns descriuen. Milers de joves es van emplenar de fang per ajudar la ciutadania davant la inacció institucional.",
       "Reivindiquem eixa solidaritat com a senya d'identitat: una «generació de ferro» que no abandona i que exigix institucions a l'altura de les emergències climàtiques.",
@@ -81,6 +96,8 @@ export const NEWS: NewsItem[] = [
     iso: "2026-06-07",
     excerpt:
       "Marcos Durà és elegit Secretari General amb una Comissió Executiva Nacional renovada per vertebrar el territori comarca a comarca.",
+    image: congresImg,
+    imageAlt: "Sala d'assemblea durant un congrés polític",
     body: [
       "El XIV Congrés Nacional, celebrat a Alcoi els dies 6 i 7 de juny de 2026, va culminar amb l'elecció de Marcos Durà com a Secretari General de JSPV.",
       "La nova Comissió Executiva Nacional aposta per l'escolta activa i la vertebració territorial, comarca a comarca, com a eixos de l'etapa que comença.",
@@ -94,6 +111,8 @@ export const NEWS: NewsItem[] = [
     iso: "2026-05-28",
     excerpt:
       "La igualtat real entre dones i homes vertebra tota la nostra acció política. La defensem en cada institució i en cada carrer.",
+    image: feminismeImg,
+    imageAlt: "Manifestació feminista amb pancartes en un carrer",
     body: [
       "El feminisme és un eix transversal de la nostra acció política. JSPV treballa per polítiques públiques que garantisquen la igualtat real i combatisquen les violències masclistes.",
       "Reivindiquem una agenda feminista valenta que no admeta passos enrere ni en drets ni en recursos.",
@@ -107,6 +126,8 @@ export const NEWS: NewsItem[] = [
     iso: "2026-05-20",
     excerpt:
       "Defensem la memòria democràtica com a fonament d'una societat lliure que coneix i respecta la seua història.",
+    image: memoriaImg,
+    imageAlt: "Monument commemoratiu de la memòria democràtica amb flors",
     body: [
       "La memòria democràtica és un pilar de la convivència. JSPV impulsa polítiques de veritat, justícia i reparació per a les víctimes de la dictadura.",
       "Conéixer la nostra història és la millor garantia per a defensar la democràcia present i futura.",

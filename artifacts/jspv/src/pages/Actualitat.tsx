@@ -62,7 +62,13 @@ export default function Actualitat() {
                   href={`/actualitat/${item.slug}`}
                   className="group flex flex-col h-full bg-white rounded-lg border border-border overflow-hidden hover:border-primary/40 transition-colors"
                 >
-                  <div className="aspect-[16/9] bg-[hsl(var(--surface-strong))] relative">
+                  <div className="aspect-[16/9] bg-[hsl(var(--surface-strong))] relative overflow-hidden">
+                    <img
+                      src={item.image}
+                      alt={item.imageAlt}
+                      loading="lazy"
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
                     <span className="absolute top-4 left-4 inline-flex items-center px-2.5 py-1 rounded-sm bg-primary text-primary-foreground text-xs font-display font-bold uppercase tracking-wide">
                       {item.category}
                     </span>

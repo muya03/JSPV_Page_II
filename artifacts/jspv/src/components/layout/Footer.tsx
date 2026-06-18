@@ -1,6 +1,8 @@
 import { Link } from "wouter";
 import { SiInstagram, SiX } from "react-icons/si";
 import { NAV_LINKS, CONTACT } from "@/data/content";
+import jseLogo from "@/assets/logos/jse.png";
+import pspvLogo from "@/assets/logos/pspv-psoe.png";
 
 export function Footer() {
   return (
@@ -91,17 +93,19 @@ export function Footer() {
               Institucional
             </h2>
             <div className="flex flex-col gap-3">
-              <div
-                className="h-12 rounded-md border border-white/15 flex items-center justify-center text-xs font-display font-bold tracking-wide text-white/55"
-                aria-label="Logotip JSE"
-              >
-                JSE
+              <div className="h-16 rounded-md bg-white flex items-center justify-center px-4">
+                <img
+                  src={jseLogo}
+                  alt="Joventuts Socialistes d'Espanya (JSE)"
+                  className="max-h-10 w-auto object-contain"
+                />
               </div>
-              <div
-                className="h-12 rounded-md border border-white/15 flex items-center justify-center text-xs font-display font-bold tracking-wide text-white/55"
-                aria-label="Logotip PSPV-PSOE"
-              >
-                PSPV-PSOE
+              <div className="h-16 rounded-md bg-white flex items-center justify-center px-4">
+                <img
+                  src={pspvLogo}
+                  alt="Partit Socialista del País Valencià (PSPV-PSOE)"
+                  className="max-h-11 w-auto object-contain"
+                />
               </div>
             </div>
           </div>
