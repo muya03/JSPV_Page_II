@@ -58,6 +58,36 @@ function PostGrid({ posts }: { posts: IGPost[] }) {
   );
 }
 
+const PLACEHOLDER_COUNT = 6;
+
+function PlaceholderGrid() {
+  return (
+    <div className="grid grid-cols-3 lg:grid-cols-6">
+      {Array.from({ length: PLACEHOLDER_COUNT }).map((_, i) => (
+        <a
+          key={i}
+          href="https://instagram.com/jovesocialistes"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Instagram JSPV"
+          className="group relative block aspect-square overflow-hidden bg-primary"
+        >
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-1 opacity-30 group-hover:opacity-60 transition-opacity">
+            <SiInstagram size={28} className="text-white" aria-hidden="true" />
+          </div>
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+            <SiInstagram
+              size={28}
+              className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              aria-hidden="true"
+            />
+          </div>
+        </a>
+      ))}
+    </div>
+  );
+}
+
 export function InstagramFeed() {
   const [posts, setPosts] = useState<IGPost[]>([]);
   const [status, setStatus] = useState<"loading" | "ok" | "no_token" | "error">("loading");
@@ -81,11 +111,9 @@ export function InstagramFeed() {
     return () => { cancelled = true; };
   }, []);
 
-  if (status !== "ok") return null;
-
   return (
     <section className="border-b border-border overflow-hidden">
-      <PostGrid posts={posts} />
+      {status === "ok" ? <PostGrid posts={posts} /> : <PlaceholderGrid />}
     </section>
   );
 }
