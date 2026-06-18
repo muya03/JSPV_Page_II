@@ -157,11 +157,11 @@ export default function Inicio() {
       {/* ── Actualitat + Agenda ──────────────────────────────────── */}
       <section className="bg-[hsl(var(--surface))] border-y border-border">
         <div className="container-page py-16 md:py-20">
-          <div className="grid grid-cols-1 xl:grid-cols-[1fr_300px] gap-10 xl:gap-12 items-start">
+          <div className="grid grid-cols-1 xl:grid-cols-[1fr_300px] gap-10 xl:gap-12 items-stretch">
 
             {/* Left: news */}
-            <div>
-              <Reveal className="flex items-end justify-between gap-6 mb-10">
+            <div className="flex flex-col">
+              <Reveal className="flex items-end justify-between gap-6 mb-10 shrink-0">
                 <div>
                   <p className="font-display font-bold text-xs uppercase tracking-[0.18em] text-primary mb-3">
                     {t.home.premsa}
@@ -178,9 +178,9 @@ export default function Inicio() {
                 </Link>
               </Reveal>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-6 content-start">
                 {featured.map((item, i) => (
-                  <Reveal as="article" key={item.slug} delay={i * 90}>
+                  <Reveal as="article" key={item.slug} delay={i * 90} className="h-full">
                     <Link
                       href={`/actualitat/${item.slug}`}
                       className="group flex flex-col h-full bg-white rounded-lg border border-border overflow-hidden hover:border-primary/40 transition-colors"
