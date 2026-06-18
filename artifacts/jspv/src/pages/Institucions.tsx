@@ -5,6 +5,7 @@ import { PageHero } from "@/components/SectionHeading";
 import { useSEO } from "@/lib/seo";
 import { REPRESENTATIVES, type Representative } from "@/data/content";
 import { useT } from "@/i18n/context";
+import heroImg from "@assets/HEMICICLOVACIO--644x362_1781818524829.jpg";
 
 const PROVINCES: Representative["prov"][] = ["València", "Alacant", "Castelló"];
 const INSTITUTIONS: Representative["type"][] = ["Les Corts", "Ajuntaments", "Diputacions"];
@@ -34,7 +35,7 @@ export default function Institucions() {
 
   return (
     <Layout crumbs={[{ label: t.institucions.crumb }]}>
-      <PageHero title={t.institucions.title} subtitle={t.institucions.subtitle} />
+      <PageHero title={t.institucions.title} subtitle={t.institucions.subtitle} image={heroImg} />
 
       <section className="bg-[hsl(var(--surface))]">
         <div className="container-page py-12 md:py-16">
