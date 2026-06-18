@@ -4,11 +4,13 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import banner1 from "@assets/BANNER-WEB-2_1781811528519.jpg";
 import banner2 from "@assets/2_1781811550015.png";
 import banner3 from "@assets/3_1781811550015.png";
+import banner4 from "@assets/ConVencer_1781818987849.png";
 
 const SLIDES = [
   { src: banner1, alt: "Per fi! Per un finançament just" },
   { src: banner2, alt: "Una Nova Legislatura — Marcos Durà, JSPV" },
   { src: banner3, alt: "Joves Socialistes del País Valencià" },
+  { src: banner4, alt: "ConVèncer — campanya JSPV" },
 ];
 
 const AUTOPLAY_MS = 5000;
