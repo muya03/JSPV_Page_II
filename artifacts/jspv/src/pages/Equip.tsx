@@ -4,6 +4,7 @@ import { Reveal } from "@/components/Reveal";
 import { useSEO } from "@/lib/seo";
 import { EXECUTIVE_FULL, type ExecutiveMember } from "@/data/content";
 import { useT } from "@/i18n/context";
+import heroBg from "@assets/6e828fcbfebe4e0645c4602230b2dc6d_1781816545714.jpg";
 
 // ── helpers ────────────────────────────────────────────────────────────────
 
@@ -213,8 +214,13 @@ export default function Equip() {
       ]}
     >
       {/* ── Hero ──────────────────────────────────────────────── */}
-      <section className="bg-[#1A1A1A] text-white">
-        <div className="container-page py-16 md:py-20">
+      <section
+        className="relative text-white overflow-hidden"
+        style={{ backgroundImage: `url(${heroBg})`, backgroundSize: "cover", backgroundPosition: "center 30%" }}
+      >
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-[#1A1A1A]/75" aria-hidden="true" />
+        <div className="relative z-10 container-page py-20 md:py-28">
           <Reveal>
             <p className="font-display font-bold text-xs uppercase tracking-[0.22em] text-primary mb-4">
               {t.nav.nosaltres}
@@ -222,7 +228,7 @@ export default function Equip() {
             <h1 className="font-display font-extrabold text-4xl sm:text-5xl leading-[1.05] max-w-3xl">
               {t.equip.title}
             </h1>
-            <p className="mt-5 text-white/70 text-lg leading-relaxed max-w-2xl">
+            <p className="mt-5 text-white/75 text-lg leading-relaxed max-w-2xl">
               {t.equip.subtitle}
             </p>
           </Reveal>
