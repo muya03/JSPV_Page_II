@@ -15,7 +15,7 @@ export default function Partit() {
   useSEO(getRouteMeta("/partit"));
 
   return (
-    <Layout crumbs={[{ label: "El Partit" }]}>
+    <Layout crumbs={[{ label: "Nosaltres" }]}>
       <PageHero
         title="El Partit"
         subtitle="Una història de més d'un segle al servei de la joventut, un ideari clar i una executiva renovada per liderar el present."

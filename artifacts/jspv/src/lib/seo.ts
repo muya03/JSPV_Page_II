@@ -37,7 +37,7 @@ export const ROUTE_META: RouteMeta[] = [
   },
   {
     path: "/partit",
-    title: "El Partit" + TITLE_SUFFIX,
+    title: "Nosaltres" + TITLE_SUFFIX,
     description:
       "Història, ideari i Comissió Executiva Nacional de JSPV des de la seua fundació en 1903 fins al XIV Congrés d'Alcoi.",
   },

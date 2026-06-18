@@ -14,7 +14,7 @@ export interface NavLink {
 }
 
 export const NAV_LINKS: NavLink[] = [
-  { label: "El Partit", href: "/partit" },
+  { label: "Nosaltres", href: "/partit" },
   { label: "Actualitat", href: "/actualitat" },
   { label: "En les Institucions", href: "/institucions" },
   { label: "Campanyes", href: "/campanyes" },
