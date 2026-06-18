@@ -2,6 +2,7 @@ import { Layout } from "@/components/layout/Layout";
 import { Reveal } from "@/components/Reveal";
 import { useSEO } from "@/lib/seo";
 import { useT } from "@/i18n/context";
+import heroBg from "@assets/joves-socialistes-bandera-republicana-kB3G--1248x698@abc.jpeg_1781817065311.webp";
 
 const VALUES_EXTENDED_CA = [
   "La socialdemocràcia és el fonament ideològic de JSPV. Defensem un model de societat en el qual els serveis públics —sanitat, educació, habitatge i cures— garantisquen una vida digna per a tothom, independentment del seu origen o situació econòmica. La redistribució de la riquesa a través de la progressivitat fiscal, la regulació dels mercats per a evitar abusos i la inversió sostinguda en l'estat del benestar són polítiques de necessitat urgent, no d'opció ideològica optativa.",
@@ -41,16 +42,20 @@ export default function Valors() {
       ]}
     >
       {/* ── Hero ────────────────────────────────────────────────── */}
-      <section className="bg-white border-b border-border">
-        <div className="container-page py-16 md:py-24">
+      <section
+        className="relative text-white overflow-hidden"
+        style={{ backgroundImage: `url(${heroBg})`, backgroundSize: "cover", backgroundPosition: "center 35%" }}
+      >
+        <div className="absolute inset-0 bg-[#1A1A1A]/72" aria-hidden="true" />
+        <div className="relative z-10 container-page py-20 md:py-28">
           <Reveal>
             <p className="font-display font-bold text-xs uppercase tracking-[0.22em] text-primary mb-4">
               {t.nav.nosaltres}
             </p>
-            <h1 className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl leading-[1.05] max-w-3xl text-foreground">
+            <h1 className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl leading-[1.05] max-w-3xl">
               {t.valors.title}
             </h1>
-            <p className="mt-5 text-muted-foreground text-lg leading-relaxed max-w-2xl">
+            <p className="mt-5 text-white/75 text-lg leading-relaxed max-w-2xl">
               {t.valors.subtitle}
             </p>
           </Reveal>
