@@ -5,6 +5,7 @@ import {
   NOT_FOUND_META,
   getRouteMeta,
   organizationJsonLd,
+  absoluteImageUrl,
   SITE,
   type RouteMeta,
 } from "./lib/seo";
@@ -26,7 +27,7 @@ function escapeHtml(s: string) {
 
 function buildHead(meta: RouteMeta): string {
   const canonical = SITE.url + (meta.path === "/" ? "/" : meta.path);
-  const image = SITE.url + SITE.defaultImage;
+  const image = escapeHtml(absoluteImageUrl(meta.image));
   const t = escapeHtml(meta.title);
   const d = escapeHtml(meta.description);
   const tags = [
@@ -67,6 +68,7 @@ function newsMeta(clean: string): RouteMeta | null {
     path: `/actualitat/${item.slug}`,
     title: `${item.title} · JSPV`,
     description: item.excerpt,
+    image: item.image,
   };
 }
 

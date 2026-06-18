@@ -12,7 +12,7 @@ export default function NewsDetail() {
   const item = NEWS.find((n) => n.slug === slug);
 
   const meta: RouteMeta = item
-    ? { path: `/actualitat/${item.slug}`, title: `${item.title} · JSPV`, description: item.excerpt }
+    ? { path: `/actualitat/${item.slug}`, title: `${item.title} · JSPV`, description: item.excerpt, image: item.image }
     : { path: "/404", title: "Notícia no trobada · JSPV", description: "" };
   useSEO(meta);
 

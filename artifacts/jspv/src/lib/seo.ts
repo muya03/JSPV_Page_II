@@ -12,6 +12,18 @@ export interface RouteMeta {
   path: string;
   title: string;
   description: string;
+  /**
+   * Optional per-route social-share image. May be a build-asset path (e.g. a
+   * hashed `/assets/…jpg`) or an absolute URL. Falls back to the site default.
+   */
+  image?: string;
+}
+
+/** Turn a build-asset path or absolute URL into an absolute social-share URL. */
+export function absoluteImageUrl(image?: string): string {
+  const candidate = image ?? SITE.defaultImage;
+  if (/^https?:\/\//i.test(candidate)) return candidate;
+  return SITE.url + (candidate.startsWith("/") ? candidate : "/" + candidate);
 }
 
 const TITLE_SUFFIX = " · JSPV";
@@ -118,6 +130,7 @@ function setCanonical(href: string) {
 export function useSEO(meta: RouteMeta) {
   useEffect(() => {
     const canonical = SITE.url + (meta.path === "/" ? "/" : meta.path);
+    const image = absoluteImageUrl(meta.image);
     document.title = meta.title;
     setMeta("name", "description", meta.description);
     setMeta("property", "og:title", meta.title);
@@ -125,11 +138,11 @@ export function useSEO(meta: RouteMeta) {
     setMeta("property", "og:type", "website");
     setMeta("property", "og:url", canonical);
     setMeta("property", "og:site_name", SITE.shortName);
-    setMeta("property", "og:image", SITE.url + SITE.defaultImage);
+    setMeta("property", "og:image", image);
     setMeta("name", "twitter:card", "summary_large_image");
     setMeta("name", "twitter:title", meta.title);
     setMeta("name", "twitter:description", meta.description);
-    setMeta("name", "twitter:image", SITE.url + SITE.defaultImage);
+    setMeta("name", "twitter:image", image);
     setCanonical(canonical);
-  }, [meta.path, meta.title, meta.description]);
+  }, [meta.path, meta.title, meta.description, meta.image]);
 }
