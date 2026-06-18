@@ -474,6 +474,73 @@ export const REPRESENTATIVES: Representative[] = [
   { name: "Oriol Sanz", role: "Diputat", inst: "Les Corts Valencianes", prov: "Alacant", type: "Les Corts" },
 ];
 
+export interface AgendaEvent {
+  id: string;
+  title: string;
+  titleEs: string;
+  date: string;
+  iso: string;
+  location: string;
+  type: "Assemblea" | "Acte" | "Formació" | "Manifestació" | "Reunió" | "Trobada";
+}
+
+export const AGENDA: AgendaEvent[] = [
+  {
+    id: "assemblea-valencia-juny",
+    title: "Assemblea Local de València",
+    titleEs: "Asamblea Local de Valencia",
+    date: "22 juny 2026",
+    iso: "2026-06-22",
+    location: "Casa del Poble, València",
+    type: "Assemblea",
+  },
+  {
+    id: "acte-habitatge-castello",
+    title: "Acte «L'habitatge és un dret» — Castelló",
+    titleEs: "Acto «La vivienda es un derecho» — Castellón",
+    date: "28 juny 2026",
+    iso: "2026-06-28",
+    location: "Plaça Major, Castelló de la Plana",
+    type: "Acte",
+  },
+  {
+    id: "escola-estiu-alacant",
+    title: "Escola d'Estiu JSPV",
+    titleEs: "Escuela de Verano JSPV",
+    date: "5–6 juliol 2026",
+    iso: "2026-07-05",
+    location: "Alacant",
+    type: "Formació",
+  },
+  {
+    id: "reunio-cen-juliol",
+    title: "Reunió de la Comissió Executiva Nacional",
+    titleEs: "Reunión de la Comisión Ejecutiva Nacional",
+    date: "12 juliol 2026",
+    iso: "2026-07-12",
+    location: "Seu JSPV, València",
+    type: "Reunió",
+  },
+  {
+    id: "trobada-comarcal-safor",
+    title: "Trobada Comarcal de la Safor",
+    titleEs: "Encuentro Comarcal de la Safor",
+    date: "19 juliol 2026",
+    iso: "2026-07-19",
+    location: "Gandia",
+    type: "Trobada",
+  },
+  {
+    id: "manifestacio-agost",
+    title: "Manifestació per l'Emancipació Juvenil",
+    titleEs: "Manifestación por la Emancipación Juvenil",
+    date: "1 agost 2026",
+    iso: "2026-08-01",
+    location: "Passeig de la Petxina, València",
+    type: "Manifestació",
+  },
+];
+
 export const COMARQUES = [
   "L'Horta Nord", "L'Horta Sud", "La Safor", "La Marina Alta", "La Marina Baixa",
   "El Comtat", "L'Alcoià", "La Vall d'Albaida", "La Ribera Alta", "La Ribera Baixa",
