@@ -19,7 +19,7 @@ export function Header() {
   }, [location]);
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50 bg-white/90 backdrop-blur-md border-b border-border">
+    <header className="fixed top-0 inset-x-0 z-50 bg-white/90 backdrop-blur-md border-b border-border border-t-4 border-t-primary">
       <div className="container-page flex items-center justify-between h-16 md:h-20">
         <Link
           href="/"
