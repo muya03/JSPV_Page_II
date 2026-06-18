@@ -7,6 +7,7 @@ import { PageHero } from "@/components/SectionHeading";
 import { useSEO } from "@/lib/seo";
 import { NEWS } from "@/data/content";
 import { useT } from "@/i18n/context";
+import heroImg from "@assets/7582576_1781818344056.jpg";
 
 const PER_PAGE = 4;
 
@@ -46,7 +47,7 @@ export default function Actualitat() {
 
   return (
     <Layout crumbs={[{ label: t.actualitat.title }]}>
-      <PageHero title={t.actualitat.title} subtitle={t.actualitat.subtitle} />
+      <PageHero title={t.actualitat.title} subtitle={t.actualitat.subtitle} image={heroImg} />
 
       <section className="bg-[hsl(var(--surface))]">
         <div className="container-page py-12 md:py-16">
