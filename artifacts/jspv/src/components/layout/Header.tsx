@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { Menu, X } from "lucide-react";
 import { NAV_LINKS } from "@/data/content";
+import jspvLogo from "@assets/logo-jspv-removebg-preview_1781812576061.png";
 
 function isActive(current: string, href: string) {
   const clean = current.replace(/\/+$/, "") || "/";
@@ -25,10 +26,11 @@ export function Header() {
           className="flex items-center gap-3 group"
           aria-label="JSPV — Inici"
         >
-          <span className="block w-1.5 h-8 bg-primary" aria-hidden="true" />
-          <span className="font-display font-extrabold text-2xl tracking-tight text-foreground">
-            JSPV
-          </span>
+          <img
+            src={jspvLogo}
+            alt="Joves Socialistes del País Valencià"
+            className="h-11 w-auto"
+          />
         </Link>
 
         <nav className="hidden md:flex items-center gap-8" aria-label="Navegació principal">

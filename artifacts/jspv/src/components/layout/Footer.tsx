@@ -3,6 +3,7 @@ import { SiInstagram, SiX } from "react-icons/si";
 import { NAV_LINKS, CONTACT } from "@/data/content";
 import jseLogo from "@/assets/logos/jse.png";
 import pspvLogo from "@/assets/logos/pspv-psoe.png";
+import jspvLogo from "@assets/logo-jspv-removebg-preview_1781812576061.png";
 
 export function Footer() {
   return (
@@ -11,9 +12,12 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-3 mb-5">
-              <span className="block w-1.5 h-8 bg-primary" aria-hidden="true" />
-              <span className="font-display font-extrabold text-2xl tracking-tight">JSPV</span>
+            <div className="mb-5">
+              <img
+                src={jspvLogo}
+                alt="Joves Socialistes del País Valencià"
+                className="h-14 w-auto brightness-0 invert"
+              />
             </div>
             <p className="text-sm leading-relaxed text-white/70 max-w-xs">
               Joves Socialistes del País Valencià. Organització juvenil del socialisme
