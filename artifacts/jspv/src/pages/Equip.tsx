@@ -14,9 +14,10 @@ function initials(name: string) {
 }
 
 const NUCLI = "Nucli de Direcció";
+const VICE = "Vicesecretaries Generals";
 
-const orgMembers = EXECUTIVE_FULL.filter((m) => m.area === NUCLI);
-const secretariesMembers = EXECUTIVE_FULL.filter((m) => m.area !== NUCLI);
+const orgMembers = EXECUTIVE_FULL.filter((m) => m.area === NUCLI || m.area === VICE);
+const secretariesMembers = EXECUTIVE_FULL.filter((m) => m.area !== NUCLI && m.area !== VICE);
 
 // ── modal ─────────────────────────────────────────────────────────────────
 
