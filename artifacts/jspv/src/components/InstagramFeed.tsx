@@ -62,7 +62,7 @@ const PLACEHOLDER_COUNT = 6;
 
 function PlaceholderGrid() {
   return (
-    <div className="grid grid-cols-3 lg:grid-cols-6">
+    <div className="grid grid-cols-3 lg:grid-cols-6 gap-3">
       {Array.from({ length: PLACEHOLDER_COUNT }).map((_, i) => (
         <a
           key={i}
@@ -112,8 +112,10 @@ export function InstagramFeed() {
   }, []);
 
   return (
-    <section className="border-b border-border overflow-hidden">
-      {status === "ok" ? <PostGrid posts={posts} /> : <PlaceholderGrid />}
+    <section className="border-b border-border bg-white py-10 md:py-14">
+      <div className="container-page">
+        {status === "ok" ? <PostGrid posts={posts} /> : <PlaceholderGrid />}
+      </div>
     </section>
   );
 }
