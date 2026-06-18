@@ -6,6 +6,9 @@ import { LanguageProvider } from "@/i18n/context";
 import NotFound from "@/pages/not-found";
 import Inicio from "@/pages/Inicio";
 import Partit from "@/pages/Partit";
+import Equip from "@/pages/Equip";
+import Historia from "@/pages/Historia";
+import Valors from "@/pages/Valors";
 import Actualitat from "@/pages/Actualitat";
 import NewsDetail from "@/pages/NewsDetail";
 import Campanyes from "@/pages/Campanyes";
@@ -20,6 +23,9 @@ function Router() {
     <Switch>
       <Route path="/" component={Inicio} />
       <Route path="/partit" component={Partit} />
+      <Route path="/partit/equip" component={Equip} />
+      <Route path="/partit/historia" component={Historia} />
+      <Route path="/partit/valors" component={Valors} />
       <Route path="/actualitat" component={Actualitat} />
       <Route path="/actualitat/:slug" component={NewsDetail} />
       <Route path="/campanyes" component={Campanyes} />

@@ -16,6 +16,9 @@ export const es: Translations = {
     ariaMobile: "Navegación principal móvil",
     ariaOpen: "Abrir menú",
     ariaClose: "Cerrar menú",
+    equip: "Nuestro equipo",
+    historia: "Nuestra Historia",
+    valors: "Ideas y Valores",
   },
 
   common: {
@@ -146,6 +149,47 @@ export const es: Translations = {
     mesNoticies: "Más noticias",
   },
 
+  equip: {
+    crumb: "Nuestro equipo",
+    title: "Comisión Ejecutiva Nacional",
+    subtitle:
+      "El equipo humano que lidera JSPV en la etapa abierta en el XIV Congreso Nacional de Alcoy. Veintinueve personas, nueve áreas estratégicas, una sola dirección colegiada.",
+    statsMembers: "miembros",
+    statsAreas: "áreas estratégicas",
+    statsCongres: "XIV Congreso · Alcoy 2026",
+    secGeneralRole: "Secretaría General",
+    secGeneralDesc:
+      "Representa y dirige JSPV en todas las instancias internas y externas, y es la responsable de ejecutar las decisiones de los órganos congresuales y de coordinar la Comisión Ejecutiva Nacional.",
+    nucliTitle: "Núcleo de Dirección",
+    nucliDesc:
+      "El núcleo estratégico que asegura la coherencia política y organizativa de la ejecutiva entre congresos, en estrecha colaboración con la Secretaría General.",
+    otherAreas: "Comisión Ejecutiva · por áreas",
+  },
+
+  historia: {
+    crumb: "Nuestra Historia",
+    title: "Nuestra Historia",
+    subtitle:
+      "Más de un siglo de socialismo juvenil, desde la fundación de Tomás Meabe en 1903 hasta la etapa que inaugura el XIV Congreso de Alcoy en 2026.",
+    introTitle: "Una tradición centenaria",
+    introText:
+      "Joves Socialistes del País Valencià es la federación valenciana de las Juventudes Socialistas de España (JSE), la organización juvenil del socialismo español fundada en 1903. Con plena autonomía orgánica desde 1988, JSPV hereda una tradición de lucha democrática, antifascismo y compromiso social que ha atravesado dictaduras, exilios y transiciones.",
+    ctaTitle: "Escribe el próximo capítulo",
+    ctaText:
+      "La mejor manera de honrar a quienes lucharon por la democracia y la justicia social es continuar su trabajo. Afíliate a JSPV y forma parte de la generación que escribe la próxima página de esta historia.",
+    ctaButton: "Afíliate ahora",
+  },
+
+  valors: {
+    crumb: "Ideas y Valores",
+    title: "Ideas y Valores",
+    subtitle:
+      "Los principios políticos e ideológicos que guían nuestra acción, vertebran nuestro programa y definen quiénes somos y hacia dónde vamos como organización.",
+    introTitle: "Un ideario para el siglo XXI",
+    introText:
+      "Nuestra ideología no es un dogma inamovible, sino una brújula que nos orienta en cada debate y en cada decisión política. Los siete valores nucleares de JSPV beben de la mejor tradición socialdemócrata y progresista, actualizada a los retos del presente: crisis climática, desigualdad creciente, crisis de vivienda y amenaza de las democracias liberales.",
+  },
+
   seo: {
     home: {
       title: "JSPV — Joves Socialistes del País Valencià",
@@ -184,6 +228,21 @@ export const es: Translations = {
     notFound: {
       title: "Página no encontrada · JSPV",
       description: "La página que buscas no existe.",
+    },
+    equip: {
+      title: "Nuestro equipo · JSPV",
+      description:
+        "Comisión Ejecutiva Nacional elegida en el XIV Congreso de Alcoy: 29 miembros y 9 áreas estratégicas.",
+    },
+    historia: {
+      title: "Nuestra Historia · JSPV",
+      description:
+        "Desde la fundación en 1903 hasta el XIV Congreso de Alcoy 2026: la historia de Joves Socialistes del País Valencià.",
+    },
+    valors: {
+      title: "Ideas y Valores · JSPV",
+      description:
+        "Los siete principios ideológicos de JSPV: socialdemocracia, republicanismo, progresismo, feminismo, federalismo, europeísmo y valencianismo.",
     },
   },
 
