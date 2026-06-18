@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
-import { ArrowRight, Building2, MapPin, CalendarDays } from "lucide-react";
+import { ArrowRight, Building2, MapPin, CalendarDays, ChevronLeft, ChevronRight } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { Reveal } from "@/components/Reveal";
 import { useSEO } from "@/lib/seo";
@@ -8,21 +8,129 @@ import { NEWS, AGENDA } from "@/data/content";
 import { HeroBanner } from "@/components/HeroBanner";
 import { InstagramFeed } from "@/components/InstagramFeed";
 import { useT } from "@/i18n/context";
-import { Calendar } from "@/components/ui/calendar";
 
-// Badge colours per event type
+// ── helpers ─────────────────────────────────────────────────────────────────
+
 const TYPE_COLOR: Record<string, string> = {
-  Assemblea: "bg-blue-100 text-blue-700",
-  Acte: "bg-red-100 text-red-700",
-  Formació: "bg-amber-100 text-amber-700",
-  Manifestació: "bg-primary/10 text-primary",
-  Reunió: "bg-gray-100 text-gray-600",
-  Trobada: "bg-emerald-100 text-emerald-700",
+  Assemblea:   "bg-blue-100 text-blue-700",
+  Acte:        "bg-red-100 text-red-700",
+  Formació:    "bg-amber-100 text-amber-700",
+  Manifestació:"bg-primary/10 text-primary",
+  Reunió:      "bg-gray-100 text-gray-600",
+  Trobada:     "bg-emerald-100 text-emerald-700",
 };
+
+const MONTH_CA = ["Gener","Febrer","Març","Abril","Maig","Juny","Juliol","Agost","Setembre","Octubre","Novembre","Desembre"];
+const MONTH_ES = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+const DOW_CA   = ["Dl","Dt","Dc","Dj","Dv","Ds","Dg"];
+const DOW_ES   = ["Lu","Ma","Mi","Ju","Vi","Sá","Do"];
+
+function buildGrid(year: number, month: number) {
+  // month is 0-indexed. Grid starts on Monday.
+  const firstDay = new Date(year, month, 1).getDay(); // 0=Sun
+  const offset = (firstDay + 6) % 7; // shift so Mon=0
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const cells: (number | null)[] = Array(offset).fill(null);
+  for (let d = 1; d <= daysInMonth; d++) cells.push(d);
+  while (cells.length % 7 !== 0) cells.push(null);
+  return cells;
+}
+
+function MiniCalendar({
+  eventIsos,
+  lang,
+}: {
+  eventIsos: string[];
+  lang: string;
+}) {
+  const [{ year, month }, setYM] = useState({ year: 2026, month: 5 }); // June 2026
+
+  const cells = buildGrid(year, month);
+  const monthNames = lang === "es" ? MONTH_ES : MONTH_CA;
+  const dowNames   = lang === "es" ? DOW_ES : DOW_CA;
+
+  const eventSet = new Set(
+    eventIsos
+      .map((iso) => {
+        const d = new Date(iso);
+        if (d.getFullYear() === year && d.getMonth() === month) return d.getDate();
+        return null;
+      })
+      .filter((v): v is number => v !== null)
+  );
+
+  function prev() {
+    setYM(({ year: y, month: m }) =>
+      m === 0 ? { year: y - 1, month: 11 } : { year: y, month: m - 1 }
+    );
+  }
+  function next() {
+    setYM(({ year: y, month: m }) =>
+      m === 11 ? { year: y + 1, month: 0 } : { year: y, month: m + 1 }
+    );
+  }
+
+  return (
+    <div className="select-none">
+      {/* Month navigation */}
+      <div className="flex items-center justify-between mb-3">
+        <button
+          type="button"
+          onClick={prev}
+          className="w-7 h-7 flex items-center justify-center rounded-full hover:bg-muted transition-colors text-muted-foreground"
+          aria-label="Mes anterior"
+        >
+          <ChevronLeft size={16} />
+        </button>
+        <span className="font-display font-bold text-sm text-foreground">
+          {monthNames[month]} {year}
+        </span>
+        <button
+          type="button"
+          onClick={next}
+          className="w-7 h-7 flex items-center justify-center rounded-full hover:bg-muted transition-colors text-muted-foreground"
+          aria-label="Mes següent"
+        >
+          <ChevronRight size={16} />
+        </button>
+      </div>
+
+      {/* Day-of-week headers */}
+      <div className="grid grid-cols-7 mb-1">
+        {dowNames.map((d) => (
+          <div key={d} className="text-center text-[10px] font-bold text-muted-foreground py-1">
+            {d}
+          </div>
+        ))}
+      </div>
+
+      {/* Day cells */}
+      <div className="grid grid-cols-7 gap-y-0.5">
+        {cells.map((day, i) => {
+          if (!day) return <div key={`e-${i}`} />;
+          const hasEvent = eventSet.has(day);
+          return (
+            <div
+              key={day}
+              className={`flex items-center justify-center w-8 h-8 mx-auto rounded-full text-xs font-medium transition-colors ${
+                hasEvent
+                  ? "bg-primary text-primary-foreground font-bold"
+                  : "text-foreground hover:bg-muted"
+              }`}
+            >
+              {day}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+// ── page ─────────────────────────────────────────────────────────────────────
 
 export default function Inicio() {
   const { t, lang } = useT();
-  const [calendarMonth, setCalendarMonth] = useState<Date>(new Date(2026, 5));
 
   useSEO({
     path: "/",
@@ -30,17 +138,15 @@ export default function Inicio() {
     description: t.seo.home.description,
   });
 
-  // Merge static (image, slug, iso) with translated text; keep original CA category as key
   const featured = NEWS.slice(0, 3).map((item, i) => ({
     ...item,
     ...t.data.news[i],
     caCategory: item.category,
   }));
 
-  // Dates that have events (for calendar highlighting)
-  const eventDates = AGENDA.map((e) => new Date(e.iso));
+  const eventIsos = AGENDA.map((e) => e.iso);
 
-  const labelAgenda = lang === "es" ? "Agenda pública" : "Agenda pública";
+  const labelAgenda  = lang === "es" ? "Agenda pública" : "Agenda pública";
   const labelProxims = lang === "es" ? "Próximos eventos" : "Propers esdeveniments";
 
   return (
@@ -48,12 +154,12 @@ export default function Inicio() {
       <HeroBanner />
       <InstagramFeed />
 
-      {/* Actualitat + Agenda */}
+      {/* ── Actualitat + Agenda ──────────────────────────────────── */}
       <section className="bg-[hsl(var(--surface))] border-y border-border">
         <div className="container-page py-16 md:py-20">
-          <div className="grid grid-cols-1 xl:grid-cols-[1fr_320px] gap-12 xl:gap-14 items-start">
+          <div className="grid grid-cols-1 xl:grid-cols-[1fr_300px] gap-10 xl:gap-12 items-start">
 
-            {/* ── Left: Notícies ──────────────────────────────── */}
+            {/* Left: news */}
             <div>
               <Reveal className="flex items-end justify-between gap-6 mb-10">
                 <div>
@@ -117,31 +223,24 @@ export default function Inicio() {
               </Link>
             </div>
 
-            {/* ── Right: Agenda ───────────────────────────────── */}
-            <Reveal className="flex flex-col gap-6">
-              {/* Calendar */}
-              <div className="bg-white rounded-xl border border-border overflow-hidden">
-                <div className="px-4 pt-4 pb-2 border-b border-border flex items-center gap-2">
-                  <CalendarDays size={15} className="text-primary" aria-hidden="true" />
-                  <span className="font-display font-bold text-sm text-foreground">{labelAgenda}</span>
-                </div>
-                <Calendar
-                  mode="multiple"
-                  selected={eventDates}
-                  month={calendarMonth}
-                  onMonthChange={setCalendarMonth}
-                  className="p-3"
-                  classNames={{
-                    day_selected:
-                      "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground rounded-full font-bold",
-                  }}
-                />
-              </div>
+            {/* Right: agenda */}
+            <Reveal className="flex flex-col gap-4">
 
-              {/* Upcoming events list */}
+              {/* Calendar card */}
               <div className="bg-white rounded-xl border border-border overflow-hidden">
                 <div className="px-4 py-3 border-b border-border flex items-center gap-2">
-                  <CalendarDays size={15} className="text-primary" aria-hidden="true" />
+                  <CalendarDays size={14} className="text-primary" aria-hidden="true" />
+                  <span className="font-display font-bold text-sm text-foreground">{labelAgenda}</span>
+                </div>
+                <div className="px-4 pb-4 pt-3">
+                  <MiniCalendar eventIsos={eventIsos} lang={lang} />
+                </div>
+              </div>
+
+              {/* Events list card */}
+              <div className="bg-white rounded-xl border border-border overflow-hidden">
+                <div className="px-4 py-3 border-b border-border flex items-center gap-2">
+                  <CalendarDays size={14} className="text-primary" aria-hidden="true" />
                   <span className="font-display font-bold text-sm text-foreground">{labelProxims}</span>
                 </div>
                 <ul className="divide-y divide-border">
@@ -149,19 +248,24 @@ export default function Inicio() {
                     const title = lang === "es" ? event.titleEs : event.title;
                     const badgeClass = TYPE_COLOR[event.type] ?? "bg-gray-100 text-gray-600";
                     return (
-                      <li key={event.id} className="px-4 py-3.5 flex flex-col gap-1.5 hover:bg-[hsl(var(--surface))] transition-colors">
+                      <li
+                        key={event.id}
+                        className="px-4 py-3 flex flex-col gap-1 hover:bg-[hsl(var(--surface))] transition-colors"
+                      >
                         <div className="flex items-start justify-between gap-2">
-                          <p className="font-display font-semibold text-sm text-foreground leading-snug flex-1">
+                          <p className="font-display font-semibold text-xs text-foreground leading-snug flex-1">
                             {title}
                           </p>
-                          <span className={`shrink-0 text-[10px] font-bold uppercase tracking-wide rounded-full px-2 py-0.5 ${badgeClass}`}>
+                          <span className={`shrink-0 text-[9px] font-bold uppercase tracking-wide rounded-full px-2 py-0.5 ${badgeClass}`}>
                             {event.type}
                           </span>
                         </div>
-                        <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                          <time dateTime={event.iso} className="font-medium">{event.date}</time>
+                        <div className="flex items-center gap-2.5 text-[11px] text-muted-foreground">
+                          <time dateTime={event.iso} className="font-medium tabular-nums">
+                            {event.date}
+                          </time>
                           <span className="flex items-center gap-1">
-                            <MapPin size={10} aria-hidden="true" />
+                            <MapPin size={9} aria-hidden="true" />
                             {event.location}
                           </span>
                         </div>
@@ -170,13 +274,13 @@ export default function Inicio() {
                   })}
                 </ul>
               </div>
-            </Reveal>
 
+            </Reveal>
           </div>
         </div>
       </section>
 
-      {/* Banner: Institucions */}
+      {/* ── Banner: Institucions ─────────────────────────────────── */}
       <section className="bg-[#1A1A1A] text-white">
         <div className="container-page py-16 md:py-20">
           <Reveal className="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
