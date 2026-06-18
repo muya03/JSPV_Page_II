@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@600;700;800;900&family=Roboto:wght@400;500;700&display=swap');
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
@@ -68,8 +68,8 @@
   --input: 220 13% 80%;
   --ring: 357 95% 46%;
 
-  --app-font-sans: 'Inter', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
-  --app-font-display: 'Montserrat', 'Inter', system-ui, sans-serif;
+  --app-font-sans: 'Roboto', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+  --app-font-display: 'Roboto Slab', Georgia, serif;
   --app-font-mono: Menlo, monospace;
   --radius: 0.375rem;
 }

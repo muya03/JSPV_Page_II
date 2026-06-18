@@ -4,6 +4,7 @@ import { Layout } from "@/components/layout/Layout";
 import { Reveal } from "@/components/Reveal";
 import { useSEO, getRouteMeta } from "@/lib/seo";
 import { NEWS } from "@/data/content";
+import { HeroBanner } from "@/components/HeroBanner";
 
 const featured = NEWS.slice(0, 3);
 
@@ -12,44 +13,8 @@ export default function Inicio() {
 
   return (
     <Layout>
-      {/* Hero */}
-      <section className="bg-white">
-        <div className="container-page py-20 md:py-28">
-          <div className="max-w-4xl">
-            <Reveal>
-              <span className="block w-16 h-1.5 bg-primary mb-8" aria-hidden="true" />
-            </Reveal>
-            <Reveal delay={80}>
-              <h1 className="font-display font-extrabold text-foreground text-4xl sm:text-6xl lg:text-7xl leading-[1.04]">
-                La generació de ferro que transforma el País Valencià
-              </h1>
-            </Reveal>
-            <Reveal delay={160}>
-              <p className="mt-7 text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl">
-                Som la joventut socialista valenciana. Ens vam emplenar de fang per ajudar
-                i ara ens toca liderar el canvi en habitatge, educació pública i feminisme.
-              </p>
-            </Reveal>
-            <Reveal delay={240}>
-              <div className="mt-10 flex flex-col sm:flex-row gap-4">
-                <Link
-                  href="/afiliat"
-                  className="inline-flex items-center justify-center gap-2 h-13 px-7 py-3.5 rounded-md bg-primary text-primary-foreground font-display font-bold text-base hover:bg-primary/90 transition-colors"
-                >
-                  Afilia't a JSPV
-                  <ArrowRight size={18} aria-hidden="true" />
-                </Link>
-                <Link
-                  href="/campanyes"
-                  className="inline-flex items-center justify-center h-13 px-7 py-3.5 rounded-md border border-foreground/20 text-foreground font-display font-semibold text-base hover:border-foreground hover:bg-[hsl(var(--surface))] transition-colors"
-                >
-                  Coneix les campanyes
-                </Link>
-              </div>
-            </Reveal>
-          </div>
-        </div>
-      </section>
+      {/* Banner principal — imatge slider full-width */}
+      <HeroBanner />
 
       {/* Actualitat */}
       <section className="bg-[hsl(var(--surface))] border-y border-border">
