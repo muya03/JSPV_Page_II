@@ -24,11 +24,9 @@ const secretariesMembers = EXECUTIVE_FULL.filter((m) => m.area !== NUCLI && m.ar
 function MemberModal({
   member,
   onClose,
-  areaLabel,
 }: {
   member: ExecutiveMember;
   onClose: () => void;
-  areaLabel: string;
 }) {
   const isSecGen = member.role === "Secretaria General";
 
@@ -86,11 +84,6 @@ function MemberModal({
           >
             {initials(member.name)}
           </div>
-
-          {/* Area tag */}
-          <span className="inline-block bg-muted text-muted-foreground text-[10px] font-bold uppercase tracking-[0.15em] rounded-full px-3 py-1 mb-3">
-            {areaLabel}
-          </span>
 
           {/* Role */}
           <p className="text-xs font-bold uppercase tracking-[0.15em] text-primary mb-2">
@@ -289,7 +282,6 @@ export default function Equip() {
         <MemberModal
           member={selected}
           onClose={close}
-          areaLabel={t.data.executiveAreas[selected.area] ?? selected.area}
         />
       )}
     </Layout>
