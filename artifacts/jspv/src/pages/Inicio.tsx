@@ -8,6 +8,7 @@ import { NEWS, AGENDA } from "@/data/content";
 import { HeroBanner } from "@/components/HeroBanner";
 import { InstagramFeed } from "@/components/InstagramFeed";
 import { useT } from "@/i18n/context";
+import convencerImg from "@assets/ConVencer_1781818987849.png";
 
 // ── helpers ─────────────────────────────────────────────────────────────────
 
@@ -153,6 +154,15 @@ export default function Inicio() {
     <Layout>
       <HeroBanner />
       <InstagramFeed />
+
+      {/* ── ConVencer banner ─────────────────────────────────────── */}
+      <section className="bg-primary">
+        <img
+          src={convencerImg}
+          alt="ConVèncer — campanya JSPV"
+          className="w-full h-auto block"
+        />
+      </section>
 
       {/* ── Actualitat + Agenda ──────────────────────────────────── */}
       <section className="bg-[hsl(var(--surface))] border-y border-border">
