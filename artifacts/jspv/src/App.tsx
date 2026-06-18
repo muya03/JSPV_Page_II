@@ -2,6 +2,7 @@ import { Switch, Route, Router as WouterRouter } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { LanguageProvider } from "@/i18n/context";
 import NotFound from "@/pages/not-found";
 import Inicio from "@/pages/Inicio";
 import Partit from "@/pages/Partit";
@@ -32,16 +33,17 @@ function Router() {
 
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
 
-/** `ssrPath` is supplied only during static prerender; the client omits it. */
 export default function App({ ssrPath }: { ssrPath?: string } = {}) {
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <WouterRouter base={BASE} ssrPath={ssrPath}>
-          <Router />
-        </WouterRouter>
-        <Toaster />
-      </TooltipProvider>
-    </QueryClientProvider>
+    <LanguageProvider>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <WouterRouter base={BASE} ssrPath={ssrPath}>
+            <Router />
+          </WouterRouter>
+          <Toaster />
+        </TooltipProvider>
+      </QueryClientProvider>
+    </LanguageProvider>
   );
 }

@@ -1,62 +1,83 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Link } from "wouter";
 import { ArrowRight } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { Reveal } from "@/components/Reveal";
 import { PageHero } from "@/components/SectionHeading";
-import { useSEO, getRouteMeta } from "@/lib/seo";
+import { useSEO } from "@/lib/seo";
 import { NEWS } from "@/data/content";
+import { useT } from "@/i18n/context";
 
 const PER_PAGE = 4;
-const categories = ["Totes", ...Array.from(new Set(NEWS.map((n) => n.category)))];
+
+// Stable CA keys for categories — never translated keys
+const CA_CATEGORIES = Array.from(new Set(NEWS.map((n) => n.category)));
 
 export default function Actualitat() {
-  useSEO(getRouteMeta("/actualitat"));
-  const [category, setCategory] = useState("Totes");
+  const { t } = useT();
+
+  useSEO({
+    path: "/actualitat",
+    title: t.seo.actualitat.title,
+    description: t.seo.actualitat.description,
+  });
+
+  // "" = show all; otherwise = CA category key
+  const [catKey, setCatKey] = useState("");
   const [page, setPage] = useState(1);
 
-  const filtered = NEWS.filter((n) => category === "Totes" || n.category === category);
+  const items = useMemo(
+    () => NEWS.map((n, i) => ({ ...n, ...t.data.news[i], caCategory: n.category })),
+    [t],
+  );
+
+  const filtered = items.filter((n) => catKey === "" || n.caCategory === catKey);
   const pages = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
   const current = Math.min(page, pages);
-  const items = filtered.slice((current - 1) * PER_PAGE, current * PER_PAGE);
+  const visible = filtered.slice((current - 1) * PER_PAGE, current * PER_PAGE);
+
+  const handleCategoryChange = (key: string) => {
+    setCatKey(key);
+    setPage(1);
+  };
+
+  const catLabel = (key: string) =>
+    key === "" ? t.data.filterAll : (t.data.categories[key] ?? key);
 
   return (
-    <Layout crumbs={[{ label: "Actualitat" }]}>
-      <PageHero
-        title="Actualitat"
-        subtitle="Sala de premsa de JSPV: comunicats i posicionaments sobre habitatge, educació pública i política autonòmica valenciana."
-      />
+    <Layout crumbs={[{ label: t.actualitat.title }]}>
+      <PageHero title={t.actualitat.title} subtitle={t.actualitat.subtitle} />
 
       <section className="bg-[hsl(var(--surface))]">
         <div className="container-page py-12 md:py-16">
-          {/* Category filter */}
-          <Reveal className="flex flex-wrap gap-2 mb-10" role="group" aria-label="Filtra per categoria">
-            {categories.map((c) => {
-              const active = c === category;
+          <Reveal
+            className="flex flex-wrap gap-2 mb-10"
+            role="group"
+            aria-label={t.actualitat.filtraAria}
+          >
+            {["", ...CA_CATEGORIES].map((key) => {
+              const active = catKey === key;
               return (
                 <button
-                  key={c}
+                  key={key || "__all__"}
                   type="button"
-                  onClick={() => {
-                    setCategory(c);
-                    setPage(1);
-                  }}
+                  onClick={() => handleCategoryChange(key)}
                   aria-pressed={active}
-                  data-testid={`filter-cat-${c}`}
+                  data-testid={`filter-cat-${key || "all"}`}
                   className={`px-4 py-2 rounded-full font-display font-semibold text-sm transition-colors ${
                     active
                       ? "bg-primary text-primary-foreground"
                       : "bg-white border border-border text-foreground hover:border-foreground/40"
                   }`}
                 >
-                  {c}
+                  {catLabel(key)}
                 </button>
               );
             })}
           </Reveal>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {items.map((item, i) => (
+            {visible.map((item, i) => (
               <Reveal as="article" key={item.slug} delay={i * 70}>
                 <Link
                   href={`/actualitat/${item.slug}`}
@@ -70,7 +91,7 @@ export default function Actualitat() {
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                     <span className="absolute top-4 left-4 inline-flex items-center px-2.5 py-1 rounded-sm bg-primary text-primary-foreground text-xs font-display font-bold uppercase tracking-wide">
-                      {item.category}
+                      {t.data.categories[item.caCategory] ?? item.caCategory}
                     </span>
                   </div>
                   <div className="flex flex-col flex-1 p-6">
@@ -84,7 +105,7 @@ export default function Actualitat() {
                       {item.excerpt}
                     </p>
                     <span className="mt-5 inline-flex items-center gap-1.5 font-display font-semibold text-sm text-primary">
-                      Llegir més <ArrowRight size={15} aria-hidden="true" />
+                      {t.common.llegirMes} <ArrowRight size={15} aria-hidden="true" />
                     </span>
                   </div>
                 </Link>
@@ -92,9 +113,11 @@ export default function Actualitat() {
             ))}
           </div>
 
-          {/* Pagination (simulated) */}
           {pages > 1 && (
-            <nav className="mt-12 flex items-center justify-center gap-2" aria-label="Paginació">
+            <nav
+              className="mt-12 flex items-center justify-center gap-2"
+              aria-label={t.actualitat.paginacioAria}
+            >
               {Array.from({ length: pages }, (_, i) => i + 1).map((p) => (
                 <button
                   key={p}

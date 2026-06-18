@@ -1,35 +1,38 @@
 import { Layout } from "@/components/layout/Layout";
 import { Reveal } from "@/components/Reveal";
 import { PageHero } from "@/components/SectionHeading";
-import { useSEO, getRouteMeta } from "@/lib/seo";
+import { useSEO } from "@/lib/seo";
 import { CONTACT } from "@/data/content";
+import { useT } from "@/i18n/context";
 import { Mail, MapPin } from "lucide-react";
 import { SiInstagram, SiX } from "react-icons/si";
 
-const directori = [
-  { label: "Informació general", email: CONTACT.email },
-  { label: "Organització", email: CONTACT.organitzacio },
-  { label: "Premsa i comunicació", email: CONTACT.premsa },
-];
-
 export default function Contacte() {
-  useSEO(getRouteMeta("/contacte"));
+  const { t } = useT();
+
+  useSEO({
+    path: "/contacte",
+    title: t.seo.contacte.title,
+    description: t.seo.contacte.description,
+  });
+
+  const directori = [
+    { label: t.contacte.informacioGeneral, email: CONTACT.email },
+    { label: t.contacte.organitzacio, email: CONTACT.organitzacio },
+    { label: t.contacte.premsa, email: CONTACT.premsa },
+  ];
 
   return (
-    <Layout crumbs={[{ label: "Contacte" }]}>
-      <PageHero
-        title="Contacte"
-        subtitle="Escriu-nos, vine a vore'ns o segueix-nos a les xarxes. Estem a la teua disposició."
-      />
+    <Layout crumbs={[{ label: t.contacte.crumb }]}>
+      <PageHero title={t.contacte.title} subtitle={t.contacte.subtitle} />
 
       <section className="bg-[hsl(var(--surface))]">
         <div className="container-page py-14 md:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Directori de correus */}
             <Reveal className="lg:col-span-2">
               <div className="bg-white border border-border rounded-lg p-7 h-full">
                 <h2 className="font-display font-extrabold text-xl text-foreground mb-6">
-                  Directori de contacte
+                  {t.contacte.directori}
                 </h2>
                 <ul className="divide-y divide-border">
                   {directori.map((d) => (
@@ -52,19 +55,18 @@ export default function Contacte() {
                     <MapPin size={18} aria-hidden="true" />
                   </span>
                   <div>
-                    <p className="font-display font-semibold text-foreground">Seu nacional</p>
+                    <p className="font-display font-semibold text-foreground">{t.contacte.seuNacional}</p>
                     <p className="text-muted-foreground text-sm">{CONTACT.adreca}</p>
                   </div>
                 </div>
               </div>
             </Reveal>
 
-            {/* Xarxes */}
             <Reveal delay={120}>
               <div className="bg-[#1A1A1A] text-white rounded-lg p-7 h-full flex flex-col">
-                <h2 className="font-display font-extrabold text-xl mb-3">Xarxes oficials</h2>
+                <h2 className="font-display font-extrabold text-xl mb-3">{t.contacte.xarxes}</h2>
                 <p className="text-white/70 text-sm leading-relaxed mb-6">
-                  Segueix l'activitat de JSPV i suma't a la conversa.
+                  {t.contacte.xarxesDesc}
                 </p>
                 <div className="space-y-3">
                   <a

@@ -1,3 +1,4 @@
 - [JSPV SSR prerender](jspv-ssr-prerender.md) — jspv artifact has a custom 3-step static prerender build (client + ssr + prerender script), not the default react-vite single `vite build`.
 - [JSPV opengraph.jpg](jspv-opengraph.md) — public/opengraph.jpg is a real homepage screenshot the platform restores; custom OG art doesn't persist.
 - [JSPV fonts](jspv-fonts.md) — PSPV-PSOE usa Roboto Slab (display/titulars) + Roboto (body); sitio JSPV actualizado para coincidir.
+- [JSPV i18n architecture](jspv-i18n.md) — bilingual CA/ES via custom React context (no external lib); category filter stores CA keys as state sentinel, not translated strings.

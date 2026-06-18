@@ -1,11 +1,21 @@
 import { Link } from "wouter";
 import { SiInstagram, SiX } from "react-icons/si";
-import { NAV_LINKS, CONTACT } from "@/data/content";
+import { CONTACT } from "@/data/content";
+import { useT } from "@/i18n/context";
 import jseLogo from "@/assets/logos/jse.png";
 import pspvLogo from "@/assets/logos/pspv-psoe.png";
 import jspvLogo from "@assets/logo-jspv-removebg-preview_1781812576061.png";
 
 export function Footer() {
+  const { t } = useT();
+
+  const navLinks = [
+    { label: t.nav.nosaltres, href: "/partit" },
+    { label: t.nav.actualitat, href: "/actualitat" },
+    { label: t.nav.institucions, href: "/institucions" },
+    { label: t.nav.campanyes, href: "/campanyes" },
+  ];
+
   return (
     <footer className="bg-[#1A1A1A] text-white">
       <div className="container-page py-16">
@@ -20,18 +30,17 @@ export function Footer() {
               />
             </div>
             <p className="text-sm leading-relaxed text-white/70 max-w-xs">
-              Joves Socialistes del País Valencià. Organització juvenil del socialisme
-              valencià, integrada en les Joventuts Socialistes d'Espanya.
+              {t.footer.desc}
             </p>
           </div>
 
           {/* Navegació */}
-          <nav aria-label="Enllaços del peu">
+          <nav aria-label={t.footer.navegacio}>
             <h2 className="font-display font-bold text-xs uppercase tracking-[0.18em] text-white/50 mb-5">
-              Navegació
+              {t.footer.navegacio}
             </h2>
             <ul className="space-y-3 text-sm">
-              {NAV_LINKS.map((link) => (
+              {navLinks.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="text-white/80 hover:text-white transition-colors">
                     {link.label}
@@ -40,12 +49,12 @@ export function Footer() {
               ))}
               <li>
                 <Link href="/afiliat" className="text-white/80 hover:text-white transition-colors">
-                  Afilia't
+                  {t.nav.afiliat}
                 </Link>
               </li>
               <li>
                 <Link href="/contacte" className="text-white/80 hover:text-white transition-colors">
-                  Contacte
+                  {t.nav.contacte}
                 </Link>
               </li>
             </ul>
@@ -54,7 +63,7 @@ export function Footer() {
           {/* Contacte */}
           <div>
             <h2 className="font-display font-bold text-xs uppercase tracking-[0.18em] text-white/50 mb-5">
-              Contacte
+              {t.nav.contacte}
             </h2>
             <ul className="space-y-3 text-sm text-white/80">
               <li>
@@ -94,20 +103,20 @@ export function Footer() {
           {/* Institucional */}
           <div>
             <h2 className="font-display font-bold text-xs uppercase tracking-[0.18em] text-white/50 mb-5">
-              Institucional
+              {t.footer.institucional}
             </h2>
             <div className="flex flex-col gap-3">
               <div className="h-16 rounded-md bg-white flex items-center justify-center px-4">
                 <img
                   src={jseLogo}
-                  alt="Joventuts Socialistes d'Espanya (JSE)"
+                  alt={t.footer.jseAlt}
                   className="max-h-10 w-auto object-contain"
                 />
               </div>
               <div className="h-16 rounded-md bg-white flex items-center justify-center px-4">
                 <img
                   src={pspvLogo}
-                  alt="Partit Socialista del País Valencià (PSPV-PSOE)"
+                  alt={t.footer.pspvAlt}
                   className="max-h-11 w-auto object-contain"
                 />
               </div>
@@ -116,11 +125,11 @@ export function Footer() {
         </div>
 
         <div className="mt-14 pt-8 border-t border-white/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs text-white/55">
-          <p>© 2026 Joves Socialistes del País Valencià · Tots els drets reservats</p>
+          <p>{t.footer.copyright}</p>
           <ul className="flex flex-wrap gap-x-6 gap-y-2">
-            <li><a href="#" className="hover:text-white transition-colors">Avís Legal</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">Política de Privacitat</a></li>
-            <li><a href="#" className="hover:text-white transition-colors">Cookies</a></li>
+            <li><a href="#" className="hover:text-white transition-colors">{t.footer.avisLegal}</a></li>
+            <li><a href="#" className="hover:text-white transition-colors">{t.footer.privacitat}</a></li>
+            <li><a href="#" className="hover:text-white transition-colors">{t.footer.cookies}</a></li>
           </ul>
         </div>
       </div>

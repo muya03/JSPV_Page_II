@@ -2,14 +2,22 @@ import { useState } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { Reveal } from "@/components/Reveal";
 import { PageHero } from "@/components/SectionHeading";
-import { useSEO, getRouteMeta } from "@/lib/seo";
+import { useSEO } from "@/lib/seo";
 import { REPRESENTATIVES, type Representative } from "@/data/content";
+import { useT } from "@/i18n/context";
 
 const PROVINCES: Representative["prov"][] = ["València", "Alacant", "Castelló"];
 const INSTITUTIONS: Representative["type"][] = ["Les Corts", "Ajuntaments", "Diputacions"];
 
 export default function Institucions() {
-  useSEO(getRouteMeta("/institucions"));
+  const { t } = useT();
+
+  useSEO({
+    path: "/institucions",
+    title: t.seo.institucions.title,
+    description: t.seo.institucions.description,
+  });
+
   const [prov, setProv] = useState<Representative["prov"] | null>(null);
   const [inst, setInst] = useState<Representative["type"] | null>(null);
 
@@ -25,25 +33,21 @@ export default function Institucions() {
     }`;
 
   return (
-    <Layout crumbs={[{ label: "En les Institucions" }]}>
-      <PageHero
-        title="En les Institucions"
-        subtitle="Directori de càrrecs públics de JSPV. Filtra per província i institució per descobrir qui et representa."
-      />
+    <Layout crumbs={[{ label: t.institucions.crumb }]}>
+      <PageHero title={t.institucions.title} subtitle={t.institucions.subtitle} />
 
       <section className="bg-[hsl(var(--surface))]">
         <div className="container-page py-12 md:py-16">
           <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-8 lg:gap-12">
-            {/* Sidebar filters */}
-            <aside aria-label="Filtres">
+            <aside aria-label={t.institucions.provincia}>
               <div className="lg:sticky lg:top-28 space-y-8">
                 <div>
                   <h2 className="font-display font-bold text-xs uppercase tracking-[0.18em] text-muted-foreground mb-3">
-                    Província
+                    {t.institucions.provincia}
                   </h2>
                   <div className="space-y-2">
                     <button type="button" onClick={() => setProv(null)} className={optionBtn(prov === null)} data-testid="filter-prov-all">
-                      Totes les províncies
+                      {t.institucions.todesProvinces}
                     </button>
                     {PROVINCES.map((p) => (
                       <button
@@ -61,21 +65,21 @@ export default function Institucions() {
 
                 <div>
                   <h2 className="font-display font-bold text-xs uppercase tracking-[0.18em] text-muted-foreground mb-3">
-                    Institució
+                    {t.institucions.institucio}
                   </h2>
                   <div className="space-y-2">
                     <button type="button" onClick={() => setInst(null)} className={optionBtn(inst === null)} data-testid="filter-inst-all">
-                      Totes les institucions
+                      {t.institucions.todesInstitucions}
                     </button>
-                    {INSTITUTIONS.map((t) => (
+                    {INSTITUTIONS.map((ty) => (
                       <button
-                        key={t}
+                        key={ty}
                         type="button"
-                        onClick={() => setInst(inst === t ? null : t)}
-                        className={optionBtn(inst === t)}
-                        data-testid={`filter-inst-${t}`}
+                        onClick={() => setInst(inst === ty ? null : ty)}
+                        className={optionBtn(inst === ty)}
+                        data-testid={`filter-inst-${ty}`}
                       >
-                        {t}
+                        {ty}
                       </button>
                     ))}
                   </div>
@@ -83,15 +87,15 @@ export default function Institucions() {
               </div>
             </aside>
 
-            {/* Results */}
             <div>
               <p className="text-sm text-muted-foreground mb-6" aria-live="polite">
-                {filtered.length} {filtered.length === 1 ? "representant" : "representants"}
+                {filtered.length}{" "}
+                {filtered.length === 1 ? t.institucions.representant : t.institucions.representants}
               </p>
 
               {filtered.length === 0 ? (
                 <div className="bg-white border border-border rounded-lg p-12 text-center text-muted-foreground">
-                  Cap representant per a aquesta selecció.
+                  {t.institucions.capResultat}
                 </div>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">

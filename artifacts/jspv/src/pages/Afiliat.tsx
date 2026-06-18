@@ -12,23 +12,37 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useSEO, getRouteMeta } from "@/lib/seo";
+import { useSEO } from "@/lib/seo";
 import { COMARQUES } from "@/data/content";
+import { useT } from "@/i18n/context";
 
-const schema = z.object({
-  fullName: z.string().min(3, "Indica el teu nom complet"),
-  email: z.string().email("Correu electrònic no vàlid"),
-  phone: z.string().min(9, "Telèfon no vàlid"),
-  comarca: z.string().min(1, "Selecciona una comarca"),
-  consent: z.literal(true, {
-    errorMap: () => ({ message: "Has d'acceptar la política de privacitat" }),
-  }),
-});
-
-type FormValues = z.infer<typeof schema>;
+type FormValues = {
+  fullName: string;
+  email: string;
+  phone: string;
+  comarca: string;
+  consent: true;
+};
 
 export default function Afiliat() {
-  useSEO(getRouteMeta("/afiliat"));
+  const { t } = useT();
+
+  useSEO({
+    path: "/afiliat",
+    title: t.seo.afiliat.title,
+    description: t.seo.afiliat.description,
+  });
+
+  const schema = z.object({
+    fullName: z.string().min(3, t.afiliat.errors.nomRequired),
+    email: z.string().email(t.afiliat.errors.emailInvalid),
+    phone: z.string().min(9, t.afiliat.errors.telefonInvalid),
+    comarca: z.string().min(1, t.afiliat.errors.comarcaRequired),
+    consent: z.literal(true, {
+      errorMap: () => ({ message: t.afiliat.errors.consentRequired }),
+    }),
+  });
+
   const [step, setStep] = useState(1);
   const [done, setDone] = useState(false);
 
@@ -51,8 +65,7 @@ export default function Afiliat() {
     if (await trigger(["fullName", "email"])) setStep(2);
   };
 
-  const onSubmit = (data: FormValues) => {
-    console.log("Sol·licitud d'afiliació:", data);
+  const onSubmit = (_data: FormValues) => {
     setDone(true);
   };
 
@@ -62,21 +75,20 @@ export default function Afiliat() {
     }`;
 
   return (
-    <Layout crumbs={[{ label: "Afilia't" }]}>
+    <Layout crumbs={[{ label: t.afiliat.crumb }]}>
       <section className="bg-white">
         <div className="container-page py-14 md:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
             <Reveal>
               <p className="font-display font-bold text-xs uppercase tracking-[0.18em] text-primary mb-3">
-                Uneix-te
+                {t.afiliat.eyebrow}
               </p>
               <h1 className="font-display font-extrabold text-foreground text-4xl sm:text-5xl leading-[1.05]">
-                Forma part de la <span className="text-primary">generació de ferro</span>
+                {t.afiliat.title}{" "}
+                <span className="text-primary">{t.afiliat.titleHighlight}</span>
               </h1>
               <p className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-xl">
-                No som la generació de cristall que es trenca. Som els que no abandonen i els
-                que lideren. Afilia't a Joves Socialistes del País Valencià i pren les regnes
-                del teu futur.
+                {t.afiliat.desc}
               </p>
               <span className="hidden lg:block w-24 h-1.5 bg-primary mt-8" aria-hidden="true" />
             </Reveal>
@@ -89,11 +101,9 @@ export default function Afiliat() {
                       <CheckCircle2 size={36} aria-hidden="true" />
                     </span>
                     <h2 className="font-display font-extrabold text-2xl text-foreground">
-                      Sol·licitud rebuda
+                      {t.afiliat.solicitudRebuda}
                     </h2>
-                    <p className="mt-3 text-muted-foreground">
-                      Gràcies per donar el pas. Ens posarem en contacte amb tu ben aviat.
-                    </p>
+                    <p className="mt-3 text-muted-foreground">{t.afiliat.gracies}</p>
                   </div>
                 ) : (
                   <>
@@ -102,7 +112,7 @@ export default function Afiliat() {
                       <span className={`h-1.5 flex-1 rounded-full ${step >= 2 ? "bg-primary" : "bg-border"}`} />
                     </div>
                     <p className="font-display font-semibold text-sm text-muted-foreground mb-5">
-                      Pas {step} de 2
+                      {t.afiliat.pas} {step} {t.afiliat.de} 2
                     </p>
 
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
@@ -110,7 +120,7 @@ export default function Afiliat() {
                         <>
                           <div>
                             <label htmlFor="fullName" className="block font-display font-semibold text-sm text-foreground mb-1.5">
-                              Nom complet
+                              {t.afiliat.nomComplet}
                             </label>
                             <input
                               id="fullName"
@@ -126,7 +136,7 @@ export default function Afiliat() {
                           </div>
                           <div>
                             <label htmlFor="email" className="block font-display font-semibold text-sm text-foreground mb-1.5">
-                              Correu electrònic
+                              {t.afiliat.correuElectronic}
                             </label>
                             <input
                               id="email"
@@ -146,7 +156,7 @@ export default function Afiliat() {
                             data-testid="button-next"
                             className="w-full h-12 rounded-md bg-foreground text-white font-display font-bold hover:bg-primary transition-colors"
                           >
-                            Continuar
+                            {t.afiliat.continuar}
                           </button>
                         </>
                       )}
@@ -155,7 +165,7 @@ export default function Afiliat() {
                         <>
                           <div>
                             <label htmlFor="phone" className="block font-display font-semibold text-sm text-foreground mb-1.5">
-                              Telèfon
+                              {t.afiliat.telefon}
                             </label>
                             <input
                               id="phone"
@@ -171,14 +181,14 @@ export default function Afiliat() {
                           </div>
                           <div>
                             <label htmlFor="comarca" className="block font-display font-semibold text-sm text-foreground mb-1.5">
-                              Comarca
+                              {t.afiliat.comarca}
                             </label>
                             <Select
                               value={comarca || undefined}
                               onValueChange={(v) => setValue("comarca", v, { shouldValidate: true })}
                             >
                               <SelectTrigger id="comarca" className="h-12 bg-white" data-testid="select-comarca" aria-invalid={!!errors.comarca}>
-                                <SelectValue placeholder="Selecciona la teua comarca" />
+                                <SelectValue placeholder={t.afiliat.selecciona} />
                               </SelectTrigger>
                               <SelectContent className="max-h-72">
                                 {COMARQUES.map((c) => (
@@ -199,7 +209,7 @@ export default function Afiliat() {
                               {...register("consent")}
                             />
                             <label htmlFor="consent" className="text-sm text-muted-foreground leading-relaxed">
-                              Accepte la política de privacitat i el tractament de les meues dades.
+                              {t.afiliat.consent}
                             </label>
                           </div>
                           {errors.consent && (
@@ -212,14 +222,14 @@ export default function Afiliat() {
                               data-testid="button-back"
                               className="h-12 px-5 rounded-md border border-input text-foreground font-display font-semibold hover:bg-white transition-colors"
                             >
-                              Tornar
+                              {t.afiliat.tornar}
                             </button>
                             <button
                               type="submit"
                               data-testid="button-submit"
                               className="flex-1 h-12 rounded-md bg-primary text-primary-foreground font-display font-bold hover:bg-primary/90 transition-colors"
                             >
-                              Vull afiliar-me
+                              {t.afiliat.vullAfiliar}
                             </button>
                           </div>
                         </>
