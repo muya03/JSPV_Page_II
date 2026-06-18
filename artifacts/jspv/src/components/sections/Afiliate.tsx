@@ -3,16 +3,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { CheckCircle2 } from "lucide-react";
 
 const comarcas = [
-  "L'Horta Nord", "L'Horta Sud", "La Safor", "La Marina Alta", "El Comtat", 
-  "L'Alcoià", "La Vall d'Albaida", "La Ribera Alta", "La Canal de Navarrés", 
-  "El Vinalopó", "La Vega Baixa", "Alt Palància", "L'Alt Millars", "L'Alcalatén", 
+  "L'Horta Nord", "L'Horta Sud", "La Safor", "La Marina Alta", "El Comtat",
+  "L'Alcoià", "La Vall d'Albaida", "La Ribera Alta", "La Canal de Navarrés",
+  "El Vinalopó", "La Vega Baixa", "Alt Palància", "L'Alt Millars", "L'Alcalatén",
   "La Plana Alta", "La Plana Baixa", "Els Ports", "El Maestrat", "Alt Maestrat", "El Baix Maestrat"
 ];
 
@@ -21,34 +18,96 @@ const step1Schema = z.object({
   email: z.string().email("Correu electrònic invàlid"),
 });
 
-const step2Schema = z.object({
-  fullName: z.string(),
-  email: z.string(),
+const step2Schema = step1Schema.extend({
   phone: z.string().min(9, "Telèfon invàlid"),
   comarca: z.string().min(1, "Selecciona una comarca"),
 });
+
+type FormValues = z.infer<typeof step2Schema>;
+
+function FloatingInput({
+  id,
+  label,
+  type = "text",
+  error,
+  testId,
+  ...rest
+}: {
+  id: string;
+  label: string;
+  type?: string;
+  error?: string;
+  testId?: string;
+} & React.InputHTMLAttributes<HTMLInputElement>) {
+  const [focused, setFocused] = useState(false);
+  const hasValue = Boolean((rest.value as string)?.length);
+  const lifted = focused || hasValue;
+
+  return (
+    <div className="relative">
+      <input
+        id={id}
+        type={type}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        data-testid={testId}
+        className={`
+          peer w-full h-16 px-4 pt-5 pb-2 rounded-lg border text-gray-900 text-base bg-gray-50
+          outline-none transition-colors
+          ${error
+            ? "border-[#E30613] focus:border-[#E30613]"
+            : "border-gray-200 focus:border-[#111111]"
+          }
+        `}
+        {...rest}
+      />
+      <label
+        htmlFor={id}
+        className={`
+          absolute left-4 pointer-events-none font-medium transition-all duration-150
+          ${lifted
+            ? "top-2 text-xs text-gray-500"
+            : "top-1/2 -translate-y-1/2 text-base text-gray-400"
+          }
+          ${focused && !error ? "text-[#111111]" : ""}
+          ${error ? "text-[#E30613]" : ""}
+        `}
+      >
+        {label}
+      </label>
+      {error && (
+        <p className="mt-1 text-xs font-medium text-[#E30613]">{error}</p>
+      )}
+    </div>
+  );
+}
 
 export function Afiliate() {
   const [step, setStep] = useState(1);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const form = useForm<z.infer<typeof step2Schema>>({
-    resolver: zodResolver(step === 1 ? step1Schema : step2Schema),
-    defaultValues: {
-      fullName: "",
-      email: "",
-      phone: "",
-      comarca: "",
-    },
+  const {
+    register,
+    handleSubmit,
+    trigger,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm<FormValues>({
+    resolver: zodResolver(step2Schema),
+    mode: "onChange",
+    defaultValues: { fullName: "", email: "", phone: "", comarca: "" },
   });
 
+  const values = watch();
+
   const onNext = async () => {
-    const isValid = await form.trigger(["fullName", "email"]);
-    if (isValid) setStep(2);
+    const ok = await trigger(["fullName", "email"]);
+    if (ok) setStep(2);
   };
 
-  const onSubmit = async (values: z.infer<typeof step2Schema>) => {
-    console.log("Form submitted:", values);
+  const onSubmit = async (data: FormValues) => {
+    console.log("Afiliació enviada:", data);
     setIsSuccess(true);
   };
 
@@ -86,7 +145,7 @@ export function Afiliate() {
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                  className="w-24 h-24 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6"
+                  className="w-24 h-24 bg-[#E30613]/10 text-[#E30613] rounded-full flex items-center justify-center mx-auto mb-6"
                 >
                   <CheckCircle2 size={48} />
                 </motion.div>
@@ -104,105 +163,112 @@ export function Afiliate() {
                   <div className={`w-12 h-2 rounded-full transition-colors ${step >= 2 ? "bg-[#E30613]" : "bg-gray-200"}`} />
                 </div>
 
-                <Form {...form}>
-                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                    <AnimatePresence mode="wait">
-                      {step === 1 && (
-                        <motion.div
-                          key="step1"
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          exit={{ opacity: 0, x: 20 }}
-                          className="space-y-6"
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+                  <AnimatePresence mode="wait">
+                    {step === 1 && (
+                      <motion.div
+                        key="step1"
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 20 }}
+                        className="space-y-5"
+                      >
+                        <FloatingInput
+                          id="fullName"
+                          label="Nom complet"
+                          testId="input-fullname"
+                          error={errors.fullName?.message}
+                          value={values.fullName}
+                          {...register("fullName")}
+                        />
+                        <FloatingInput
+                          id="email"
+                          label="Correu electrònic"
+                          type="email"
+                          testId="input-email"
+                          error={errors.email?.message}
+                          value={values.email}
+                          {...register("email")}
+                        />
+                        <button
+                          type="button"
+                          onClick={onNext}
+                          data-testid="button-next"
+                          className="w-full h-14 rounded-lg bg-[#111111] hover:bg-[#E30613] text-white font-montserrat font-bold text-lg transition-colors"
                         >
-                          <FormField
-                            control={form.control}
-                            name="fullName"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel className="text-gray-700 font-bold">Nom complet</FormLabel>
-                                <FormControl>
-                                  <Input placeholder="Escriu el teu nom" {...field} className="h-14 bg-gray-50 border-gray-200 text-lg" data-testid="input-fullname" />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                          <FormField
-                            control={form.control}
-                            name="email"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel className="text-gray-700 font-bold">Correu electrònic</FormLabel>
-                                <FormControl>
-                                  <Input type="email" placeholder="nom@exemple.com" {...field} className="h-14 bg-gray-50 border-gray-200 text-lg" data-testid="input-email" />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                          <Button type="button" onClick={onNext} className="w-full h-14 bg-gray-900 hover:bg-gray-800 text-white font-montserrat font-bold text-lg" data-testid="button-next">
-                            Continuar
-                          </Button>
-                        </motion.div>
-                      )}
+                          Continuar
+                        </button>
+                      </motion.div>
+                    )}
 
-                      {step === 2 && (
-                        <motion.div
-                          key="step2"
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          exit={{ opacity: 0, x: 20 }}
-                          className="space-y-6"
-                        >
-                          <FormField
-                            control={form.control}
-                            name="phone"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel className="text-gray-700 font-bold">Telèfon</FormLabel>
-                                <FormControl>
-                                  <Input type="tel" placeholder="600 000 000" {...field} className="h-14 bg-gray-50 border-gray-200 text-lg" data-testid="input-phone" />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                          <FormField
-                            control={form.control}
-                            name="comarca"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel className="text-gray-700 font-bold">Comarca</FormLabel>
-                                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                  <FormControl>
-                                    <SelectTrigger className="h-14 bg-gray-50 border-gray-200 text-lg" data-testid="select-comarca">
-                                      <SelectValue placeholder="Selecciona la teua comarca" />
-                                    </SelectTrigger>
-                                  </FormControl>
-                                  <SelectContent>
-                                    {comarcas.map((c) => (
-                                      <SelectItem key={c} value={c}>{c}</SelectItem>
-                                    ))}
-                                  </SelectContent>
-                                </Select>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                          <div className="flex gap-4">
-                            <Button type="button" variant="outline" onClick={() => setStep(1)} className="h-14 w-24 text-gray-600 font-bold" data-testid="button-back">
-                              Tornar
-                            </Button>
-                            <Button type="submit" className="flex-1 h-14 bg-[#E30613] hover:bg-[#c20510] text-white font-montserrat font-bold text-lg" data-testid="button-submit">
-                              Vull afiliar-me
-                            </Button>
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </form>
-                </Form>
+                    {step === 2 && (
+                      <motion.div
+                        key="step2"
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 20 }}
+                        className="space-y-5"
+                      >
+                        <FloatingInput
+                          id="phone"
+                          label="Telèfon"
+                          type="tel"
+                          testId="input-phone"
+                          error={errors.phone?.message}
+                          value={values.phone}
+                          {...register("phone")}
+                        />
+
+                        <div className="relative">
+                          <label className="block text-xs font-medium text-gray-500 mb-1 ml-1">
+                            Comarca
+                          </label>
+                          <Select
+                            onValueChange={(val) => {
+                              setValue("comarca", val, { shouldValidate: true });
+                            }}
+                            defaultValue={values.comarca}
+                          >
+                            <SelectTrigger
+                              className="h-14 bg-gray-50 border-gray-200 text-base text-gray-900 focus:border-[#111111]"
+                              data-testid="select-comarca"
+                            >
+                              <SelectValue placeholder="Selecciona la teua comarca" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {comarcas.map((c) => (
+                                <SelectItem key={c} value={c}>{c}</SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          {errors.comarca && (
+                            <p className="mt-1 text-xs font-medium text-[#E30613]">
+                              {errors.comarca.message}
+                            </p>
+                          )}
+                        </div>
+
+                        <div className="flex gap-4">
+                          <button
+                            type="button"
+                            onClick={() => setStep(1)}
+                            data-testid="button-back"
+                            className="h-14 w-24 rounded-lg border border-gray-200 text-gray-600 font-bold hover:bg-gray-50 transition-colors"
+                          >
+                            Tornar
+                          </button>
+                          <button
+                            type="submit"
+                            data-testid="button-submit"
+                            className="flex-1 h-14 rounded-lg bg-[#E30613] hover:bg-[#c20510] text-white font-montserrat font-bold text-lg transition-colors"
+                          >
+                            Vull afiliar-me
+                          </button>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </form>
               </>
             )}
           </motion.div>
