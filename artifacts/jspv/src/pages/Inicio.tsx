@@ -5,6 +5,7 @@ import { Reveal } from "@/components/Reveal";
 import { useSEO, getRouteMeta } from "@/lib/seo";
 import { NEWS } from "@/data/content";
 import { HeroBanner } from "@/components/HeroBanner";
+import { InstagramFeed } from "@/components/InstagramFeed";
 
 const featured = NEWS.slice(0, 3);
 
@@ -15,6 +16,9 @@ export default function Inicio() {
     <Layout>
       {/* Banner principal — imatge slider full-width */}
       <HeroBanner />
+
+      {/* Feed Instagram */}
+      <InstagramFeed />
 
       {/* Actualitat */}
       <section className="bg-[hsl(var(--surface))] border-y border-border">
