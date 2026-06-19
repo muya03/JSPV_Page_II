@@ -4,7 +4,7 @@ import { ArrowRight, MapPin, CalendarDays, ChevronLeft, ChevronRight } from "luc
 import { Layout } from "@/components/layout/Layout";
 import { Reveal } from "@/components/Reveal";
 import { useSEO } from "@/lib/seo";
-import { NEWS, AGENDA } from "@/data/content";
+import { NEWS, AGENDA, CAMPAIGNS } from "@/data/content";
 import { HeroBanner } from "@/components/HeroBanner";
 import { InstagramFeed } from "@/components/InstagramFeed";
 import { useT } from "@/i18n/context";
@@ -275,6 +275,78 @@ export default function Inicio() {
                 </ul>
               </div>
 
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Campanyes destacades ─────────────────────────────────── */}
+      <section className="bg-[#1A1A1A]">
+        <div className="container-page py-14 md:py-18">
+          <Reveal className="flex items-end justify-between gap-4 mb-8">
+            <div>
+              <p className="font-display font-bold text-xs uppercase tracking-[0.18em] text-primary mb-3">
+                {lang === "es" ? "Campañas" : "Campanyes"}
+              </p>
+              <h2 className="font-display font-extrabold text-white text-3xl sm:text-4xl leading-tight">
+                {lang === "es" ? "Lo que defendemos" : "El que defensem"}
+              </h2>
+            </div>
+            <Link
+              href="/campanyes"
+              className="shrink-0 inline-flex items-center gap-2 text-white/50 hover:text-white text-sm font-semibold transition-colors"
+            >
+              {lang === "es" ? "Todas las campañas" : "Totes les campanyes"}
+              <ArrowRight size={15} />
+            </Link>
+          </Reveal>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Habitatge */}
+            <Reveal delay={0}>
+              <Link href="/campanyes/habitatge-es-un-dret" className="block rounded-2xl overflow-hidden focus-visible:outline-2 focus-visible:outline-primary group">
+                <article
+                  className="relative flex flex-col justify-between min-h-[260px] p-7 transition-transform duration-300 group-hover:-translate-y-0.5"
+                  style={{ backgroundColor: "#C0202D" }}
+                >
+                  <div className="absolute -bottom-12 -right-12 w-48 h-48 rounded-full opacity-10 bg-white" aria-hidden="true" />
+                  <span className="inline-block text-[10px] font-bold uppercase tracking-[0.18em] rounded-full px-3 py-1 border border-white/25 text-white/70 self-start">
+                    {lang === "es" ? "Vivienda" : "Habitatge"}
+                  </span>
+                  <div>
+                    <h3 className="font-display font-extrabold text-white text-2xl md:text-3xl leading-tight mb-4">
+                      {lang === "es" ? "La vivienda es un derecho" : "L'habitatge és un dret"}
+                    </h3>
+                    <span className="inline-flex items-center gap-2 text-sm font-bold text-white/60 group-hover:text-white group-hover:gap-3 transition-all duration-200 uppercase tracking-wider">
+                      {lang === "es" ? "Ver campaña" : "Veure campanya"} <ArrowRight size={14} />
+                    </span>
+                  </div>
+                </article>
+              </Link>
+            </Reveal>
+
+            {/* Generació de ferro */}
+            <Reveal delay={60}>
+              <Link href="/campanyes/generacio-de-ferro" className="block rounded-2xl overflow-hidden focus-visible:outline-2 focus-visible:outline-primary group">
+                <article
+                  className="relative flex flex-col justify-between min-h-[260px] p-7 transition-transform duration-300 group-hover:-translate-y-0.5"
+                  style={{ backgroundColor: "#131A2A" }}
+                >
+                  <div className="absolute -bottom-12 -right-12 w-48 h-48 rounded-full opacity-10 bg-white" aria-hidden="true" />
+                  <span className="inline-block text-[10px] font-bold uppercase tracking-[0.18em] rounded-full px-3 py-1 border border-white/25 text-white/70 self-start">
+                    {lang === "es" ? "Juventud" : "Joventut"}
+                  </span>
+                  <div>
+                    <h3 className="font-display font-extrabold text-white text-2xl md:text-3xl leading-tight mb-4">
+                      <span style={{ color: "#E8650A" }}>{lang === "es" ? "Generación" : "Generació"}</span>
+                      {" "}{lang === "es" ? "de hierro" : "de ferro"}
+                    </h3>
+                    <span className="inline-flex items-center gap-2 text-sm font-bold text-white/60 group-hover:text-white group-hover:gap-3 transition-all duration-200 uppercase tracking-wider">
+                      {lang === "es" ? "Ver campaña" : "Veure campanya"} <ArrowRight size={14} />
+                    </span>
+                  </div>
+                </article>
+              </Link>
             </Reveal>
           </div>
         </div>
