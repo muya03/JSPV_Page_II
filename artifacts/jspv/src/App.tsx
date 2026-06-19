@@ -12,6 +12,8 @@ import Valors from "@/pages/Valors";
 import Actualitat from "@/pages/Actualitat";
 import NewsDetail from "@/pages/NewsDetail";
 import Campanyes from "@/pages/Campanyes";
+import Habitatge from "@/pages/campaigns/Habitatge";
+import GeneracioDeFerro from "@/pages/campaigns/GeneracioDeFerro";
 import Institucions from "@/pages/Institucions";
 import Afiliat from "@/pages/Afiliat";
 import Contacte from "@/pages/Contacte";
@@ -29,6 +31,8 @@ function Router() {
       <Route path="/actualitat" component={Actualitat} />
       <Route path="/actualitat/:slug" component={NewsDetail} />
       <Route path="/campanyes" component={Campanyes} />
+      <Route path="/campanyes/habitatge-es-un-dret" component={Habitatge} />
+      <Route path="/campanyes/generacio-de-ferro" component={GeneracioDeFerro} />
       <Route path="/institucions" component={Institucions} />
       <Route path="/afiliat" component={Afiliat} />
       <Route path="/contacte" component={Contacte} />
