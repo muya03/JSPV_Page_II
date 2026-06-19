@@ -4,6 +4,7 @@ import { Layout } from "@/components/layout/Layout";
 import { Reveal } from "@/components/Reveal";
 import { useSEO } from "@/lib/seo";
 import { useT } from "@/i18n/context";
+import manifestacioImg from "@assets/7-2_1781872589432.jpg";
 
 export default function Partit() {
   const { t, lang } = useT();
@@ -56,8 +57,15 @@ export default function Partit() {
   return (
     <Layout crumbs={[{ label: t.partit.crumb }]}>
       {/* ── Hero ──────────────────────────────────────────────── */}
-      <section className="bg-[#1A1A1A] text-white">
-        <div className="container-page py-16 md:py-24">
+      <section className="relative bg-[#1A1A1A] text-white overflow-hidden">
+        <img
+          src={manifestacioImg}
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover object-center opacity-30 grayscale"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#1A1A1A]/90 via-[#1A1A1A]/60 to-transparent" />
+        <div className="relative container-page py-16 md:py-24">
           <Reveal>
             <p className="font-display font-bold text-xs uppercase tracking-[0.22em] text-primary mb-4">
               JSPV
