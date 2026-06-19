@@ -3,7 +3,7 @@
 
 import habitatgeImg from "@/assets/news/parc-public-habitatge.jpg";
 import educacioImg from "@/assets/news/defensa-educacio-publica.jpg";
-import danaImg from "@/assets/news/resposta-dana-generacio-de-ferro.jpg";
+import danaImg from "@assets/labores-de-limpieza-y-desescombro-en-paiporta-valencia_dcc1.j_1781879514303.webp";
 import congresImg from "@/assets/news/xiv-congres-alcoi-marcos-dura.jpg";
 import feminismeImg from "@/assets/news/feminisme-eix-transversal.jpg";
 import memoriaImg from "@/assets/news/memoria-democratica-valencia.jpg";

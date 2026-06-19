@@ -6,7 +6,7 @@ import { Reveal } from "@/components/Reveal";
 import { useSEO } from "@/lib/seo";
 import { NEWS, AGENDA, CAMPAIGNS } from "@/data/content";
 import habitatgeImg from "@/assets/news/parc-public-habitatge.jpg";
-import danaImg from "@/assets/news/resposta-dana-generacio-de-ferro.jpg";
+import danaImg from "@assets/labores-de-limpieza-y-desescombro-en-paiporta-valencia_dcc1.j_1781879514303.webp";
 import { HeroBanner } from "@/components/HeroBanner";
 import { InstagramFeed } from "@/components/InstagramFeed";
 import { useT } from "@/i18n/context";

@@ -4,7 +4,7 @@ import { useT } from "@/i18n/context";
 import { Reveal } from "@/components/Reveal";
 import { Link } from "wouter";
 import { ArrowLeft, Brain, Zap, HandHeart } from "lucide-react";
-import danaImg from "@/assets/news/resposta-dana-generacio-de-ferro.jpg";
+import danaImg from "@assets/labores-de-limpieza-y-desescombro-en-paiporta-valencia_dcc1.j_1781879514303.webp";
 
 const PILLARS_CA = [
   {
