@@ -2,7 +2,7 @@
 // All copy is fictional placeholder material as indicated by the design brief.
 
 import habitatgeImg from "@/assets/news/parc-public-habitatge.jpg";
-import educacioImg from "@/assets/news/defensa-educacio-publica.jpg";
+import educacioImg from "@assets/6a01f22629d66.r_d.959-464-2500_1781884853325.jpeg";
 import danaImg from "@assets/labores-de-limpieza-y-desescombro-en-paiporta-valencia_dcc1.j_1781879514303.webp";
 import congresImg from "@assets/8c18267208f1023c67fe9c3b60e7d22e_1781884452468.jpg";
 import feminismeImg from "@assets/2430749_1781884520362.jpeg";
