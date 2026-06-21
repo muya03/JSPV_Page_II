@@ -263,9 +263,9 @@ export default function Equip() {
               </div>
             </Reveal>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-5">
               {members.map((m, i) => (
-                <Reveal key={m.name} delay={(i % 5) * 50}>
+                <Reveal key={m.name} delay={(i % 4) * 50}>
                   <MemberTile
                     member={m}
                     isActive={activeName === m.name}
