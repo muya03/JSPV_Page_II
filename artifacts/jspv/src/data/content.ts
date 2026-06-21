@@ -4,6 +4,8 @@
 import habitatgeImg from "@/assets/news/parc-public-habitatge.jpg";
 import educacioImg from "@assets/6a01f22629d66.r_d.959-464-2500_1781884853325.jpeg";
 import danaImg from "@assets/labores-de-limpieza-y-desescombro-en-paiporta-valencia_dcc1.j_1781879514303.webp";
+import vpHabitatgeImg from "@assets/valenciaplaza-marcos-dura-habitatge_1781884452469.jpg";
+import elPeriodicCongresImg from "@assets/elperiodic-marcos-dura-congres_1781884452470.jpg";
 import congresImg from "@assets/8c18267208f1023c67fe9c3b60e7d22e_1781884452468.jpg";
 import feminismeImg from "@assets/2430749_1781884520362.jpeg";
 import memoriaImg from "@assets/13.-Ruta-de-La-valencia-republicana-Conociendo-Valencia.compre_1781884707175.jpg";
@@ -145,7 +147,7 @@ export const NEWS: NewsItem[] = [
     iso: "2026-06-12",
     excerpt:
       "El secretari general de JSPV, Marcos Durà, analitza la crisi d'habitatge i la necessitat d'una política més valenta del govern central.",
-    image: habitatgeImg,
+    image: vpHabitatgeImg,
     imageAlt: "Entrevista a Marcos Durà sobre la política d'habitatge",
     body: [],
     externalUrl: "https://valenciaplaza.com/valenciaplaza/comunitat-valenciana1/marcos-dura-jspv-tenemos-que-seguir-apretando-al-gobierno-para-que-sea-mas-valiente-en-vivienda",
@@ -159,7 +161,7 @@ export const NEWS: NewsItem[] = [
     iso: "2026-06-08",
     excerpt:
       "El Periòdic recull l'elecció de Marcos Durà com a nou secretari general de Joves Socialistes del País Valencià en el XIV Congrés d'Alcoi.",
-    image: congresImg,
+    image: elPeriodicCongresImg,
     imageAlt: "Participants al XIV Congrés Nacional de JSPV a Alcoi",
     body: [],
     externalUrl: "https://www.elperiodic.com/marcos-dura-asume-secretaria-general-joves-socialistes-pais-valencia-congreso-nacional-celebrado-alcoi_1078784",
