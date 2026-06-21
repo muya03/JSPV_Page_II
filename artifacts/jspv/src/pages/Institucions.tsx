@@ -102,17 +102,30 @@ export default function Institucions() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   {filtered.map((r, i) => (
                     <Reveal key={r.name} delay={(i % 4) * 60} className="h-full">
-                      <div className="h-full bg-white border border-border rounded-lg p-6">
-                        <div className="flex items-start justify-between gap-3 mb-3">
-                          <h3 className="font-display font-bold text-base text-foreground leading-tight">
-                            {r.name}
-                          </h3>
-                          <span className="shrink-0 text-xs font-display font-bold uppercase tracking-wide px-2 py-1 rounded-sm bg-[hsl(var(--surface-strong))] text-muted-foreground">
-                            {r.prov}
-                          </span>
+                      <div className="h-full bg-white border border-border rounded-lg p-5 flex items-center gap-4">
+                        {r.photo ? (
+                          <img
+                            src={r.photo}
+                            alt={r.name}
+                            className="w-16 h-16 rounded-full object-cover object-top shrink-0 ring-2 ring-border"
+                          />
+                        ) : (
+                          <div className="w-16 h-16 rounded-full bg-[hsl(var(--surface-strong))] shrink-0 flex items-center justify-center font-display font-bold text-lg text-muted-foreground">
+                            {r.name.split(" ").map((n) => n[0]).slice(0, 2).join("")}
+                          </div>
+                        )}
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-start justify-between gap-2 mb-1">
+                            <h3 className="font-display font-bold text-sm text-foreground leading-tight">
+                              {r.name}
+                            </h3>
+                            <span className="shrink-0 text-xs font-display font-bold uppercase tracking-wide px-2 py-1 rounded-sm bg-[hsl(var(--surface-strong))] text-muted-foreground">
+                              {r.prov}
+                            </span>
+                          </div>
+                          <p className="text-primary font-semibold text-xs">{r.role}</p>
+                          <p className="text-muted-foreground text-xs mt-0.5 truncate">{r.inst}</p>
                         </div>
-                        <p className="text-primary font-semibold text-sm">{r.role}</p>
-                        <p className="text-muted-foreground text-sm mt-1">{r.inst}</p>
                       </div>
                     </Reveal>
                   ))}

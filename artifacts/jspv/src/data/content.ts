@@ -489,30 +489,31 @@ export interface Representative {
   inst: string;
   prov: "València" | "Alacant" | "Castelló";
   type: "Les Corts" | "Ajuntaments" | "Diputacions";
+  photo?: string;
 }
 
 export const REPRESENTATIVES: Representative[] = [
-  { name: "Benjamí Mompó", role: "Diputat", inst: "Les Corts Valencianes", prov: "València", type: "Les Corts" },
-  { name: "Cristina Martínez", role: "Diputada", inst: "Les Corts Valencianes", prov: "València", type: "Les Corts" },
-  { name: "Itziar Lafita", role: "Alcaldessa", inst: "Ajuntament de la Serratella", prov: "Castelló", type: "Ajuntaments" },
-  { name: "Blanca Silvestre", role: "Regidora", inst: "Ajuntament de Nules", prov: "Castelló", type: "Ajuntaments" },
-  { name: "Lara Guadix", role: "Regidora", inst: "Ajuntament de Vinaròs", prov: "Castelló", type: "Ajuntaments" },
-  { name: "Jorge Ribes", role: "Regidor", inst: "Ajuntament de Castelló de la Plana", prov: "Castelló", type: "Ajuntaments" },
-  { name: "Tomás Mínguez", role: "Regidor", inst: "Ajuntament d'Altura", prov: "Castelló", type: "Ajuntaments" },
-  { name: "Juan Huguet", role: "Regidor", inst: "Ajuntament de la Vilavella", prov: "Castelló", type: "Ajuntaments" },
-  { name: "Alejandro Morales", role: "Regidor", inst: "Ajuntament de Cullera", prov: "València", type: "Ajuntaments" },
-  { name: "Eugeni Ruiz", role: "Regidor", inst: "Ajuntament del Puig", prov: "València", type: "Ajuntaments" },
-  { name: "Nerea Gimeno", role: "Regidora", inst: "Ajuntament de Mislata", prov: "València", type: "Ajuntaments" },
-  { name: "Sergio Ortiz", role: "Regidor", inst: "Ajuntament de Moixent", prov: "València", type: "Ajuntaments" },
-  { name: "David Barbancho", role: "Regidor", inst: "Ajuntament de Riba-roja de Túria", prov: "València", type: "Ajuntaments" },
-  { name: "Víctor Herrera", role: "Regidor", inst: "Ajuntament d'Utiel", prov: "València", type: "Ajuntaments" },
-  { name: "Iván Egea", role: "Regidor", inst: "Ajuntament de Benifaió", prov: "València", type: "Ajuntaments" },
-  { name: "Rafael Lluch", role: "Regidor", inst: "Ajuntament d'Algemesí", prov: "València", type: "Ajuntaments" },
-  { name: "Gonzalo Moya", role: "Regidor", inst: "Ajuntament de Camporrobles", prov: "València", type: "Ajuntaments" },
-  { name: "Francisco José Hidalgo", role: "Regidor", inst: "Ajuntament de Quart de Poblet", prov: "València", type: "Ajuntaments" },
-  { name: "Juan Miguel López", role: "Regidor", inst: "Ajuntament d'Oriola", prov: "Alacant", type: "Ajuntaments" },
-  { name: "Víctor Leal", role: "Regidor", inst: "Ajuntament de Catral", prov: "Alacant", type: "Ajuntaments" },
-  { name: "Rafael Coloma", role: "Regidor", inst: "Ajuntament de Biar", prov: "Alacant", type: "Ajuntaments" },
+  { name: "Benjamí Mompó", role: "Diputat", inst: "Les Corts Valencianes", prov: "València", type: "Les Corts", photo: "https://www.jse.org/wp-content/uploads/2024/11/benjami_mompo_valencia.jpg" },
+  { name: "Cristina Martínez", role: "Diputada", inst: "Les Corts Valencianes", prov: "València", type: "Les Corts", photo: "https://www.jse.org/wp-content/uploads/2025/01/cristina-martinez.jpg" },
+  { name: "Itziar Lafita", role: "Alcaldessa", inst: "Ajuntament de la Serratella", prov: "Castelló", type: "Ajuntaments", photo: "https://www.jse.org/wp-content/uploads/2025/02/ITZIAR-LAFITA.jpg" },
+  { name: "Blanca Silvestre", role: "Regidora", inst: "Ajuntament de Nules", prov: "Castelló", type: "Ajuntaments", photo: "https://www.jse.org/wp-content/uploads/2025/02/BLANCA-SILVESTRE.jpg" },
+  { name: "Lara Guadix", role: "Regidora", inst: "Ajuntament de Vinaròs", prov: "Castelló", type: "Ajuntaments", photo: "https://www.jse.org/wp-content/uploads/2025/02/LARA-GUADIX.jpg" },
+  { name: "Jorge Ribes", role: "Regidor", inst: "Ajuntament de Castelló de la Plana", prov: "Castelló", type: "Ajuntaments", photo: "https://www.jse.org/wp-content/uploads/2025/02/JORGE-RIBES.jpg" },
+  { name: "Tomás Mínguez", role: "Regidor", inst: "Ajuntament d'Altura", prov: "Castelló", type: "Ajuntaments", photo: "https://www.jse.org/wp-content/uploads/2025/02/TOMAS-MINGUEZ.jpg" },
+  { name: "Juan Huguet", role: "Regidor", inst: "Ajuntament de la Vilavella", prov: "Castelló", type: "Ajuntaments", photo: "https://www.jse.org/wp-content/uploads/2025/02/JUAN-HUGUET.jpg" },
+  { name: "Alejandro Morales", role: "Regidor", inst: "Ajuntament de Cullera", prov: "València", type: "Ajuntaments", photo: "https://www.jse.org/wp-content/uploads/2025/02/ALEJANDRO-MORALES.jpg" },
+  { name: "Eugeni Ruiz", role: "Regidor", inst: "Ajuntament del Puig", prov: "València", type: "Ajuntaments", photo: "https://www.jse.org/wp-content/uploads/2025/02/EUGENI-RUIZ.jpg" },
+  { name: "Nerea Gimeno", role: "Regidora", inst: "Ajuntament de Mislata", prov: "València", type: "Ajuntaments", photo: "https://www.jse.org/wp-content/uploads/2025/02/NEREA-GIMENO.jpg" },
+  { name: "Sergio Ortiz", role: "Regidor", inst: "Ajuntament de Moixent", prov: "València", type: "Ajuntaments", photo: "https://www.jse.org/wp-content/uploads/2025/02/SERGIO-ORTIZ.jpg" },
+  { name: "David Barbancho", role: "Regidor", inst: "Ajuntament de Riba-roja de Túria", prov: "València", type: "Ajuntaments", photo: "https://www.jse.org/wp-content/uploads/2025/02/DAVID-BARBANCHO.jpg" },
+  { name: "Víctor Herrera", role: "Regidor", inst: "Ajuntament d'Utiel", prov: "València", type: "Ajuntaments", photo: "https://www.jse.org/wp-content/uploads/2025/02/VICTOR-HERRERA.jpg" },
+  { name: "Iván Egea", role: "Regidor", inst: "Ajuntament de Benifaió", prov: "València", type: "Ajuntaments", photo: "https://www.jse.org/wp-content/uploads/2025/02/IVAN-EGEA.jpg" },
+  { name: "Rafael Lluch", role: "Regidor", inst: "Ajuntament d'Algemesí", prov: "València", type: "Ajuntaments", photo: "https://www.jse.org/wp-content/uploads/2025/02/RAFAEL-LLUCH.jpg" },
+  { name: "Gonzalo Moya", role: "Regidor", inst: "Ajuntament de Camporrobles", prov: "València", type: "Ajuntaments", photo: "https://www.jse.org/wp-content/uploads/2025/02/GONZALO-MOYA.jpg" },
+  { name: "Francisco José Hidalgo", role: "Regidor", inst: "Ajuntament de Quart de Poblet", prov: "València", type: "Ajuntaments", photo: "https://www.jse.org/wp-content/uploads/2025/02/FRANCISCO-JOSE-HIDALGO.jpg" },
+  { name: "Juan Miguel López", role: "Regidor", inst: "Ajuntament d'Oriola", prov: "Alacant", type: "Ajuntaments", photo: "https://www.jse.org/wp-content/uploads/2025/02/JUAN-MIGUEL-LOPEZ.jpg" },
+  { name: "Víctor Leal", role: "Regidor", inst: "Ajuntament de Catral", prov: "Alacant", type: "Ajuntaments", photo: "https://www.jse.org/wp-content/uploads/2025/02/VICTOR-LEAL.jpg" },
+  { name: "Rafael Coloma", role: "Regidor", inst: "Ajuntament de Biar", prov: "Alacant", type: "Ajuntaments", photo: "https://www.jse.org/wp-content/uploads/2025/02/RAFAEL-COLOMA.jpg" },
 ];
 
 export interface AgendaEvent {
