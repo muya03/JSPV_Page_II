@@ -2,3 +2,4 @@
 - [JSPV opengraph.jpg](jspv-opengraph.md) — public/opengraph.jpg is a real homepage screenshot the platform restores; custom OG art doesn't persist.
 - [JSPV fonts](jspv-fonts.md) — PSPV-PSOE usa Roboto Slab (display/titulars) + Roboto (body); sitio JSPV actualizado para coincidir.
 - [JSPV i18n architecture](jspv-i18n.md) — bilingual CA/ES via custom React context (no external lib); category filter stores CA keys as state sentinel, not translated strings.
+- [JSPV team page — no areas](jspv-team-page.md) — Equip page must not group/label by "areas"; only Secretary General is featured; `area` field + stale i18n keys are dead, don't reintroduce.

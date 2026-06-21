@@ -11,62 +11,87 @@ function initials(name: string) {
   return ((parts[0]?.[0] ?? "") + (parts[1]?.[0] ?? "")).toUpperCase();
 }
 
-const AREA_ACCENT: Record<string, string> = {
-  "Nucli de Direcció": "#E30613",
-  "Vicesecretaries Generals": "#b00010",
-  "Coordinació i Estratègia": "#1A1A1A",
-  "Drets i Inclusió": "#1a3550",
-  "Cultura, Llengua i Memòria": "#1a3a28",
-  "Acció i Polítiques Públiques": "#1a1a3a",
-  "Desenvolupament i Societat": "#2a1a3a",
-  "Militància i Entorn Laboral": "#1a2a3a",
-  "Altres Sectors Clau": "#3a2010",
-};
+const secGen = EXECUTIVE_FULL.find((m) => m.role === "Secretaria General");
+const members = EXECUTIVE_FULL.filter((m) => m.role !== "Secretaria General");
 
-const NUCLI = "Nucli de Direcció";
-const VICE = "Vicesecretaries Generals";
-const AREA_ORDER = [
-  "Coordinació i Estratègia",
-  "Drets i Inclusió",
-  "Cultura, Llengua i Memòria",
-  "Acció i Polítiques Públiques",
-  "Desenvolupament i Societat",
-  "Militància i Entorn Laboral",
-  "Altres Sectors Clau",
-];
+// ── Secretary General — featured block ───────────────────────────────────────
 
-const orgMembers = EXECUTIVE_FULL.filter(
-  (m) => m.area === NUCLI || m.area === VICE
-);
-const secretariesMembers = EXECUTIVE_FULL.filter(
-  (m) => m.area !== NUCLI && m.area !== VICE
-);
-
-function MemberCard({
+function SecGenFeature({
   member,
-  isExpanded,
+  lang,
+}: {
+  member: ExecutiveMember;
+  lang: string;
+}) {
+  return (
+    <Reveal>
+      <div className="relative bg-white rounded-3xl shadow-[0_20px_60px_-20px_rgba(227,6,19,0.35)] overflow-hidden grid md:grid-cols-[300px_1fr]">
+        {/* Left — red panel with oversized avatar */}
+        <div className="relative bg-primary text-white flex flex-col items-center justify-center py-12 px-8 overflow-hidden">
+          {/* Decorative oversized star/initials watermark */}
+          <span
+            className="pointer-events-none absolute -right-8 -bottom-10 font-display font-extrabold text-[11rem] leading-none text-white/10 select-none"
+            aria-hidden="true"
+          >
+            ★
+          </span>
+
+          <div className="relative w-36 h-36 rounded-full bg-white text-primary flex items-center justify-center font-display font-extrabold text-5xl shadow-xl ring-8 ring-white/20">
+            {initials(member.name)}
+          </div>
+
+          <p className="relative mt-6 text-[11px] font-bold uppercase tracking-[0.3em] text-white/90 text-center">
+            {lang === "es" ? "Secretario General" : "Secretari General"}
+          </p>
+        </div>
+
+        {/* Right — name + bio */}
+        <div className="relative flex flex-col justify-center p-8 md:p-12">
+          <span className="inline-flex items-center gap-2 self-start px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-[0.2em] mb-5">
+            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+            {lang === "es" ? "Máxima responsabilidad" : "Màxima responsabilitat"}
+          </span>
+
+          <h2 className="font-display font-extrabold text-3xl md:text-4xl text-foreground leading-[1.05]">
+            {member.name}
+          </h2>
+
+          <div className="mt-5 mb-6 w-16 h-1 bg-primary rounded-full" />
+
+          <p className="text-base text-muted-foreground leading-relaxed max-w-2xl">
+            {member.bio}
+          </p>
+        </div>
+      </div>
+    </Reveal>
+  );
+}
+
+// ── Member tile — white square, red panel slides up on click ─────────────────
+
+function MemberTile({
+  member,
+  isActive,
   onToggle,
   lang,
 }: {
   member: ExecutiveMember;
-  isExpanded: boolean;
+  isActive: boolean;
   onToggle: () => void;
   lang: string;
 }) {
-  const accent = AREA_ACCENT[member.area] ?? "#1A1A1A";
-
   return (
     <div
-      className={`relative flex flex-col items-center text-center bg-white rounded-2xl overflow-hidden cursor-pointer select-none transition-all duration-300 ${
-        isExpanded
-          ? "shadow-2xl ring-2 ring-[--accent]/30"
-          : "shadow-sm border border-border hover:shadow-md hover:-translate-y-0.5"
+      className={`group relative aspect-square rounded-2xl overflow-hidden cursor-pointer select-none transition-all duration-300 bg-white ${
+        isActive
+          ? "shadow-2xl -translate-y-1"
+          : "border border-border shadow-sm hover:shadow-lg hover:-translate-y-1"
       }`}
-      style={{ "--accent": accent } as React.CSSProperties}
       onClick={onToggle}
       role="button"
       tabIndex={0}
-      aria-expanded={isExpanded}
+      aria-expanded={isActive}
+      aria-label={member.name}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
@@ -74,181 +99,73 @@ function MemberCard({
         }
       }}
     >
-      {/* Coloured top bar */}
-      <div
-        className="w-full h-1.5 shrink-0"
-        style={{ backgroundColor: accent }}
-        aria-hidden="true"
-      />
-
-      <div className="w-full px-4 pt-5 pb-4 flex flex-col items-center">
-        {/* Avatar */}
-        <div
-          className={`w-[76px] h-[76px] rounded-full flex items-center justify-center font-display font-extrabold text-lg text-white mb-3 transition-transform duration-300 ${
-            isExpanded ? "scale-110" : "group-hover:scale-105"
-          }`}
-          style={{ backgroundColor: accent }}
-          aria-hidden="true"
-        >
+      {/* Default face */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+        <div className="w-[68px] h-[68px] rounded-full bg-[#1A1A1A] text-white flex items-center justify-center font-display font-extrabold text-lg mb-3 transition-transform duration-300 group-hover:scale-110 group-hover:bg-primary">
           {initials(member.name)}
         </div>
-
-        {/* Role */}
-        <p
-          className="text-[9px] font-bold uppercase tracking-[0.2em] leading-tight mb-1.5 max-w-[130px]"
-          style={{ color: accent }}
-        >
+        <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-primary leading-tight mb-1.5 line-clamp-2">
           {member.role}
         </p>
-
-        {/* Name */}
-        <p className="font-display font-bold text-sm text-foreground leading-snug">
+        <p className="font-display font-bold text-sm text-foreground leading-snug line-clamp-2">
           {member.name}
         </p>
 
-        {/* Expand chevron */}
-        <div
-          className={`mt-2 w-5 h-5 rounded-full flex items-center justify-center transition-all duration-300 ${
-            isExpanded ? "opacity-100" : "opacity-40"
-          }`}
-          style={{ backgroundColor: `${accent}18` }}
+        {/* Corner plus indicator */}
+        <span
+          className="absolute top-3 right-3 w-6 h-6 rounded-full bg-muted text-muted-foreground flex items-center justify-center transition-all duration-300 group-hover:bg-primary group-hover:text-white"
           aria-hidden="true"
         >
-          <svg
-            width="10"
-            height="10"
-            viewBox="0 0 10 10"
-            fill="none"
-            className={`transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
-          >
+          <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
             <path
-              d="M2 3.5L5 6.5L8 3.5"
-              stroke={accent}
-              strokeWidth="1.5"
+              d="M5.5 1.5v8M1.5 5.5h8"
+              stroke="currentColor"
+              strokeWidth="1.6"
               strokeLinecap="round"
-              strokeLinejoin="round"
             />
           </svg>
-        </div>
+        </span>
       </div>
 
-      {/* Expandable content — CSS grid trick for smooth height */}
+      {/* Red panel — slides up on click */}
       <div
-        className="w-full grid transition-[grid-template-rows] duration-300 ease-in-out"
-        style={{ gridTemplateRows: isExpanded ? "1fr" : "0fr" }}
+        className={`absolute inset-0 bg-primary text-white p-5 flex flex-col transition-transform duration-[400ms] ease-out ${
+          isActive ? "translate-y-0" : "translate-y-[101%]"
+        }`}
       >
-        <div className="overflow-hidden">
-          <div className="px-4 pb-5">
-            <div className="h-px bg-border mb-3" />
+        <span
+          className="absolute top-3 right-3 w-6 h-6 rounded-full bg-white/20 flex items-center justify-center"
+          aria-hidden="true"
+        >
+          <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
+            <path
+              d="M1.5 5.5h8"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+            />
+          </svg>
+        </span>
 
-            {/* Area badge */}
-            <span
-              className="inline-block px-2.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-widest mb-3"
-              style={{
-                backgroundColor: `${accent}15`,
-                color: accent,
-                border: `1px solid ${accent}30`,
-              }}
-            >
-              {member.area}
-            </span>
-
-            {/* Bio */}
-            <p className="text-xs text-muted-foreground leading-relaxed text-left">
-              {member.bio}
-            </p>
-
-            {/* Close hint */}
-            <p
-              className="mt-3 text-[9px] font-semibold uppercase tracking-widest text-center"
-              style={{ color: `${accent}80` }}
-            >
-              {lang === "es" ? "Cerrar ↑" : "Tancar ↑"}
-            </p>
-          </div>
-        </div>
+        <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-white/80 leading-tight mb-1 pr-7">
+          {member.role}
+        </p>
+        <p className="font-display font-extrabold text-[15px] leading-tight mb-2.5">
+          {member.name}
+        </p>
+        <p className="text-[11px] leading-relaxed text-white/90 overflow-y-auto pr-1 flex-1 min-h-0">
+          {member.bio}
+        </p>
       </div>
     </div>
   );
 }
 
-function TeamSection({
-  title,
-  members,
-  selectedName,
-  onToggle,
-  lang,
-}: {
-  title: string;
-  members: ExecutiveMember[];
-  selectedName: string | null;
-  onToggle: (name: string) => void;
-  lang: string;
-}) {
-  return (
-    <div>
-      <Reveal>
-        <div className="flex items-center gap-3 mb-6">
-          <span className="block w-1 h-6 bg-primary shrink-0" aria-hidden="true" />
-          <h2 className="font-display font-extrabold text-lg text-foreground">
-            {title}
-          </h2>
-          <span className="text-sm font-medium text-muted-foreground/50">
-            ({members.length})
-          </span>
-        </div>
-      </Reveal>
-
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 items-start">
-        {members.map((m, i) => (
-          <Reveal key={m.name} delay={(i % 5) * 40}>
-            <MemberCard
-              member={m}
-              isExpanded={selectedName === m.name}
-              onToggle={() => onToggle(m.name)}
-              lang={lang}
-            />
-          </Reveal>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function AreaSections({
-  selectedName,
-  onToggle,
-  lang,
-}: {
-  selectedName: string | null;
-  onToggle: (name: string) => void;
-  lang: string;
-}) {
-  return (
-    <>
-      {AREA_ORDER.map((area) => {
-        const members = secretariesMembers.filter((m) => m.area === area);
-        if (!members.length) return null;
-        return (
-          <div key={area}>
-            <hr className="border-border" />
-            <TeamSection
-              title={area}
-              members={members}
-              selectedName={selectedName}
-              onToggle={onToggle}
-              lang={lang}
-            />
-          </div>
-        );
-      })}
-    </>
-  );
-}
+// ── Page ─────────────────────────────────────────────────────────────────────
 
 export default function Equip() {
   const { t, lang } = useT();
-  const [selectedName, setSelectedName] = useState<string | null>(null);
+  const [activeName, setActiveName] = useState<string | null>(null);
 
   useSEO({
     path: "/partit/equip",
@@ -257,13 +174,8 @@ export default function Equip() {
   });
 
   const toggle = useCallback((name: string) => {
-    setSelectedName((prev) => (prev === name ? null : name));
+    setActiveName((prev) => (prev === name ? null : name));
   }, []);
-
-  const sectionOrg =
-    lang === "es" ? "Organización y Dirección" : "Organització i Direcció";
-  const sectionSec =
-    lang === "es" ? "Secretarías" : "Secretaries";
 
   return (
     <Layout
@@ -309,21 +221,10 @@ export default function Equip() {
                 {t.equip.statsMembers}
               </p>
             </div>
-            <div className="text-center sm:text-left">
-              <p className="font-display font-extrabold text-5xl text-primary leading-none">
-                9
-              </p>
-              <p className="mt-1 text-sm font-medium text-muted-foreground">
-                {t.equip.statsAreas}
-              </p>
-            </div>
-            <div
-              className="hidden sm:block w-px h-12 bg-border"
-              aria-hidden="true"
-            />
+            <div className="hidden sm:block w-px h-12 bg-border" aria-hidden="true" />
             <div className="text-center sm:text-left">
               <p className="font-display font-bold text-base text-foreground">
-                XIV {lang === "es" ? "Congreso" : "Congrés"}
+                XIV {lang === "es" ? "Congreso Nacional" : "Congrés Nacional"}
               </p>
               <p className="text-sm font-medium text-muted-foreground">
                 {lang === "es" ? "Alcoy · Junio 2026" : "Alcoi · Juny 2026"}
@@ -333,48 +234,48 @@ export default function Equip() {
         </div>
       </section>
 
-      {/* Instruction hint */}
-      <div className="bg-primary/5 border-b border-primary/10">
-        <div className="container-page py-3 flex items-center gap-2">
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 14 14"
-            fill="none"
-            className="text-primary shrink-0"
-            aria-hidden="true"
-          >
-            <circle cx="7" cy="7" r="6.25" stroke="currentColor" strokeWidth="1.5" />
-            <path
-              d="M7 6v4M7 4.5v.5"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
-          </svg>
-          <p className="text-xs text-primary/80 font-medium">
-            {lang === "es"
-              ? "Haz clic en cualquier tarjeta para conocer a cada persona"
-              : "Fes clic en qualsevol targeta per conèixer cada persona"}
-          </p>
-        </div>
-      </div>
-
-      {/* Team grid */}
+      {/* Body */}
       <section className="bg-[hsl(var(--surface))]">
         <div className="container-page py-12 md:py-16 space-y-14">
-          <TeamSection
-            title={sectionOrg}
-            members={orgMembers}
-            selectedName={selectedName}
-            onToggle={toggle}
-            lang={lang}
-          />
-          <AreaSections
-            selectedName={selectedName}
-            onToggle={toggle}
-            lang={lang}
-          />
+          {/* Featured Secretary General */}
+          {secGen && <SecGenFeature member={secGen} lang={lang} />}
+
+          {/* Collective grid */}
+          <div>
+            <Reveal>
+              <div className="flex flex-wrap items-end justify-between gap-3 mb-7">
+                <div className="flex items-center gap-3">
+                  <span
+                    className="block w-1 h-6 bg-primary shrink-0"
+                    aria-hidden="true"
+                  />
+                  <h2 className="font-display font-extrabold text-lg text-foreground">
+                    {lang === "es"
+                      ? "Comisión Ejecutiva Nacional"
+                      : "Comissió Executiva Nacional"}
+                  </h2>
+                </div>
+                <p className="text-xs text-muted-foreground font-medium">
+                  {lang === "es"
+                    ? "Haz clic en cada persona para leer su perfil"
+                    : "Fes clic en cada persona per llegir el seu perfil"}
+                </p>
+              </div>
+            </Reveal>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
+              {members.map((m, i) => (
+                <Reveal key={m.name} delay={(i % 5) * 50}>
+                  <MemberTile
+                    member={m}
+                    isActive={activeName === m.name}
+                    onToggle={() => toggle(m.name)}
+                    lang={lang}
+                  />
+                </Reveal>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
     </Layout>

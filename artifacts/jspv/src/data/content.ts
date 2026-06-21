@@ -205,7 +205,7 @@ export const EXECUTIVE_CORE: ExecutiveMember[] = [
     name: "Rocío Vila Soriano",
     role: "2a Vicesec. d'Educació",
     area: "Vicesecretaries Generals",
-    bio: "Dirigeix l'àrea d'educació pública, defensant la igualtat d'oportunitats i unes condicions dignes per a tota la comunitat educativa.",
+    bio: "Dirigeix les polítiques d'educació pública, defensant la igualtat d'oportunitats i unes condicions dignes per a tota la comunitat educativa.",
   },
 ];
 
@@ -244,7 +244,7 @@ export const EXECUTIVE_FULL: ExecutiveMember[] = [
     name: "Rocío Vila Soriano",
     role: "2a Vicesec. d'Educació",
     area: "Vicesecretaries Generals",
-    bio: "Dirigeix l'àrea d'educació pública, defensant la igualtat d'oportunitats i unes condicions dignes per a tota la comunitat educativa.",
+    bio: "Dirigeix les polítiques d'educació pública, defensant la igualtat d'oportunitats i unes condicions dignes per a tota la comunitat educativa.",
   },
   {
     name: "Héctor Giner González",

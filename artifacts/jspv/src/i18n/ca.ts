@@ -72,7 +72,7 @@ export const ca = {
     executivaEyebrow: "XIV Congrés · Alcoi, juny 2026",
     executivaTitle: "Comissió Executiva Nacional",
     executivaIntro:
-      "L'equip emanat del XIV Congrés Nacional, organitzat per àrees estratègiques.",
+      "L'equip emanat del XIV Congrés Nacional, amb una direcció col·legiada.",
   },
 
   campanyes: {
@@ -151,7 +151,7 @@ export const ca = {
     crumb: "El nostre equip",
     title: "Comissió Executiva Nacional",
     subtitle:
-      "L'equip humà que lidera JSPV en l'etapa oberta al XIV Congrés Nacional d'Alcoi. Vint-i-nou persones, nou àrees estratègiques, una sola direcció col·legiada.",
+      "L'equip humà que lidera JSPV en l'etapa oberta al XIV Congrés Nacional d'Alcoi. Una direcció col·legiada, jove i compromesa amb el País Valencià.",
     statsMembers: "membres",
     statsAreas: "àrees estratègiques",
     statsCongres: "XIV Congrés · Alcoi 2026",
@@ -230,7 +230,7 @@ export const ca = {
     equip: {
       title: "El nostre equip · JSPV",
       description:
-        "Comissió Executiva Nacional elegida al XIV Congrés d'Alcoi: 29 membres i 9 àrees estratègiques.",
+        "Comissió Executiva Nacional elegida al XIV Congrés d'Alcoi: una direcció col·legiada, jove i compromesa amb el País Valencià.",
     },
     historia: {
       title: "La nostra Història · JSPV",

@@ -74,7 +74,7 @@ export const es: Translations = {
     executivaEyebrow: "XIV Congreso · Alcoy, junio 2026",
     executivaTitle: "Comisión Ejecutiva Nacional",
     executivaIntro:
-      "El equipo emanado del XIV Congreso Nacional, organizado por áreas estratégicas.",
+      "El equipo emanado del XIV Congreso Nacional, con una dirección colegiada.",
   },
 
   campanyes: {
@@ -153,7 +153,7 @@ export const es: Translations = {
     crumb: "Nuestro equipo",
     title: "Comisión Ejecutiva Nacional",
     subtitle:
-      "El equipo humano que lidera JSPV en la etapa abierta en el XIV Congreso Nacional de Alcoy. Veintinueve personas, nueve áreas estratégicas, una sola dirección colegiada.",
+      "El equipo humano que lidera JSPV en la etapa abierta en el XIV Congreso Nacional de Alcoy. Una dirección colegiada, joven y comprometida con el País Valencià.",
     statsMembers: "miembros",
     statsAreas: "áreas estratégicas",
     statsCongres: "XIV Congreso · Alcoy 2026",
@@ -232,7 +232,7 @@ export const es: Translations = {
     equip: {
       title: "Nuestro equipo · JSPV",
       description:
-        "Comisión Ejecutiva Nacional elegida en el XIV Congreso de Alcoy: 29 miembros y 9 áreas estratégicas.",
+        "Comisión Ejecutiva Nacional elegida en el XIV Congreso de Alcoy: una dirección colegiada, joven y comprometida con el País Valencià.",
     },
     historia: {
       title: "Nuestra Historia · JSPV",
