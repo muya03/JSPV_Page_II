@@ -332,6 +332,24 @@ export const ca = {
           "Conéixer la nostra història és la millor garantia per a defensar la democràcia present i futura.",
         ],
       },
+      {
+        title: "Marcos Durà, JSPV: «Hem de continuar pressionant el govern perquè siga més valent en habitatge»",
+        category: "Habitatge",
+        date: "12 de juny de 2026",
+        excerpt:
+          "El secretari general de JSPV, Marcos Durà, analitza la crisi d'habitatge i la necessitat d'una política més valenta del govern central.",
+        imageAlt: "Entrevista a Marcos Durà sobre la política d'habitatge",
+        body: [],
+      },
+      {
+        title: "Marcos Durà assumeix la secretaria general de JSPV al Congrés Nacional celebrat a Alcoi",
+        category: "Organització",
+        date: "8 de juny de 2026",
+        excerpt:
+          "El Periòdic recull l'elecció de Marcos Durà com a nou secretari general de Joves Socialistes del País Valencià en el XIV Congrés d'Alcoi.",
+        imageAlt: "Participants al XIV Congrés Nacional de JSPV a Alcoi",
+        body: [],
+      },
     ],
 
     values: [

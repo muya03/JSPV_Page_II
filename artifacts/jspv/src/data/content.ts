@@ -39,6 +39,10 @@ export interface NewsItem {
   image: string;
   imageAlt: string;
   body: string[];
+  /** If set, clicking the card opens this URL in a new tab (press coverage) */
+  externalUrl?: string;
+  /** Short name of the external media outlet */
+  source?: string;
 }
 
 export const NEWS: NewsItem[] = [
@@ -132,6 +136,34 @@ export const NEWS: NewsItem[] = [
       "La memòria democràtica és un pilar de la convivència. JSPV impulsa polítiques de veritat, justícia i reparació per a les víctimes de la dictadura.",
       "Conéixer la nostra història és la millor garantia per a defensar la democràcia present i futura.",
     ],
+  },
+  {
+    slug: "valenciaplaza-marcos-dura-habitatge",
+    title: "Marcos Durà, JSPV: «Hem de continuar pressionant el govern perquè siga més valent en habitatge»",
+    category: "Habitatge",
+    date: "12 de juny de 2026",
+    iso: "2026-06-12",
+    excerpt:
+      "El secretari general de JSPV, Marcos Durà, analitza la crisi d'habitatge i la necessitat d'una política més valenta del govern central.",
+    image: habitatgeImg,
+    imageAlt: "Entrevista a Marcos Durà sobre la política d'habitatge",
+    body: [],
+    externalUrl: "https://valenciaplaza.com/valenciaplaza/comunitat-valenciana1/marcos-dura-jspv-tenemos-que-seguir-apretando-al-gobierno-para-que-sea-mas-valiente-en-vivienda",
+    source: "València Plaza",
+  },
+  {
+    slug: "elperiodic-marcos-dura-secretari-general",
+    title: "Marcos Durà assumeix la secretaria general de JSPV al Congrés Nacional celebrat a Alcoi",
+    category: "Organització",
+    date: "8 de juny de 2026",
+    iso: "2026-06-08",
+    excerpt:
+      "El Periòdic recull l'elecció de Marcos Durà com a nou secretari general de Joves Socialistes del País Valencià en el XIV Congrés d'Alcoi.",
+    image: congresImg,
+    imageAlt: "Participants al XIV Congrés Nacional de JSPV a Alcoi",
+    body: [],
+    externalUrl: "https://www.elperiodic.com/marcos-dura-asume-secretaria-general-joves-socialistes-pais-valencia-congreso-nacional-celebrado-alcoi_1078784",
+    source: "El Periòdic",
   },
 ];
 

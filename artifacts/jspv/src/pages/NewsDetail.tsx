@@ -36,11 +36,17 @@ export default function NewsDetail() {
 
   if (!item) return <NotFound />;
 
+  // External press items have no detail page — redirect to the source
+  if (baseItem!.externalUrl) {
+    window.location.replace(baseItem!.externalUrl);
+    return null;
+  }
+
   const others = NEWS.map((n, i) => ({
     ...n,
     ...t.data.news[i],
     caCategory: n.category,
-  })).filter((n) => n.slug !== baseItem!.slug).slice(0, 2);
+  })).filter((n) => n.slug !== baseItem!.slug && !n.externalUrl).slice(0, 2);
 
   return (
     <Layout

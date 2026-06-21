@@ -334,6 +334,24 @@ export const es: Translations = {
           "Conocer nuestra historia es la mejor garantía para defender la democracia presente y futura.",
         ],
       },
+      {
+        title: "Marcos Durà, JSPV: «Tenemos que seguir apretando al gobierno para que sea más valiente en vivienda»",
+        category: "Vivienda",
+        date: "12 de junio de 2026",
+        excerpt:
+          "El secretario general de JSPV, Marcos Durà, analiza la crisis de vivienda y la necesidad de una política más valiente del gobierno central.",
+        imageAlt: "Entrevista a Marcos Durà sobre la política de vivienda",
+        body: [],
+      },
+      {
+        title: "Marcos Durà asume la secretaría general de JSPV en el Congreso Nacional celebrado en Alcoy",
+        category: "Organización",
+        date: "8 de junio de 2026",
+        excerpt:
+          "El Periódico recoge la elección de Marcos Durà como nuevo secretario general de Joves Socialistes del País Valencià en el XIV Congreso de Alcoy.",
+        imageAlt: "Participantes en el XIV Congreso Nacional de JSPV en Alcoy",
+        body: [],
+      },
     ],
 
     values: [

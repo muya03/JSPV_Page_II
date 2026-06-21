@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
-import { ArrowRight, MapPin, CalendarDays, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, MapPin, CalendarDays, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { Reveal } from "@/components/Reveal";
 import { useSEO } from "@/lib/seo";
@@ -181,12 +181,11 @@ export default function Inicio() {
               </Reveal>
 
               <div className="grid grid-cols-2 gap-6 content-start">
-                {featured.map((item, i) => (
-                  <Reveal as="article" key={item.slug} delay={i * 90} className="h-full">
-                    <Link
-                      href={`/actualitat/${item.slug}`}
-                      className="group flex flex-col h-full bg-white rounded-lg border border-border overflow-hidden hover:border-primary/40 transition-colors"
-                    >
+                {featured.map((item, i) => {
+                  const isExternal = !!item.externalUrl;
+                  const cardClass = "group flex flex-col h-full bg-white rounded-lg border border-border overflow-hidden hover:border-primary/40 transition-colors";
+                  const inner = (
+                    <>
                       <div className="aspect-video bg-[hsl(var(--surface-strong))] relative overflow-hidden">
                         <img
                           src={item.image}
@@ -197,6 +196,12 @@ export default function Inicio() {
                         <span className="absolute top-4 left-4 inline-flex items-center px-2.5 py-1 rounded-sm bg-primary text-primary-foreground text-xs font-display font-bold uppercase tracking-wide">
                           {t.data.categories[item.caCategory] ?? item.caCategory}
                         </span>
+                        {isExternal && (
+                          <span className="absolute top-4 right-4 inline-flex items-center gap-1 px-2.5 py-1 rounded-sm bg-[#1A1A1A]/80 text-white text-xs font-bold backdrop-blur-sm">
+                            <ExternalLink size={11} aria-hidden="true" />
+                            {item.source}
+                          </span>
+                        )}
                       </div>
                       <div className="flex flex-col flex-1 p-6">
                         <time dateTime={item.iso} className="text-xs font-medium text-muted-foreground">
@@ -209,12 +214,28 @@ export default function Inicio() {
                           {item.excerpt}
                         </p>
                         <span className="mt-5 inline-flex items-center gap-1.5 font-display font-semibold text-sm text-primary">
-                          {t.common.llegirMes} <ArrowRight size={15} aria-hidden="true" />
+                          {isExternal
+                            ? <>{t.common.llegirMes} a {item.source} <ExternalLink size={13} aria-hidden="true" /></>
+                            : <>{t.common.llegirMes} <ArrowRight size={15} aria-hidden="true" /></>
+                          }
                         </span>
                       </div>
-                    </Link>
-                  </Reveal>
-                ))}
+                    </>
+                  );
+                  return (
+                    <Reveal as="article" key={item.slug} delay={i * 90} className="h-full">
+                      {isExternal ? (
+                        <a href={item.externalUrl} target="_blank" rel="noopener noreferrer" className={cardClass}>
+                          {inner}
+                        </a>
+                      ) : (
+                        <Link href={`/actualitat/${item.slug}`} className={cardClass}>
+                          {inner}
+                        </Link>
+                      )}
+                    </Reveal>
+                  );
+                })}
               </div>
 
               <Link
