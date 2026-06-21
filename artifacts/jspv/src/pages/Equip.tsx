@@ -5,6 +5,15 @@ import { useSEO } from "@/lib/seo";
 import { EXECUTIVE_FULL, type ExecutiveMember } from "@/data/content";
 import { useT } from "@/i18n/context";
 import heroBg from "@assets/6e828fcbfebe4e0645c4602230b2dc6d_1781816545714.jpg";
+import photoMarcos from "@assets/MarcosDura_1782063504964.jpeg";
+import photoItziar from "@assets/itziar-lafita_xl_1782063504964.jpg";
+import photoFrancisco from "@assets/Francisco_Jose_Hidalgo_2023_1782063504963.jpg";
+
+const PHOTOS: Record<string, string> = {
+  "Marcos Durà Gimeno": photoMarcos,
+  "Itziar Lafita Balaguer": photoItziar,
+  "Francisco José Hidalgo Vidal": photoFrancisco,
+};
 
 function initials(name: string) {
   const parts = name.split(" ").filter(Boolean);
@@ -19,16 +28,18 @@ const members = EXECUTIVE_FULL.filter((m) => m.role !== "Secretaria General");
 function SecGenFeature({
   member,
   lang,
+  photo,
 }: {
   member: ExecutiveMember;
   lang: string;
+  photo?: string;
 }) {
   return (
     <Reveal>
       <div className="relative bg-white rounded-3xl shadow-[0_20px_60px_-20px_rgba(227,6,19,0.35)] overflow-hidden grid md:grid-cols-[300px_1fr]">
         {/* Left — red panel with oversized avatar */}
         <div className="relative bg-primary text-white flex flex-col items-center justify-center py-12 px-8 overflow-hidden">
-          {/* Decorative oversized star/initials watermark */}
+          {/* Decorative oversized star watermark */}
           <span
             className="pointer-events-none absolute -right-8 -bottom-10 font-display font-extrabold text-[11rem] leading-none text-white/10 select-none"
             aria-hidden="true"
@@ -36,8 +47,12 @@ function SecGenFeature({
             ★
           </span>
 
-          <div className="relative w-36 h-36 rounded-full bg-white text-primary flex items-center justify-center font-display font-extrabold text-5xl shadow-xl ring-8 ring-white/20">
-            {initials(member.name)}
+          <div className="relative w-36 h-36 rounded-full bg-white text-primary flex items-center justify-center font-display font-extrabold text-5xl shadow-xl ring-8 ring-white/20 overflow-hidden">
+            {photo ? (
+              <img src={photo} alt={member.name} className="w-full h-full object-cover object-top" />
+            ) : (
+              initials(member.name)
+            )}
           </div>
 
           <p className="relative mt-6 text-[11px] font-bold uppercase tracking-[0.3em] text-white/90 text-center">
@@ -74,11 +89,13 @@ function MemberTile({
   isActive,
   onToggle,
   lang,
+  photo,
 }: {
   member: ExecutiveMember;
   isActive: boolean;
   onToggle: () => void;
   lang: string;
+  photo?: string;
 }) {
   return (
     <div
@@ -101,8 +118,12 @@ function MemberTile({
     >
       {/* Default face */}
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
-        <div className="w-[68px] h-[68px] rounded-full bg-[#1A1A1A] text-white flex items-center justify-center font-display font-extrabold text-lg mb-3 transition-transform duration-300 group-hover:scale-110 group-hover:bg-primary">
-          {initials(member.name)}
+        <div className={`w-[68px] h-[68px] rounded-full text-white flex items-center justify-center font-display font-extrabold text-lg mb-3 transition-transform duration-300 group-hover:scale-110 overflow-hidden ${photo ? "bg-transparent" : "bg-[#1A1A1A] group-hover:bg-primary"}`}>
+          {photo ? (
+            <img src={photo} alt={member.name} className="w-full h-full object-cover object-top" />
+          ) : (
+            initials(member.name)
+          )}
         </div>
         <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-primary leading-tight mb-1.5 line-clamp-2">
           {member.role}
@@ -238,7 +259,7 @@ export default function Equip() {
       <section className="bg-[hsl(var(--surface))]">
         <div className="container-page py-12 md:py-16 space-y-14">
           {/* Featured Secretary General */}
-          {secGen && <SecGenFeature member={secGen} lang={lang} />}
+          {secGen && <SecGenFeature member={secGen} lang={lang} photo={PHOTOS[secGen.name]} />}
 
           {/* Collective grid */}
           <div>
@@ -270,6 +291,7 @@ export default function Equip() {
                     member={m}
                     isActive={activeName === m.name}
                     onToggle={() => toggle(m.name)}
+                    photo={PHOTOS[m.name]}
                     lang={lang}
                   />
                 </Reveal>
