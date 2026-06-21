@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { Reveal } from "@/components/Reveal";
 import { useSEO } from "@/lib/seo";
@@ -6,157 +6,184 @@ import { EXECUTIVE_FULL, type ExecutiveMember } from "@/data/content";
 import { useT } from "@/i18n/context";
 import heroBg from "@assets/6e828fcbfebe4e0645c4602230b2dc6d_1781816545714.jpg";
 
-// ── helpers ────────────────────────────────────────────────────────────────
-
 function initials(name: string) {
   const parts = name.split(" ").filter(Boolean);
   return ((parts[0]?.[0] ?? "") + (parts[1]?.[0] ?? "")).toUpperCase();
 }
 
+const AREA_ACCENT: Record<string, string> = {
+  "Nucli de Direcció": "#E30613",
+  "Vicesecretaries Generals": "#b00010",
+  "Coordinació i Estratègia": "#1A1A1A",
+  "Drets i Inclusió": "#1a3550",
+  "Cultura, Llengua i Memòria": "#1a3a28",
+  "Acció i Polítiques Públiques": "#1a1a3a",
+  "Desenvolupament i Societat": "#2a1a3a",
+  "Militància i Entorn Laboral": "#1a2a3a",
+  "Altres Sectors Clau": "#3a2010",
+};
+
 const NUCLI = "Nucli de Direcció";
 const VICE = "Vicesecretaries Generals";
+const AREA_ORDER = [
+  "Coordinació i Estratègia",
+  "Drets i Inclusió",
+  "Cultura, Llengua i Memòria",
+  "Acció i Polítiques Públiques",
+  "Desenvolupament i Societat",
+  "Militància i Entorn Laboral",
+  "Altres Sectors Clau",
+];
 
-const orgMembers = EXECUTIVE_FULL.filter((m) => m.area === NUCLI || m.area === VICE);
-const secretariesMembers = EXECUTIVE_FULL.filter((m) => m.area !== NUCLI && m.area !== VICE);
+const orgMembers = EXECUTIVE_FULL.filter(
+  (m) => m.area === NUCLI || m.area === VICE
+);
+const secretariesMembers = EXECUTIVE_FULL.filter(
+  (m) => m.area !== NUCLI && m.area !== VICE
+);
 
-// ── modal ─────────────────────────────────────────────────────────────────
-
-function MemberModal({
+function MemberCard({
   member,
-  onClose,
+  isExpanded,
+  onToggle,
+  lang,
 }: {
   member: ExecutiveMember;
-  onClose: () => void;
+  isExpanded: boolean;
+  onToggle: () => void;
+  lang: string;
 }) {
-  const isSecGen = member.role === "Secretaria General";
-
-  useEffect(() => {
-    function onKey(e: KeyboardEvent) {
-      if (e.key === "Escape") onClose();
-    }
-    document.addEventListener("keydown", onKey);
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
-    };
-  }, [onClose]);
+  const accent = AREA_ACCENT[member.area] ?? "#1A1A1A";
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
-      role="dialog"
-      aria-modal="true"
-      aria-label={member.name}
+      className={`relative flex flex-col items-center text-center bg-white rounded-2xl overflow-hidden cursor-pointer select-none transition-all duration-300 ${
+        isExpanded
+          ? "shadow-2xl ring-2 ring-[--accent]/30"
+          : "shadow-sm border border-border hover:shadow-md hover:-translate-y-0.5"
+      }`}
+      style={{ "--accent": accent } as React.CSSProperties}
+      onClick={onToggle}
+      role="button"
+      tabIndex={0}
+      aria-expanded={isExpanded}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onToggle();
+        }
+      }}
     >
-      {/* Backdrop */}
+      {/* Coloured top bar */}
       <div
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-        onClick={onClose}
+        className="w-full h-1.5 shrink-0"
+        style={{ backgroundColor: accent }}
         aria-hidden="true"
       />
 
-      {/* Panel */}
-      <div className="relative z-10 bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden animate-in fade-in zoom-in-95 duration-200">
-        {/* Colored top strip */}
-        <div className={`h-2 w-full ${isSecGen ? "bg-primary" : "bg-[#1A1A1A]"}`} />
-
-        {/* Close button */}
-        <button
-          type="button"
-          onClick={onClose}
-          className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
-          aria-label="Tancar"
+      <div className="w-full px-4 pt-5 pb-4 flex flex-col items-center">
+        {/* Avatar */}
+        <div
+          className={`w-[76px] h-[76px] rounded-full flex items-center justify-center font-display font-extrabold text-lg text-white mb-3 transition-transform duration-300 ${
+            isExpanded ? "scale-110" : "group-hover:scale-105"
+          }`}
+          style={{ backgroundColor: accent }}
+          aria-hidden="true"
         >
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <path d="M12 4L4 12M4 4l8 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-          </svg>
-        </button>
+          {initials(member.name)}
+        </div>
 
-        <div className="px-8 pb-8 pt-6 flex flex-col items-center text-center">
-          {/* Avatar */}
-          <div
-            className={`w-24 h-24 rounded-full flex items-center justify-center font-display font-extrabold text-2xl mb-5 select-none ${
-              isSecGen
-                ? "bg-primary text-primary-foreground ring-4 ring-primary/20"
-                : "bg-[#1A1A1A] text-white"
-            }`}
+        {/* Role */}
+        <p
+          className="text-[9px] font-bold uppercase tracking-[0.2em] leading-tight mb-1.5 max-w-[130px]"
+          style={{ color: accent }}
+        >
+          {member.role}
+        </p>
+
+        {/* Name */}
+        <p className="font-display font-bold text-sm text-foreground leading-snug">
+          {member.name}
+        </p>
+
+        {/* Expand chevron */}
+        <div
+          className={`mt-2 w-5 h-5 rounded-full flex items-center justify-center transition-all duration-300 ${
+            isExpanded ? "opacity-100" : "opacity-40"
+          }`}
+          style={{ backgroundColor: `${accent}18` }}
+          aria-hidden="true"
+        >
+          <svg
+            width="10"
+            height="10"
+            viewBox="0 0 10 10"
+            fill="none"
+            className={`transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
           >
-            {initials(member.name)}
+            <path
+              d="M2 3.5L5 6.5L8 3.5"
+              stroke={accent}
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
+      </div>
+
+      {/* Expandable content — CSS grid trick for smooth height */}
+      <div
+        className="w-full grid transition-[grid-template-rows] duration-300 ease-in-out"
+        style={{ gridTemplateRows: isExpanded ? "1fr" : "0fr" }}
+      >
+        <div className="overflow-hidden">
+          <div className="px-4 pb-5">
+            <div className="h-px bg-border mb-3" />
+
+            {/* Area badge */}
+            <span
+              className="inline-block px-2.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-widest mb-3"
+              style={{
+                backgroundColor: `${accent}15`,
+                color: accent,
+                border: `1px solid ${accent}30`,
+              }}
+            >
+              {member.area}
+            </span>
+
+            {/* Bio */}
+            <p className="text-xs text-muted-foreground leading-relaxed text-left">
+              {member.bio}
+            </p>
+
+            {/* Close hint */}
+            <p
+              className="mt-3 text-[9px] font-semibold uppercase tracking-widest text-center"
+              style={{ color: `${accent}80` }}
+            >
+              {lang === "es" ? "Cerrar ↑" : "Tancar ↑"}
+            </p>
           </div>
-
-          {/* Role */}
-          <p className="text-xs font-bold uppercase tracking-[0.15em] text-primary mb-2">
-            {member.role}
-          </p>
-
-          {/* Name */}
-          <h2 className="font-display font-extrabold text-xl text-foreground leading-tight mb-4">
-            {member.name}
-          </h2>
-
-          {/* Bio */}
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            {member.bio}
-          </p>
         </div>
       </div>
     </div>
   );
 }
 
-// ── card ──────────────────────────────────────────────────────────────────
-
-function MemberCard({
-  member,
-  onClick,
-}: {
-  member: ExecutiveMember;
-  onClick: () => void;
-}) {
-  const isSecGen = member.role === "Secretaria General";
-
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="group flex flex-col items-center text-center bg-white border border-border rounded-2xl p-5 hover:shadow-lg hover:border-primary/30 hover:-translate-y-0.5 transition-all duration-200 w-full cursor-pointer focus-visible:outline-2 focus-visible:outline-primary"
-    >
-      {/* Avatar */}
-      <div
-        className={`w-[72px] h-[72px] rounded-full flex items-center justify-center font-display font-extrabold text-base mb-3 transition-transform duration-200 group-hover:scale-105 select-none ${
-          isSecGen
-            ? "bg-primary text-primary-foreground ring-2 ring-primary/30 ring-offset-2"
-            : "bg-[#1A1A1A] text-white"
-        }`}
-        aria-hidden="true"
-      >
-        {initials(member.name)}
-      </div>
-
-      {/* Role */}
-      <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-primary/80 leading-tight mb-1 max-w-[120px]">
-        {member.role}
-      </p>
-
-      {/* Name */}
-      <p className="font-display font-bold text-sm text-foreground leading-snug">
-        {member.name}
-      </p>
-    </button>
-  );
-}
-
-// ── section ───────────────────────────────────────────────────────────────
-
 function TeamSection({
   title,
   members,
-  onSelect,
+  selectedName,
+  onToggle,
+  lang,
 }: {
   title: string;
   members: ExecutiveMember[];
-  onSelect: (m: ExecutiveMember) => void;
+  selectedName: string | null;
+  onToggle: (name: string) => void;
+  lang: string;
 }) {
   return (
     <div>
@@ -166,16 +193,21 @@ function TeamSection({
           <h2 className="font-display font-extrabold text-lg text-foreground">
             {title}
           </h2>
-          <span className="text-sm font-medium text-muted-foreground/60">
+          <span className="text-sm font-medium text-muted-foreground/50">
             ({members.length})
           </span>
         </div>
       </Reveal>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 items-start">
         {members.map((m, i) => (
           <Reveal key={m.name} delay={(i % 5) * 40}>
-            <MemberCard member={m} onClick={() => onSelect(m)} />
+            <MemberCard
+              member={m}
+              isExpanded={selectedName === m.name}
+              onToggle={() => onToggle(m.name)}
+              lang={lang}
+            />
           </Reveal>
         ))}
       </div>
@@ -183,11 +215,40 @@ function TeamSection({
   );
 }
 
-// ── page ──────────────────────────────────────────────────────────────────
+function AreaSections({
+  selectedName,
+  onToggle,
+  lang,
+}: {
+  selectedName: string | null;
+  onToggle: (name: string) => void;
+  lang: string;
+}) {
+  return (
+    <>
+      {AREA_ORDER.map((area) => {
+        const members = secretariesMembers.filter((m) => m.area === area);
+        if (!members.length) return null;
+        return (
+          <div key={area}>
+            <hr className="border-border" />
+            <TeamSection
+              title={area}
+              members={members}
+              selectedName={selectedName}
+              onToggle={onToggle}
+              lang={lang}
+            />
+          </div>
+        );
+      })}
+    </>
+  );
+}
 
 export default function Equip() {
   const { t, lang } = useT();
-  const [selected, setSelected] = useState<ExecutiveMember | null>(null);
+  const [selectedName, setSelectedName] = useState<string | null>(null);
 
   useSEO({
     path: "/partit/equip",
@@ -195,10 +256,14 @@ export default function Equip() {
     description: t.seo.equip.description,
   });
 
-  const close = useCallback(() => setSelected(null), []);
+  const toggle = useCallback((name: string) => {
+    setSelectedName((prev) => (prev === name ? null : name));
+  }, []);
 
-  const sectionOrg = lang === "es" ? "Organización" : "Organització";
-  const sectionSec = lang === "es" ? "Secretarías" : "Secretaries";
+  const sectionOrg =
+    lang === "es" ? "Organización y Dirección" : "Organització i Direcció";
+  const sectionSec =
+    lang === "es" ? "Secretarías" : "Secretaries";
 
   return (
     <Layout
@@ -207,12 +272,15 @@ export default function Equip() {
         { label: t.equip.crumb },
       ]}
     >
-      {/* ── Hero ──────────────────────────────────────────────── */}
+      {/* Hero */}
       <section
         className="relative text-white overflow-hidden"
-        style={{ backgroundImage: `url(${heroBg})`, backgroundSize: "cover", backgroundPosition: "center 30%" }}
+        style={{
+          backgroundImage: `url(${heroBg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center 30%",
+        }}
       >
-        {/* Dark overlay */}
         <div className="absolute inset-0 bg-[#1A1A1A]/75" aria-hidden="true" />
         <div className="relative z-10 container-page py-20 md:py-28">
           <Reveal>
@@ -229,7 +297,7 @@ export default function Equip() {
         </div>
       </section>
 
-      {/* ── Stats strip ───────────────────────────────────────── */}
+      {/* Stats strip */}
       <section className="bg-white border-b border-border">
         <div className="container-page py-7">
           <Reveal className="flex flex-wrap items-center justify-center sm:justify-start gap-8 sm:gap-16">
@@ -242,12 +310,17 @@ export default function Equip() {
               </p>
             </div>
             <div className="text-center sm:text-left">
-              <p className="font-display font-extrabold text-5xl text-primary leading-none">9</p>
+              <p className="font-display font-extrabold text-5xl text-primary leading-none">
+                9
+              </p>
               <p className="mt-1 text-sm font-medium text-muted-foreground">
                 {t.equip.statsAreas}
               </p>
             </div>
-            <div className="hidden sm:block w-px h-12 bg-border" aria-hidden="true" />
+            <div
+              className="hidden sm:block w-px h-12 bg-border"
+              aria-hidden="true"
+            />
             <div className="text-center sm:text-left">
               <p className="font-display font-bold text-base text-foreground">
                 XIV {lang === "es" ? "Congreso" : "Congrés"}
@@ -260,30 +333,50 @@ export default function Equip() {
         </div>
       </section>
 
-      {/* ── Team grid ─────────────────────────────────────────── */}
+      {/* Instruction hint */}
+      <div className="bg-primary/5 border-b border-primary/10">
+        <div className="container-page py-3 flex items-center gap-2">
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 14 14"
+            fill="none"
+            className="text-primary shrink-0"
+            aria-hidden="true"
+          >
+            <circle cx="7" cy="7" r="6.25" stroke="currentColor" strokeWidth="1.5" />
+            <path
+              d="M7 6v4M7 4.5v.5"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
+          </svg>
+          <p className="text-xs text-primary/80 font-medium">
+            {lang === "es"
+              ? "Haz clic en cualquier tarjeta para conocer a cada persona"
+              : "Fes clic en qualsevol targeta per conèixer cada persona"}
+          </p>
+        </div>
+      </div>
+
+      {/* Team grid */}
       <section className="bg-[hsl(var(--surface))]">
         <div className="container-page py-12 md:py-16 space-y-14">
           <TeamSection
             title={sectionOrg}
             members={orgMembers}
-            onSelect={setSelected}
+            selectedName={selectedName}
+            onToggle={toggle}
+            lang={lang}
           />
-          <hr className="border-border" />
-          <TeamSection
-            title={sectionSec}
-            members={secretariesMembers}
-            onSelect={setSelected}
+          <AreaSections
+            selectedName={selectedName}
+            onToggle={toggle}
+            lang={lang}
           />
         </div>
       </section>
-
-      {/* ── Modal ─────────────────────────────────────────────── */}
-      {selected && (
-        <MemberModal
-          member={selected}
-          onClose={close}
-        />
-      )}
     </Layout>
   );
 }
