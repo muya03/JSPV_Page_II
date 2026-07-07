@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700&family=Barlow+Condensed:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&display=swap');
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
@@ -68,7 +68,7 @@
   --input: 220 13% 80%;
   --ring: 357 95% 46%;
 
-  --app-font-sans: 'DIN Condensed', 'DINCondensed-Bold', 'Barlow Condensed', system-ui, sans-serif;
+  --app-font-sans: 'DIN', 'DIN Pro', 'DINPro', 'Barlow', system-ui, sans-serif;
   --app-font-display: 'DIN Condensed', 'DINCondensed-Bold', 'Barlow Condensed', system-ui, sans-serif;
   --app-font-mono: Menlo, monospace;
   --radius: 0.375rem;
@@ -90,12 +90,52 @@ html {
   }
   body {
     @apply font-sans antialiased bg-background text-foreground;
+    font-weight: 400;
     text-rendering: optimizeLegibility;
   }
-  h1, h2, h3, h4 {
+
+  /* h1 → DIN Condensed heavy (campaign/page titles, PSOE style big slogans) */
+  h1 {
     @apply font-display;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  /* h2/h3 → DIN regular bold (editorial section headings, PSOE body) */
+  h2, h3 {
+    @apply font-sans;
+    font-weight: 700;
     letter-spacing: -0.015em;
   }
+
+  /* h4 → DIN regular semibold */
+  h4 {
+    @apply font-sans;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  /* Body text — regular weight, comfortable */
+  p {
+    font-weight: 400;
+  }
+
+  /* Italic for pull-quotes and emphasis (PSOE uses italic quotes) */
+  em, i, blockquote {
+    font-style: italic;
+  }
+  blockquote {
+    @apply font-sans;
+    font-weight: 300;
+    font-style: italic;
+    letter-spacing: 0.01em;
+  }
+
+  /* Small labels / metadata → light weight */
+  small {
+    font-weight: 300;
+  }
+
   /* Visible, high-contrast keyboard focus everywhere (WCAG 2.4.7) */
   :focus-visible {
     outline: 3px solid hsl(var(--primary));
