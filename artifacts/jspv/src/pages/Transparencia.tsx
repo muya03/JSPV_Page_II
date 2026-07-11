@@ -21,14 +21,11 @@ const DOCS_CA: DocSection[] = [
     category: "Estatuts i Normativa",
     docs: [
       { title: "Estatuts de JSPV", date: "XIV Congrés · Alcoi, juny 2026", size: "PDF · 2,4 MB", href: "#" },
-      { title: "Reglament de la Comissió Executiva Nacional", date: "XIV Congrés · Alcoi, juny 2026", size: "PDF · 890 KB", href: "#" },
     ],
   },
   {
     category: "Resolucions del Congrés",
     docs: [
-      { title: "Resolució Política General", date: "XIV Congrés · Alcoi, juny 2026", size: "PDF · 1,1 MB", href: "#" },
-      { title: "Resolució Organitzativa", date: "XIV Congrés · Alcoi, juny 2026", size: "PDF · 780 KB", href: "#" },
       { title: "Resolució sobre Habitatge i Emergència Climàtica", date: "XIV Congrés · Alcoi, juny 2026", size: "PDF · 540 KB", href: "#" },
     ],
   },
@@ -45,14 +42,11 @@ const DOCS_ES: DocSection[] = [
     category: "Estatutos y Normativa",
     docs: [
       { title: "Estatutos de JSPV", date: "XIV Congreso · Alcoy, junio 2026", size: "PDF · 2,4 MB", href: "#" },
-      { title: "Reglamento de la Comisión Ejecutiva Nacional", date: "XIV Congreso · Alcoy, junio 2026", size: "PDF · 890 KB", href: "#" },
     ],
   },
   {
     category: "Resoluciones del Congreso",
     docs: [
-      { title: "Resolución Política General", date: "XIV Congreso · Alcoy, junio 2026", size: "PDF · 1,1 MB", href: "#" },
-      { title: "Resolución Organizativa", date: "XIV Congreso · Alcoy, junio 2026", size: "PDF · 780 KB", href: "#" },
       { title: "Resolución sobre Vivienda y Emergencia Climática", date: "XIV Congreso · Alcoy, junio 2026", size: "PDF · 540 KB", href: "#" },
     ],
   },
