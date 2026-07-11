@@ -107,7 +107,7 @@ export function Header() {
               aria-current={nosaltresActive ? "page" : undefined}
               aria-haspopup="true"
               aria-expanded={desktopDropdown}
-              className={`relative inline-flex items-center gap-1 font-display text-[0.95rem] font-semibold tracking-tight transition-colors py-1 ${
+              className={`relative inline-flex items-center gap-1 font-display text-lg font-semibold tracking-tight transition-colors py-1 ${
                 nosaltresActive ? "text-primary" : "text-foreground hover:text-primary"
               }`}
             >
@@ -183,7 +183,7 @@ export function Header() {
               aria-current={actualitatActive ? "page" : undefined}
               aria-haspopup="true"
               aria-expanded={desktopActualitatDropdown}
-              className={`relative inline-flex items-center gap-1 font-display text-[0.95rem] font-semibold tracking-tight transition-colors py-1 ${
+              className={`relative inline-flex items-center gap-1 font-display text-lg font-semibold tracking-tight transition-colors py-1 ${
                 actualitatActive ? "text-primary" : "text-foreground hover:text-primary"
               }`}
             >
@@ -241,7 +241,7 @@ export function Header() {
                 key={link.href}
                 href={link.href}
                 aria-current={active ? "page" : undefined}
-                className={`relative font-display text-[0.95rem] font-semibold tracking-tight transition-colors py-1 ${
+                className={`relative font-display text-lg font-semibold tracking-tight transition-colors py-1 ${
                   active ? "text-primary" : "text-foreground hover:text-primary"
                 }`}
               >
@@ -261,7 +261,7 @@ export function Header() {
             <Link
               href="/afiliat"
               data-testid="button-nav-afiliate"
-              className="inline-flex items-center justify-center h-10 px-5 rounded-md bg-primary text-primary-foreground font-display font-bold text-sm tracking-tight hover:bg-primary/90 transition-colors"
+              className="inline-flex items-center justify-center h-11 px-6 rounded-md bg-primary text-primary-foreground font-display font-bold text-base tracking-tight hover:bg-primary/90 transition-colors"
             >
               {t.nav.afiliat}
             </Link>
