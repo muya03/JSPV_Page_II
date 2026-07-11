@@ -14,7 +14,7 @@ export interface Tweet {
 
 let cachedUserId: string | null = null;
 let cache: { data: Tweet[]; fetchedAt: number } | null = null;
-const CACHE_TTL_MS = 10 * 60 * 1000; // 10 min
+const CACHE_TTL_MS = 60 * 60 * 1000; // 1 hora — minimiza consumo de créditos API
 
 const USERNAME = "JoveSocialistes";
 
@@ -61,15 +61,18 @@ async function fetchTweets(bearer: string): Promise<Tweet[]> {
       };
     }>;
   };
-  return (json.data ?? []).map((t) => ({
-    id: t.id,
-    text: t.text,
-    createdAt: t.created_at ?? "",
-    likeCount: t.public_metrics?.like_count ?? 0,
-    retweetCount: t.public_metrics?.retweet_count ?? 0,
-    replyCount: t.public_metrics?.reply_count ?? 0,
-    url: `https://x.com/${USERNAME}/status/${t.id}`,
-  }));
+  return (json.data ?? [])
+    .map((t) => ({
+      id: t.id,
+      // Strip trailing t.co URLs (they appear when tweet is just a link/media)
+      text: t.text.replace(/https:\/\/t\.co\/\S+/g, "").trim(),
+      createdAt: t.created_at ?? "",
+      likeCount: t.public_metrics?.like_count ?? 0,
+      retweetCount: t.public_metrics?.retweet_count ?? 0,
+      replyCount: t.public_metrics?.reply_count ?? 0,
+      url: `https://x.com/${USERNAME}/status/${t.id}`,
+    }))
+    .filter((t) => t.text.length > 0); // skip media-only tweets with no text
 }
 
 router.get("/twitter", async (_req, res) => {
