@@ -104,7 +104,7 @@ export default function Transparencia() {
 
   return (
     <Layout crumbs={[{ label: t.transparencia.crumb }]}>
-      <PageHero title={t.transparencia.title} subtitle={t.transparencia.subtitle} />
+      <PageHero title={t.transparencia.title} subtitle={t.transparencia.subtitle} image="/transparencia-banner.jpg" />
 
       {/* ── Pillars ──────────────────────────────────────────── */}
       <section className="bg-[hsl(var(--surface))] border-b border-border">
