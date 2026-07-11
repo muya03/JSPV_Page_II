@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link, useRoute } from "wouter";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
@@ -34,13 +35,18 @@ export default function NewsDetail() {
       };
   useSEO(meta);
 
+  // Redirect external press items to their source — inside useEffect so it
+  // only runs in the browser (never during SSR prerendering in Node.js).
+  useEffect(() => {
+    if (baseItem?.externalUrl) {
+      window.location.replace(baseItem.externalUrl);
+    }
+  }, [baseItem?.externalUrl]);
+
   if (!item) return <NotFound />;
 
-  // External press items have no detail page — redirect to the source
-  if (baseItem!.externalUrl) {
-    window.location.replace(baseItem!.externalUrl);
-    return null;
-  }
+  // SSR-safe: return null without touching window
+  if (baseItem!.externalUrl) return null;
 
   const others = NEWS.map((n, i) => ({
     ...n,
