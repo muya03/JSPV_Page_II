@@ -99,7 +99,7 @@ function MemberTile({
 }) {
   return (
     <div
-      className={`group relative aspect-square rounded-2xl overflow-hidden cursor-pointer select-none transition-all duration-300 bg-white ${
+      className={`group relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer select-none transition-all duration-300 bg-white ${
         isActive
           ? "shadow-2xl -translate-y-1"
           : "border border-border shadow-sm hover:shadow-lg hover:-translate-y-1"
@@ -117,24 +117,31 @@ function MemberTile({
       }}
     >
       {/* Default face */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
-        <div className={`w-[68px] h-[68px] rounded-full text-white flex items-center justify-center font-display font-extrabold text-lg mb-3 transition-transform duration-300 group-hover:scale-110 overflow-hidden ${photo ? "bg-transparent" : "bg-[#1A1A1A] group-hover:bg-primary"}`}>
+      <div className="absolute inset-0 flex flex-col">
+        {/* Photo — fills top ~75% */}
+        <div className="flex-1 overflow-hidden bg-[hsl(var(--surface))]">
           {photo ? (
-            <img src={photo} alt={member.name} className="w-full h-full object-cover object-top" />
+            <img src={photo} alt={member.name} className="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105" />
           ) : (
-            initials(member.name)
+            <div className={`w-full h-full flex items-center justify-center font-display font-extrabold text-4xl text-white transition-colors duration-300 bg-[#1A1A1A] group-hover:bg-primary`}>
+              {initials(member.name)}
+            </div>
           )}
         </div>
-        <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-primary leading-tight mb-1.5 line-clamp-2">
-          {member.role}
-        </p>
-        <p className="font-display font-bold text-sm text-foreground leading-snug line-clamp-2">
-          {member.name}
-        </p>
+
+        {/* Name strip — fixed bottom */}
+        <div className="shrink-0 bg-white px-4 py-3 border-t border-border">
+          <p className="text-[9px] font-bold uppercase tracking-[0.18em] text-primary leading-tight mb-0.5 line-clamp-1">
+            {member.role}
+          </p>
+          <p className="font-display font-bold text-sm text-foreground leading-snug line-clamp-1">
+            {member.name}
+          </p>
+        </div>
 
         {/* Corner plus indicator */}
         <span
-          className="absolute top-3 right-3 w-6 h-6 rounded-full bg-muted text-muted-foreground flex items-center justify-center transition-all duration-300 group-hover:bg-primary group-hover:text-white"
+          className="absolute top-3 right-3 w-6 h-6 rounded-full bg-white/80 text-foreground flex items-center justify-center transition-all duration-300 group-hover:bg-primary group-hover:text-white"
           aria-hidden="true"
         >
           <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
@@ -284,9 +291,9 @@ export default function Equip() {
               </div>
             </Reveal>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-7">
               {members.map((m, i) => (
-                <Reveal key={m.name} delay={(i % 4) * 50}>
+                <Reveal key={m.name} delay={(i % 3) * 50}>
                   <MemberTile
                     member={m}
                     isActive={activeName === m.name}
