@@ -58,19 +58,9 @@ const DOCS_ES: DocSection[] = [
   },
 ];
 
-const PILLARS_CA = [
-  { icon: "📋", title: "Documents orgànics", desc: "Estatuts, reglaments i normativa interna aprovada en congrés per la militància." },
-  { icon: "🗳️", title: "Resolucions polítiques", desc: "Les posicions polítiques aprovades democràticament per la militància en els congressos." },
-];
-const PILLARS_ES = [
-  { icon: "📋", title: "Documentos orgánicos", desc: "Estatutos, reglamentos y normativa interna aprobada en congreso por la militancia." },
-  { icon: "🗳️", title: "Resoluciones políticas", desc: "Las posiciones políticas aprobadas democráticamente por la militancia en los congresos." },
-];
-
 export default function Transparencia() {
   const { t, lang } = useT();
   const docs = lang === "es" ? DOCS_ES : DOCS_CA;
-  const pillars = lang === "es" ? PILLARS_ES : PILLARS_CA;
 
   useSEO({
     path: "/transparencia",
@@ -81,21 +71,6 @@ export default function Transparencia() {
   return (
     <Layout crumbs={[{ label: t.transparencia.crumb }]}>
       <PageHero title={t.transparencia.title} subtitle={t.transparencia.subtitle} image="/transparencia-banner.jpg" />
-
-      {/* ── Pillars ──────────────────────────────────────────── */}
-      <section className="bg-[hsl(var(--surface))] border-b border-border">
-        <div className="container-page py-10 md:py-12">
-          <Reveal className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {pillars.map((p) => (
-              <div key={p.title} className="bg-white rounded-xl border border-border p-6">
-                <span className="text-2xl mb-3 block" aria-hidden="true">{p.icon}</span>
-                <h3 className="font-display font-bold text-base text-foreground mb-2">{p.title}</h3>
-                <p className="text-sm text-muted-foreground font-light leading-relaxed">{p.desc}</p>
-              </div>
-            ))}
-          </Reveal>
-        </div>
-      </section>
 
       {/* ── Documents ────────────────────────────────────────── */}
       <section className="bg-white">
