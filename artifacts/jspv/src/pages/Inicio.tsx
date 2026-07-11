@@ -9,6 +9,7 @@ import habitatgeImg from "@/assets/news/parc-public-habitatge.jpg";
 import danaImg from "@assets/labores-de-limpieza-y-desescombro-en-paiporta-valencia_dcc1.j_1781879514303.webp";
 import { HeroBanner } from "@/components/HeroBanner";
 import { InstagramFeed } from "@/components/InstagramFeed";
+import { TweetTicker } from "@/components/TweetTicker";
 import { useT } from "@/i18n/context";
 import jseLogo from "@/assets/logos/jse.png";
 import pspvLogo from "@/assets/logos/pspv-psoe.png";
@@ -304,6 +305,9 @@ export default function Inicio() {
           </div>
         </div>
       </section>
+
+      {/* ── Tweet Ticker ─────────────────────────────────────────── */}
+      <TweetTicker lang={lang} />
 
       {/* ── Campanyes destacades ─────────────────────────────────── */}
       <section className="bg-white border-t border-border">

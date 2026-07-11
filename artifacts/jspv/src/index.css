@@ -161,4 +161,17 @@ html {
     transform: translateY(18px);
     will-change: opacity, transform;
   }
+
+  /* Tweet ticker marquee */
+  @keyframes tweet-marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .tweet-ticker-track {
+    animation: tweet-marquee 40s linear infinite;
+    width: max-content;
+  }
+  .tweet-ticker-track:hover {
+    animation-play-state: paused;
+  }
 }
