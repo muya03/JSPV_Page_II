@@ -89,7 +89,7 @@ export function Header() {
           <img
             src={jspvLogo}
             alt="Joves Socialistes del País Valencià"
-            className="h-11 w-auto"
+            className="h-14 w-auto"
           />
         </Link>
 

@@ -56,11 +56,11 @@ export function PageHero({
         <div className="absolute inset-0 bg-gradient-to-r from-[#1A1A1A]/80 via-[#1A1A1A]/50 to-transparent" />
         <div className="relative h-full container-page flex flex-col justify-end pb-10 md:pb-14">
           <Reveal>
-            <h1 className="font-display font-extrabold text-white text-4xl sm:text-5xl leading-[1.05] max-w-4xl drop-shadow">
+            <h1 className="font-display font-extrabold text-white text-5xl sm:text-6xl leading-[1.05] max-w-4xl drop-shadow">
               {title}
             </h1>
             {subtitle && (
-              <p className="mt-4 text-lg md:text-xl text-white/80 leading-relaxed max-w-2xl drop-shadow font-light italic">
+              <p className="mt-4 text-xl md:text-2xl text-white/80 leading-relaxed max-w-2xl drop-shadow font-light italic">
                 {subtitle}
               </p>
             )}
