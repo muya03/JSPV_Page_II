@@ -114,15 +114,13 @@ export function ValenciaMap({ lang }: { lang: string }) {
   return (
     <div className="flex flex-col xl:flex-row gap-8 items-start">
       {/* ── SVG Map ──────────────────────────────────────────────── */}
-      <div className="w-full xl:w-72 flex-shrink-0">
+      <div className="w-full xl:w-96 flex-shrink-0">
         <div className="relative select-none">
           <svg
             viewBox="0 0 290 520"
-            className="w-full max-w-[300px] mx-auto drop-shadow-md"
+            className="w-full max-w-[380px] mx-auto drop-shadow-md"
             aria-label="Mapa interactiu de la Comunitat Valenciana"
           >
-            {/* Sea-blue background clipped to total CV bounding path */}
-            <rect width="290" height="520" fill="#ddeeff" rx="6" />
 
             {PROVINCIES.map((p) => (
               <g key={p.id}>
