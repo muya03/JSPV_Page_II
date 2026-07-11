@@ -36,14 +36,6 @@ const DOCS_CA: DocSection[] = [
     category: "Documents del Congrés",
     docs: [
       { title: "Ponència Marc del XIV Congrés Nacional", date: "Alcoi, juny 2026", size: "PDF · 3,2 MB", href: "#" },
-      { title: "Actes del XIV Congrés Nacional", date: "Alcoi, juny 2026", size: "PDF · 1,8 MB", href: "#" },
-    ],
-  },
-  {
-    category: "Informes i Comptes",
-    docs: [
-      { title: "Informe de Gestió Econòmica 2025", date: "Exercici 2025", size: "PDF · 650 KB", href: "#" },
-      { title: "Pla d'Acció 2026", date: "Comissió Executiva Nacional", size: "PDF · 920 KB", href: "#" },
     ],
   },
 ];
@@ -68,14 +60,6 @@ const DOCS_ES: DocSection[] = [
     category: "Documentos del Congreso",
     docs: [
       { title: "Ponencia Marco del XIV Congreso Nacional", date: "Alcoy, junio 2026", size: "PDF · 3,2 MB", href: "#" },
-      { title: "Actas del XIV Congreso Nacional", date: "Alcoy, junio 2026", size: "PDF · 1,8 MB", href: "#" },
-    ],
-  },
-  {
-    category: "Informes y Cuentas",
-    docs: [
-      { title: "Informe de Gestión Económica 2025", date: "Ejercicio 2025", size: "PDF · 650 KB", href: "#" },
-      { title: "Plan de Acción 2026", date: "Comisión Ejecutiva Nacional", size: "PDF · 920 KB", href: "#" },
     ],
   },
 ];
@@ -83,12 +67,10 @@ const DOCS_ES: DocSection[] = [
 const PILLARS_CA = [
   { icon: "📋", title: "Documents orgànics", desc: "Estatuts, reglaments i normativa interna aprovada en congrés per la militància." },
   { icon: "🗳️", title: "Resolucions polítiques", desc: "Les posicions polítiques aprovades democràticament per la militància en els congressos." },
-  { icon: "💰", title: "Comptes i informes", desc: "Gestió econòmica transparent i rendició de comptes periòdica davant la militància." },
 ];
 const PILLARS_ES = [
   { icon: "📋", title: "Documentos orgánicos", desc: "Estatutos, reglamentos y normativa interna aprobada en congreso por la militancia." },
   { icon: "🗳️", title: "Resoluciones políticas", desc: "Las posiciones políticas aprobadas democráticamente por la militancia en los congresos." },
-  { icon: "💰", title: "Cuentas e informes", desc: "Gestión económica transparente y rendición de cuentas periódica ante la militancia." },
 ];
 
 export default function Transparencia() {
