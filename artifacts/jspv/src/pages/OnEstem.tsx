@@ -77,6 +77,7 @@ export default function OnEstem() {
       <PageHero
         title={t.onEstem.title}
         subtitle={t.onEstem.subtitle}
+        image="/onestem-banner.jpg"
       />
 
       {/* ── Stats strip ──────────────────────────────────────── */}
