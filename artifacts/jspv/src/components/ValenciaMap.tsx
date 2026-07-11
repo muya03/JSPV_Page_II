@@ -1,28 +1,19 @@
-import "leaflet/dist/leaflet.css";
 import { useState } from "react";
-import { MapContainer, TileLayer, GeoJSON, CircleMarker, Tooltip } from "react-leaflet";
 import { MapPin } from "lucide-react";
-import type { Feature, Polygon } from "geojson";
 
 type ProvId = "castello" | "valencia" | "alacant";
 interface Seccio { nom: string; comarca: string; }
-interface Marker { nom: string; lat: number; lng: number; }
+interface Marker { nom: string; cx: number; cy: number; }
 
-// GeoJSON coordinates [lng, lat] — extracted from official Spain provinces dataset
-const CASTELLO_RING: [number, number][] = [[-0.16496,40.78863],[-0.14453,40.78544],[-0.12684,40.75332],[-0.0647,40.72741],[0.01574,40.72843],[0.02644,40.69495],[0.04217,40.69101],[0.1125,40.72714],[0.14392,40.71825],[0.22612,40.73316],[0.23652,40.70168],[0.26243,40.70585],[0.29184,40.68855],[0.26783,40.659],[0.27883,40.63006],[0.40196,40.60238],[0.44394,40.57822],[0.43796,40.54706],[0.51316,40.51601],[0.41783,40.40059],[0.40845,40.35735],[0.27836,40.24415],[0.264,40.20855],[0.19051,40.17043],[0.14755,40.08291],[0.04967,40.03544],[-0.00516,39.91517],[-0.06699,39.85736],[-0.08887,39.85398],[-0.18827,39.72191],[-0.26418,39.7455],[-0.27653,39.77054],[-0.32826,39.80148],[-0.37792,39.79988],[-0.39609,39.75861],[-0.45618,39.7147],[-0.53059,39.79598],[-0.57705,39.7732],[-0.58822,39.74169],[-0.65235,39.75408],[-0.65615,39.83596],[-0.69111,39.85246],[-0.71255,39.81685],[-0.73046,39.81483],[-0.77356,39.8698],[-0.8329,39.911],[-0.8463,39.9477],[-0.83794,39.97655],[-0.77765,39.99841],[-0.75362,40.04661],[-0.68294,40.04422],[-0.62722,40.0762],[-0.61359,40.07001],[-0.62853,40.10258],[-0.57864,40.13734],[-0.54419,40.25166],[-0.49451,40.22873],[-0.42807,40.2438],[-0.38363,40.26485],[-0.40041,40.29485],[-0.38864,40.30694],[-0.36627,40.30505],[-0.34062,40.33999],[-0.28203,40.36529],[-0.28524,40.38632],[-0.34736,40.44394],[-0.27264,40.47376],[-0.27764,40.50153],[-0.30184,40.5154],[-0.29329,40.61104],[-0.37048,40.61359],[-0.38113,40.66423],[-0.32882,40.68028],[-0.307,40.6595],[-0.23599,40.69111],[-0.22403,40.75416],[-0.19718,40.78446],[-0.16496,40.78863]];
-
-const VALENCIA_RING: [number, number][] = [[-0.98714,39.98072],[-0.91851,39.96267],[-0.90266,39.93185],[-0.91279,39.87305],[-0.88857,39.85211],[-0.86355,39.84741],[-0.79377,39.88143],[-0.73046,39.81483],[-0.71255,39.81685],[-0.69111,39.85246],[-0.65615,39.83596],[-0.65235,39.75408],[-0.63586,39.74787],[-0.58822,39.74169],[-0.57705,39.7732],[-0.53059,39.79598],[-0.45618,39.7147],[-0.39609,39.75861],[-0.37792,39.79988],[-0.32826,39.80148],[-0.27653,39.77054],[-0.26418,39.7455],[-0.1885,39.72194],[-0.20815,39.6433],[-0.21574,39.65512],[-0.25433,39.62082],[-0.31596,39.52344],[-0.32126,39.4634],[-0.30197,39.44931],[-0.30213,39.43418],[-0.32976,39.46159],[-0.31662,39.44334],[-0.3283,39.44443],[-0.33443,39.43366],[-0.3101,39.42802],[-0.33572,39.42469],[-0.27852,39.27848],[-0.21628,39.18634],[-0.23832,39.17671],[-0.23948,39.14692],[-0.20346,39.066],[-0.14429,38.99528],[-0.15629,38.99811],[-0.16114,38.99237],[-0.14678,38.99443],[-0.0274,38.8616],[-0.04215,38.85645],[-0.07062,38.88572],[-0.14808,38.85843],[-0.16083,38.88739],[-0.23054,38.85349],[-0.31081,38.88151],[-0.38144,38.8349],[-0.40339,38.83971],[-0.46188,38.80765],[-0.59522,38.7951],[-0.56564,38.75543],[-0.52963,38.76709],[-0.50711,38.74298],[-0.6287,38.68655],[-0.64344,38.72777],[-0.70719,38.73382],[-0.73493,38.75944],[-0.83462,38.73243],[-0.86169,38.77089],[-0.91322,38.76961],[-0.93385,38.79398],[-0.92454,38.89175],[-0.95652,38.92012],[-0.95941,38.94458],[-1.14665,38.92935],[-1.22654,39.02467],[-1.2639,39.04509],[-1.25572,39.10617],[-1.18083,39.21182],[-1.16189,39.30542],[-1.20791,39.32624],[-1.22333,39.31611],[-1.31274,39.34317],[-1.33665,39.334],[-1.41468,39.3803],[-1.42603,39.36276],[-1.43229,39.37758],[-1.4551,39.36085],[-1.44879,39.37819],[-1.46819,39.38333],[-1.45288,39.38374],[-1.45274,39.39867],[-1.47331,39.39115],[-1.47057,39.40751],[-1.48881,39.40165],[-1.48325,39.42246],[-1.49899,39.41536],[-1.49665,39.42932],[-1.52172,39.43268],[-1.52887,39.45527],[-1.51339,39.45827],[-1.51245,39.49627],[-1.49915,39.50045],[-1.5026,39.54562],[-1.52066,39.54997],[-1.46208,39.57662],[-1.41793,39.65494],[-1.36854,39.68962],[-1.31283,39.67048],[-1.2679,39.69115],[-1.27541,39.73864],[-1.215,39.80877],[-1.20004,39.85871],[-1.20398,39.94934],[-1.1424,39.97184],[-1.12175,39.96085],[-1.10502,39.97498],[-0.98714,39.98072]];
-
-const ALACANT_RING: [number, number][] = [[-0.15968,38.88351],[-0.14808,38.85843],[-0.07062,38.88572],[-0.03468,38.85689],[-0.0248,38.87255],[-0.03751,38.88693],[0.01527,38.86379],[0.1258,38.8486],[0.1095,38.84553],[0.19752,38.80405],[0.18206,38.79385],[0.19024,38.77347],[0.22477,38.76428],[0.22165,38.75825],[0.224,38.74896],[0.23392,38.73693],[0.18241,38.72078],[0.14861,38.67926],[0.09846,38.67284],[0.07359,38.6447],[0.08386,38.63103],[0.05137,38.64131],[0.03055,38.62592],[-0.01588,38.62666],[-0.06174,38.58205],[-0.04958,38.56219],[-0.09756,38.52347],[-0.15198,38.53504],[-0.37501,38.44304],[-0.40457,38.40145],[-0.40384,38.35248],[-0.44426,38.36325],[-0.51063,38.3259],[-0.51371,38.19746],[-0.59527,38.18788],[-0.63085,38.14894],[-0.64764,37.99999],[-0.66598,37.97622],[-0.69674,37.96947],[-0.71983,37.91138],[-0.74906,37.89973],[-0.76239,37.84695],[-0.83191,37.86513],[-0.92119,37.94424],[-1.0226,38.07569],[-1.03676,38.13772],[-0.98855,38.19953],[-0.96768,38.27564],[-0.98915,38.32088],[-1.08438,38.34622],[-1.08806,38.36777],[-1.07721,38.43147],[-1.09416,38.43793],[-1.01364,38.49673],[-1.02606,38.52282],[-1.00157,38.57267],[-1.02693,38.65552],[-0.96247,38.65693],[-0.91579,38.69597],[-0.96143,38.77479],[-0.92894,38.78383],[-0.90499,38.76708],[-0.86169,38.77089],[-0.83462,38.73243],[-0.73493,38.75944],[-0.70719,38.73382],[-0.64403,38.72814],[-0.64247,38.70414],[-0.61805,38.68665],[-0.50711,38.74298],[-0.52963,38.76709],[-0.56564,38.75543],[-0.59129,38.79682],[-0.46188,38.80765],[-0.40339,38.83971],[-0.38144,38.8349],[-0.31081,38.88151],[-0.23054,38.85349],[-0.15968,38.88351]];
-
-function makeFeature(ring: [number, number][], id: ProvId): Feature<Polygon> {
-  return { type: "Feature", properties: { id }, geometry: { type: "Polygon", coordinates: [ring] } };
-}
+// SVG viewBox="0 0 290 520"
+// Projection: lon∈[-1.65,0.62] lat∈[37.75,40.90] — Mercator-corrected aspect ratio
+// Full-resolution boundaries (78/114/79 pts) from official Spain provinces dataset
 
 interface Provincia {
   id: ProvId;
   nom: string; nomEs: string; codi: string; color: string;
-  feature: Feature<Polygon>;
+  path: string;
+  labelX: number; labelY: number;
   seccions: Seccio[];
   markers: Marker[];
 }
@@ -31,7 +22,8 @@ const PROVINCIES: Provincia[] = [
   {
     id: "castello",
     nom: "Castelló", nomEs: "Castellón", codi: "FPC", color: "#8B0D18",
-    feature: makeFeature(CASTELLO_RING, "castello"),
+    path: "M 189.7,18.4 L 192.3,18.9 L 194.6,24.2 L 202.5,28.5 L 212.8,28.3 L 214.2,33.8 L 216.2,34.5 L 225.2,28.5 L 229.2,30.0 L 239.7,27.5 L 241.0,32.7 L 244.3,32.1 L 248.1,34.9 L 245.0,39.8 L 246.4,44.6 L 262.1,49.1 L 267.5,53.1 L 266.7,58.3 L 276.4,63.4 L 264.2,82.4 L 263.0,89.6 L 246.4,108.3 L 244.5,114.1 L 235.1,120.4 L 229.6,134.9 L 217.1,142.7 L 210.1,162.6 L 202.2,172.1 L 199.4,172.7 L 186.7,194.5 L 177.0,190.6 L 175.5,186.5 L 168.9,181.3 L 162.5,181.6 L 160.2,188.4 L 152.5,195.7 L 143.0,182.3 L 137.1,186.0 L 135.6,191.2 L 127.5,189.2 L 127.0,175.7 L 122.5,172.9 L 119.8,178.8 L 117.5,179.1 L 112.0,170.1 L 104.4,163.3 L 102.7,157.2 L 103.7,152.4 L 111.4,148.8 L 114.5,140.9 L 123.5,141.3 L 130.7,136.0 L 132.4,137.0 L 130.5,131.6 L 136.9,125.9 L 141.3,107.0 L 147.6,110.8 L 156.1,108.3 L 161.8,104.9 L 159.6,99.9 L 161.1,97.9 L 164.0,98.2 L 167.3,92.4 L 174.8,88.3 L 174.4,84.8 L 166.4,75.3 L 176.0,70.4 L 175.3,65.8 L 172.2,63.5 L 173.3,47.7 L 163.5,47.3 L 162.1,38.9 L 168.8,36.3 L 171.6,39.7 L 180.6,34.5 L 182.2,24.1 L 185.6,19.1 L 189.7,18.4 Z",
+    labelX: 198, labelY: 130,
     seccions: [
       { nom: "Castelló capital", comarca: "La Plana Alta"    },
       { nom: "Vila-real",        comarca: "La Plana Baixa"   },
@@ -41,18 +33,19 @@ const PROVINCIES: Provincia[] = [
       { nom: "Benicàssim",       comarca: "La Plana Alta"    },
     ],
     markers: [
-      { nom: "Castelló",   lat: 39.987, lng: -0.054 },
-      { nom: "Vila-real",  lat: 39.934, lng: -0.100 },
-      { nom: "Borriana",   lat: 39.886, lng: -0.073 },
-      { nom: "Vinaròs",    lat: 40.469, lng:  0.474 },
-      { nom: "Almassora",  lat: 39.956, lng: -0.057 },
-      { nom: "Benicàssim", lat: 40.053, lng:  0.066 },
+      { nom: "Castelló",   cx: 203.9, cy: 150.7 },
+      { nom: "Vila-real",  cx: 198.0, cy: 159.5 },
+      { nom: "Borriana",   cx: 201.5, cy: 167.4 },
+      { nom: "Vinaròs",    cx: 271.3, cy:  71.1 },
+      { nom: "Almassora",  cx: 203.5, cy: 155.8 },
+      { nom: "Benicàssim", cx: 219.2, cy: 139.8 },
     ],
   },
   {
     id: "valencia",
     nom: "València", nomEs: "Valencia", codi: "FPV", color: "#C8000F",
-    feature: makeFeature(VALENCIA_RING, "valencia"),
+    path: "M 84.7,151.8 L 93.5,154.7 L 95.5,159.8 L 94.2,169.5 L 97.3,173.0 L 100.5,173.8 L 109.4,168.1 L 117.5,179.1 L 119.8,178.8 L 122.5,172.9 L 127.0,175.7 L 127.5,189.2 L 129.6,190.2 L 135.6,191.2 L 137.1,186.0 L 143.0,182.3 L 152.5,195.7 L 160.2,188.4 L 162.5,181.6 L 168.9,181.3 L 175.5,186.5 L 177.0,190.6 L 186.7,194.5 L 184.2,207.5 L 183.2,205.5 L 178.3,211.2 L 170.4,227.2 L 169.8,237.2 L 172.2,239.5 L 172.2,242.0 L 168.7,237.5 L 170.3,240.5 L 168.9,240.3 L 168.1,242.1 L 171.2,243.0 L 167.9,243.5 L 175.2,267.7 L 183.2,282.9 L 180.3,284.5 L 180.2,289.4 L 184.8,302.8 L 192.4,314.4 L 190.8,314.0 L 190.2,314.9 L 192.0,314.6 L 207.3,336.5 L 205.4,337.3 L 201.8,332.5 L 191.9,337.0 L 190.2,332.2 L 181.3,337.8 L 171.1,333.2 L 162.1,340.9 L 159.3,340.1 L 151.8,345.4 L 134.8,347.5 L 138.5,354.0 L 143.1,352.1 L 146.0,356.1 L 130.5,365.4 L 128.6,358.6 L 120.4,357.6 L 116.9,353.4 L 104.2,357.8 L 100.7,351.5 L 94.1,351.7 L 91.5,347.7 L 92.7,331.5 L 88.6,326.8 L 88.2,322.8 L 64.3,325.3 L 54.1,309.6 L 49.3,306.2 L 50.4,296.1 L 59.9,278.7 L 62.4,263.2 L 56.5,259.8 L 54.5,261.5 L 43.1,257.0 L 40.0,258.5 L 30.1,250.9 L 28.6,253.8 L 27.8,251.3 L 24.9,254.1 L 25.7,251.2 L 23.2,250.4 L 25.2,250.3 L 25.2,247.8 L 22.6,249.1 L 22.9,246.4 L 20.6,247.3 L 21.3,243.9 L 19.3,245.1 L 19.6,242.8 L 16.4,242.2 L 15.5,238.5 L 17.5,238.0 L 17.6,231.7 L 19.3,231.0 L 18.8,223.6 L 16.5,222.9 L 24.0,218.5 L 29.6,205.5 L 36.0,199.8 L 43.1,203.0 L 48.8,199.6 L 47.9,191.7 L 55.6,180.1 L 57.5,171.9 L 57.0,156.9 L 64.8,153.2 L 67.5,155.0 L 69.6,152.7 L 84.7,151.8 Z",
+    labelX: 112, labelY: 256,
     seccions: [
       { nom: "València capital", comarca: "L'Horta"             },
       { nom: "Torrent",          comarca: "L'Horta Sud"         },
@@ -65,21 +58,22 @@ const PROVINCIES: Provincia[] = [
       { nom: "Ontinyent",        comarca: "El Comtat"           },
     ],
     markers: [
-      { nom: "València",  lat: 39.470, lng: -0.376 },
-      { nom: "Torrent",   lat: 39.437, lng: -0.467 },
-      { nom: "Paterna",   lat: 39.503, lng: -0.441 },
-      { nom: "Burjassot", lat: 39.511, lng: -0.413 },
-      { nom: "Gandia",    lat: 38.971, lng: -0.183 },
-      { nom: "Alzira",    lat: 39.153, lng: -0.430 },
-      { nom: "Sagunt",    lat: 39.682, lng: -0.272 },
-      { nom: "Sueca",     lat: 39.202, lng: -0.313 },
-      { nom: "Ontinyent", lat: 38.822, lng: -0.607 },
+      { nom: "València",  cx: 162.8, cy: 236.1 },
+      { nom: "Torrent",   cx: 151.1, cy: 241.5 },
+      { nom: "Paterna",   cx: 154.5, cy: 230.6 },
+      { nom: "Burjassot", cx: 158.0, cy: 229.3 },
+      { nom: "Gandia",    cx: 187.4, cy: 318.4 },
+      { nom: "Alzira",    cx: 155.9, cy: 288.4 },
+      { nom: "Sagunt",    cx: 176.0, cy: 201.1 },
+      { nom: "Sueca",     cx: 170.8, cy: 280.3 },
+      { nom: "Ontinyent", cx: 133.2, cy: 343.0 },
     ],
   },
   {
     id: "alacant",
     nom: "Alacant", nomEs: "Alicante", codi: "FPA", color: "#A30010",
-    feature: makeFeature(ALACANT_RING, "alacant"),
+    path: "M 190.4,332.9 L 191.9,337.0 L 201.8,332.5 L 206.4,337.3 L 207.6,334.7 L 206.0,332.3 L 212.7,336.1 L 226.9,338.6 L 224.8,339.2 L 236.0,346.0 L 234.1,347.7 L 235.1,351.0 L 239.5,352.6 L 239.1,353.6 L 239.4,355.1 L 240.7,357.1 L 234.1,359.7 L 229.8,366.6 L 223.4,367.7 L 220.2,372.3 L 221.5,374.6 L 217.4,372.9 L 214.7,375.4 L 208.8,375.3 L 202.9,382.6 L 204.5,385.9 L 198.3,392.3 L 191.4,390.4 L 162.9,405.6 L 159.1,412.5 L 159.2,420.5 L 154.0,418.8 L 145.6,424.9 L 145.2,446.1 L 134.7,447.7 L 130.2,454.1 L 128.1,478.7 L 125.7,482.7 L 121.8,483.8 L 118.8,493.4 L 115.1,495.3 L 113.4,504.0 L 104.5,501.0 L 93.1,487.9 L 80.2,466.2 L 78.3,456.0 L 84.5,445.8 L 87.2,433.2 L 84.4,425.8 L 72.3,421.6 L 71.8,418.0 L 73.2,407.5 L 71.0,406.4 L 81.3,396.7 L 79.7,392.4 L 82.8,384.2 L 79.6,370.5 L 87.8,370.3 L 93.8,363.8 L 88.0,350.8 L 92.1,349.3 L 95.2,352.1 L 100.7,351.5 L 104.2,357.8 L 116.9,353.4 L 120.4,357.6 L 128.5,358.5 L 128.7,362.5 L 131.8,365.4 L 146.0,356.1 L 143.1,352.1 L 138.5,354.0 L 135.3,347.2 L 151.8,345.4 L 159.3,340.1 L 162.1,340.9 L 171.1,333.2 L 181.3,337.8 L 190.4,332.9 Z",
+    labelX: 120, labelY: 438,
     seccions: [
       { nom: "Alacant capital", comarca: "L'Alacantí"        },
       { nom: "Elx",             comarca: "El Baix Vinalopó"  },
@@ -90,101 +84,133 @@ const PROVINCIES: Provincia[] = [
       { nom: "Petrer",          comarca: "El Vinalopó Mitjà" },
     ],
     markers: [
-      { nom: "Alacant",    lat: 38.345, lng: -0.482 },
-      { nom: "Elx",        lat: 38.264, lng: -0.707 },
-      { nom: "Dénia",      lat: 38.839, lng:  0.106 },
-      { nom: "Alcoi",      lat: 38.698, lng: -0.475 },
-      { nom: "Benidorm",   lat: 38.543, lng: -0.132 },
-      { nom: "Torrevieja", lat: 37.979, lng: -0.682 },
-      { nom: "Petrer",     lat: 38.475, lng: -0.773 },
+      { nom: "Alacant",    cx: 149.2, cy: 421.8 },
+      { nom: "Elx",        cx: 120.5, cy: 435.1 },
+      { nom: "Dénia",      cx: 224.3, cy: 340.2 },
+      { nom: "Alcoi",      cx: 150.1, cy: 363.5 },
+      { nom: "Benidorm",   cx: 193.9, cy: 389.1 },
+      { nom: "Torrevieja", cx: 123.7, cy: 482.2 },
+      { nom: "Petrer",     cx: 112.0, cy: 400.3 },
     ],
   },
 ];
 
 export function ValenciaMap({ lang }: { lang: string }) {
   const [selected, setSelected] = useState<ProvId | null>(null);
+  const [tooltip, setTooltip] = useState<{ nom: string; x: number; y: number } | null>(null);
 
   const selectedProv = selected
     ? (PROVINCIES.find((p) => p.id === selected) ?? null)
     : null;
 
-  const toggle = (id: ProvId) =>
-    setSelected((s) => (s === id ? null : id));
+  const toggle = (id: ProvId) => setSelected((s) => (s === id ? null : id));
+
+  const fillOpacity = (p: Provincia) => {
+    if (selected === p.id) return 0.92;
+    if (selected) return 0.2;
+    return 0.78;
+  };
 
   return (
     <div className="flex flex-col xl:flex-row gap-8 items-start">
-      {/* ── Map ──────────────────────────────────────────────────── */}
-      <div className="w-full xl:w-[380px] flex-shrink-0">
-        <div
-          className="rounded-2xl overflow-hidden border border-border shadow-sm"
-          style={{ height: 480 }}
-        >
-          <MapContainer
-            center={[39.25, -0.45]}
-            zoom={8}
-            style={{ height: "100%", width: "100%" }}
-            scrollWheelZoom={false}
-            zoomControl
+      {/* ── SVG Map ──────────────────────────────────────────────── */}
+      <div className="w-full xl:w-72 flex-shrink-0">
+        <div className="relative select-none">
+          <svg
+            viewBox="0 0 290 520"
+            className="w-full max-w-[300px] mx-auto drop-shadow-md"
+            aria-label="Mapa interactiu de la Comunitat Valenciana"
           >
-            {/* Light basemap tiles */}
-            <TileLayer
-              url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-              attribution='© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href="https://carto.com/attributions">CARTO</a>'
-              subdomains="abcd"
-              maxZoom={20}
-            />
+            {/* Sea-blue background clipped to total CV bounding path */}
+            <rect width="290" height="520" fill="#ddeeff" rx="6" />
 
-            {/* Province overlays */}
             {PROVINCIES.map((p) => (
-              <GeoJSON
-                key={`${p.id}-${selected}`}
-                data={p.feature}
-                pathOptions={{
-                  fillColor: p.color,
-                  fillOpacity:
-                    selected === p.id ? 0.82 : selected ? 0.22 : 0.6,
-                  color: "white",
-                  weight: 2,
-                }}
-                eventHandlers={{ click: () => toggle(p.id) }}
-              />
+              <g key={p.id}>
+                <path
+                  d={p.path}
+                  fill={p.color}
+                  fillOpacity={fillOpacity(p)}
+                  stroke="white"
+                  strokeWidth="2"
+                  strokeLinejoin="round"
+                  style={{
+                    cursor: "pointer",
+                    transition: "fill-opacity 0.18s ease",
+                    filter: selected === p.id ? "brightness(1.08)" : "none",
+                  }}
+                  onClick={() => toggle(p.id)}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={lang === "es" ? p.nomEs : p.nom}
+                  onKeyDown={(e) => e.key === "Enter" && toggle(p.id)}
+                />
+                {/* Province label */}
+                <text
+                  x={p.labelX}
+                  y={p.labelY}
+                  textAnchor="middle"
+                  style={{
+                    fill: "white",
+                    fontSize: "11px",
+                    fontFamily: "'Barlow Condensed', sans-serif",
+                    fontWeight: 800,
+                    letterSpacing: "0.1em",
+                    pointerEvents: "none",
+                    paintOrder: "stroke",
+                    stroke: p.color,
+                    strokeWidth: "3px",
+                    strokeOpacity: fillOpacity(p) * 0.7,
+                    fillOpacity: Math.min(fillOpacity(p) * 1.4, 1),
+                  }}
+                >
+                  {(lang === "es" ? p.nomEs : p.nom).toUpperCase()}
+                </text>
+              </g>
             ))}
 
             {/* City markers */}
             {PROVINCIES.map((p) =>
-              p.markers.map((m) => (
-                <CircleMarker
-                  key={`${p.id}-${m.nom}`}
-                  center={[m.lat, m.lng]}
-                  radius={5}
-                  pathOptions={{
-                    fillColor: "white",
-                    fillOpacity: 0.95,
-                    color: p.color,
-                    weight: 2,
-                    opacity:
-                      !selected || selected === p.id ? 1 : 0.25,
-                  }}
-                >
-                  <Tooltip
-                    direction="top"
-                    offset={[0, -8]}
-                    opacity={0.92}
+              p.markers.map((m) => {
+                const visible = !selected || selected === p.id;
+                return (
+                  <g
+                    key={`${p.id}-${m.nom}`}
+                    opacity={visible ? 1 : 0.15}
+                    style={{ transition: "opacity 0.18s", cursor: "default" }}
+                    onMouseEnter={() => setTooltip({ nom: m.nom, x: m.cx, y: m.cy })}
+                    onMouseLeave={() => setTooltip(null)}
                   >
-                    <span
-                      style={{
-                        fontSize: 12,
-                        fontFamily: "'Barlow Condensed', sans-serif",
-                        fontWeight: 700,
-                      }}
-                    >
-                      {m.nom}
-                    </span>
-                  </Tooltip>
-                </CircleMarker>
-              ))
+                    <circle cx={m.cx} cy={m.cy} r="5" fill="white" opacity={0.9} />
+                    <circle cx={m.cx} cy={m.cy} r="3" fill={p.color} />
+                  </g>
+                );
+              })
             )}
-          </MapContainer>
+
+            {/* Hover tooltip */}
+            {tooltip && (() => {
+              const w = tooltip.nom.length * 5.6 + 12;
+              const tx = Math.min(Math.max(tooltip.x - w / 2, 2), 288 - w);
+              return (
+                <g style={{ pointerEvents: "none" }}>
+                  <rect x={tx} y={tooltip.y - 26} width={w} height={16} rx="3" fill="#1A1A1A" opacity={0.85} />
+                  <text
+                    x={tx + w / 2}
+                    y={tooltip.y - 14}
+                    textAnchor="middle"
+                    style={{
+                      fill: "white",
+                      fontSize: "9px",
+                      fontFamily: "'Barlow Condensed', sans-serif",
+                      fontWeight: 700,
+                    }}
+                  >
+                    {tooltip.nom}
+                  </text>
+                </g>
+              );
+            })()}
+          </svg>
         </div>
 
         {/* Province pills */}
@@ -244,7 +270,6 @@ export function ValenciaMap({ lang }: { lang: string }) {
                 {lang === "es" ? "secciones" : "seccions"}
               </span>
             </div>
-
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {selectedProv.seccions.map((s) => (
                 <div
@@ -252,11 +277,7 @@ export function ValenciaMap({ lang }: { lang: string }) {
                   className="group bg-white rounded-xl border border-border p-4 hover:border-primary/40 hover:shadow-sm transition-all"
                 >
                   <div className="flex items-start gap-2">
-                    <MapPin
-                      size={12}
-                      className="shrink-0 mt-0.5 text-primary"
-                      aria-hidden="true"
-                    />
+                    <MapPin size={12} className="shrink-0 mt-0.5 text-primary" aria-hidden="true" />
                     <div>
                       <p className="font-display font-bold text-sm leading-tight text-foreground group-hover:text-primary transition-colors">
                         {s.nom}
@@ -279,9 +300,7 @@ export function ValenciaMap({ lang }: { lang: string }) {
               <MapPin size={26} className="text-primary" aria-hidden="true" />
             </div>
             <p className="font-display font-extrabold text-base text-foreground mb-1">
-              {lang === "es"
-                ? "Selecciona una federació"
-                : "Selecciona una federació"}
+              {lang === "es" ? "Selecciona una federació" : "Selecciona una federació"}
             </p>
             <p className="text-sm text-muted-foreground font-light max-w-xs">
               {lang === "es"
