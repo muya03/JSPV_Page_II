@@ -19,6 +19,8 @@ export const es: Translations = {
     equip: "Nuestro equipo",
     historia: "Nuestra Historia",
     valors: "Ideas y Valores",
+    onEstem: "Dónde estamos",
+    transparencia: "Transparencia",
   },
 
   common: {
@@ -124,6 +126,43 @@ export const es: Translations = {
     seuNacional: "Sede nacional",
     xarxes: "Redes oficiales",
     xarxesDesc: "Sigue la actividad de JSPV y únete a la conversación.",
+  },
+
+  onEstem: {
+    crumb: "Dónde estamos",
+    title: "Dónde estamos",
+    subtitle:
+      "JSPV está presente en las tres provincias del País Valenciano a través de sus federaciones provinciales y secciones locales activas en todo el territorio.",
+    statFederacions: "federaciones provinciales",
+    statSeccions: "secciones locales activas",
+    statProvinces: "provincias",
+    ctaTitle: "Crea una nueva sección local",
+    ctaDesc:
+      "Si en tu municipio no hay sección local y quieres organizarte, contacta con la Secretaría de Organización de JSPV.",
+  },
+
+  transparencia: {
+    crumb: "Transparencia",
+    title: "Transparencia",
+    subtitle:
+      "JSPV se compromete con la transparencia democrática poniendo a disposición de la militancia y la ciudadanía todos los documentos orgánicos y resoluciones de la organización.",
+    contactTitle: "¿No encuentras el documento que buscas?",
+    contactDesc:
+      "Contacta con la Secretaría de Organización y te ayudaremos a localizar cualquier documento.",
+    contactCta: "Contactar con Organización",
+  },
+
+  aliats: {
+    eyebrow: "Formamos parte de",
+    title: "La red socialista",
+    subtitle:
+      "JSPV es la federación valenciana de las Juventudes Socialistas de España y trabaja en estrecha coordinación con el PSPV-PSOE y el movimiento progresista.",
+    jse: "Juventudes Socialistas de España",
+    jseDesc: "La organización juvenil del socialismo español, de la que JSPV es federación autónoma.",
+    pspv: "PSPV-PSOE",
+    pspvDesc: "El Partido Socialista del País Valenciano, organización hermana y referente del socialismo democrático.",
+    fpi: "Fundación Pablo Iglesias",
+    fpiDesc: "Fundación de estudios progresistas vinculada al socialismo español.",
   },
 
   footer: {
@@ -243,6 +282,16 @@ export const es: Translations = {
       title: "Ideas y Valores · JSPV",
       description:
         "Los siete principios ideológicos de JSPV: socialdemocracia, republicanismo, progresismo, feminismo, federalismo, europeísmo y valencianismo.",
+    },
+    onEstem: {
+      title: "Dónde estamos · JSPV",
+      description:
+        "Federaciones provinciales y secciones locales de Joves Socialistes del País Valencià: presencia en todo el territorio.",
+    },
+    transparencia: {
+      title: "Transparencia · JSPV",
+      description:
+        "Documentos orgánicos, resoluciones del XIV Congreso e informes de gestión de Joves Socialistes del País Valencià.",
     },
   },
 

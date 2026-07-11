@@ -11,6 +11,8 @@ export function Footer() {
 
   const navLinks = [
     { label: t.nav.nosaltres, href: "/partit" },
+    { label: t.onEstem.crumb, href: "/on-estem" },
+    { label: t.transparencia.crumb, href: "/transparencia" },
     { label: t.nav.actualitat, href: "/actualitat" },
     { label: t.nav.institucions, href: "/institucions" },
     { label: t.nav.campanyes, href: "/campanyes" },

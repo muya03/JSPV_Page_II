@@ -10,6 +10,8 @@ import danaImg from "@assets/labores-de-limpieza-y-desescombro-en-paiporta-valen
 import { HeroBanner } from "@/components/HeroBanner";
 import { InstagramFeed } from "@/components/InstagramFeed";
 import { useT } from "@/i18n/context";
+import jseLogo from "@/assets/logos/jse.png";
+import pspvLogo from "@/assets/logos/pspv-psoe.png";
 
 // ── helpers ─────────────────────────────────────────────────────────────────
 
@@ -408,6 +410,87 @@ export default function Inicio() {
               </Link>
             </Reveal>
           </div>
+        </div>
+      </section>
+
+      {/* ── Aliats / La xarxa socialista ─────────────────────────── */}
+      <section className="bg-[hsl(var(--surface))] border-t border-border">
+        <div className="container-page py-12 md:py-16">
+          <Reveal className="text-center mb-10">
+            <p className="font-display font-bold text-xs uppercase tracking-[0.18em] text-primary mb-3">
+              {t.aliats.eyebrow}
+            </p>
+            <h2 className="font-display font-extrabold text-2xl md:text-3xl text-foreground">
+              {t.aliats.title}
+            </h2>
+            <p className="mt-3 text-muted-foreground font-light italic max-w-xl mx-auto text-sm leading-relaxed">
+              {t.aliats.subtitle}
+            </p>
+          </Reveal>
+
+          <Reveal>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+              {/* JSE */}
+              <a
+                href="https://jse.org"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group bg-white rounded-2xl border border-border p-6 hover:border-primary/40 hover:shadow-sm transition-all text-center"
+              >
+                <img
+                  src={jseLogo}
+                  alt={t.aliats.jse}
+                  className="h-12 w-auto object-contain mx-auto mb-4"
+                />
+                <p className="font-display font-bold text-sm text-foreground group-hover:text-primary transition-colors">
+                  {t.aliats.jse}
+                </p>
+                <p className="mt-1.5 text-xs text-muted-foreground font-light leading-relaxed">
+                  {t.aliats.jseDesc}
+                </p>
+              </a>
+
+              {/* PSPV-PSOE */}
+              <a
+                href="https://pspv-psoe.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group bg-white rounded-2xl border border-border p-6 hover:border-primary/40 hover:shadow-sm transition-all text-center"
+              >
+                <img
+                  src={pspvLogo}
+                  alt={t.aliats.pspv}
+                  className="h-12 w-auto object-contain mx-auto mb-4"
+                />
+                <p className="font-display font-bold text-sm text-foreground group-hover:text-primary transition-colors">
+                  {t.aliats.pspv}
+                </p>
+                <p className="mt-1.5 text-xs text-muted-foreground font-light leading-relaxed">
+                  {t.aliats.pspvDesc}
+                </p>
+              </a>
+
+              {/* Fundació Pablo Iglesias */}
+              <a
+                href="https://fpabloiglesias.es"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group bg-white rounded-2xl border border-border p-6 hover:border-primary/40 hover:shadow-sm transition-all text-center"
+              >
+                <div className="h-12 flex items-center justify-center mx-auto mb-4">
+                  <span className="font-display font-extrabold text-xl text-primary leading-tight text-center">
+                    Fundació<br />Pablo Iglesias
+                  </span>
+                </div>
+                <p className="font-display font-bold text-sm text-foreground group-hover:text-primary transition-colors">
+                  {t.aliats.fpi}
+                </p>
+                <p className="mt-1.5 text-xs text-muted-foreground font-light leading-relaxed">
+                  {t.aliats.fpiDesc}
+                </p>
+              </a>
+            </div>
+          </Reveal>
         </div>
       </section>
 

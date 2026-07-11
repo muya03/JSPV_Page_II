@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "wouter";
-import { Menu, X, ChevronDown, Users, Clock, Lightbulb } from "lucide-react";
+import { Menu, X, ChevronDown, Users, Clock, Lightbulb, MapPin } from "lucide-react";
 import { useT } from "@/i18n/context";
 import jspvLogo from "@assets/logo-jspv-removebg-preview_1781812576061.png";
 
@@ -10,10 +10,11 @@ function isActive(current: string, href: string) {
   return clean === href || clean.startsWith(href + "/");
 }
 
-const NOSALTRES_SUB = (nav: { equip: string; historia: string; valors: string }) => [
+const NOSALTRES_SUB = (nav: { equip: string; historia: string; valors: string; onEstem: string }) => [
   { href: "/partit/equip", label: nav.equip, Icon: Users },
   { href: "/partit/historia", label: nav.historia, Icon: Clock },
   { href: "/partit/valors", label: nav.valors, Icon: Lightbulb },
+  { href: "/on-estem", label: nav.onEstem, Icon: MapPin },
 ];
 
 export function Header() {
@@ -30,7 +31,7 @@ export function Header() {
   }, [location]);
 
   const subLinks = NOSALTRES_SUB(t.nav);
-  const nosaltresActive = isActive(location, "/partit");
+  const nosaltresActive = isActive(location, "/partit") || isActive(location, "/on-estem");
 
   const LangSwitcher = ({ mobile = false }: { mobile?: boolean }) => (
     <div

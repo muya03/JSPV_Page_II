@@ -17,6 +17,8 @@ import GeneracioDeFerro from "@/pages/campaigns/GeneracioDeFerro";
 import Institucions from "@/pages/Institucions";
 import Afiliat from "@/pages/Afiliat";
 import Contacte from "@/pages/Contacte";
+import OnEstem from "@/pages/OnEstem";
+import Transparencia from "@/pages/Transparencia";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +30,8 @@ function Router() {
       <Route path="/partit/equip" component={Equip} />
       <Route path="/partit/historia" component={Historia} />
       <Route path="/partit/valors" component={Valors} />
+      <Route path="/on-estem" component={OnEstem} />
+      <Route path="/transparencia" component={Transparencia} />
       <Route path="/actualitat" component={Actualitat} />
       <Route path="/actualitat/:slug" component={NewsDetail} />
       <Route path="/campanyes" component={Campanyes} />

@@ -1,5 +1,3 @@
-- [JSPV SSR prerender](jspv-ssr-prerender.md) — jspv artifact has a custom 3-step static prerender build (client + ssr + prerender script), not the default react-vite single `vite build`.
-- [JSPV opengraph.jpg](jspv-opengraph.md) — public/opengraph.jpg is a real homepage screenshot the platform restores; custom OG art doesn't persist.
-- [JSPV fonts](jspv-fonts.md) — PSPV-PSOE usa Roboto Slab (display/titulars) + Roboto (body); sitio JSPV actualizado para coincidir.
-- [JSPV i18n architecture](jspv-i18n.md) — bilingual CA/ES via custom React context (no external lib); category filter stores CA keys as state sentinel, not translated strings.
-- [JSPV team page — no areas](jspv-team-page.md) — Equip page must not group/label by "areas"; only Secretary General is featured; `area` field + stale i18n keys are dead, don't reintroduce.
+- [JSPV site structure](jspv-site.md) — pnpm monorepo, artifact at artifacts/jspv, SSR prerender (3-step build), Barlow+Barlow Condensed fonts only.
+- [JSPV i18n conventions](jspv-i18n.md) — ca.ts exports Translations type; es.ts imports it. All new keys must be added to both files identically shaped.
+- [JSPV typography rules](jspv-typography.md) — Barlow Condensed for display/headlines, Barlow for body. Do NOT reintroduce Montserrat/Inter.

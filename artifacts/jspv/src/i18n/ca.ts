@@ -17,6 +17,8 @@ export const ca = {
     equip: "El nostre equip",
     historia: "La nostra Història",
     valors: "Idees i Valors",
+    onEstem: "On estem",
+    transparencia: "Transparència",
   },
 
   common: {
@@ -136,6 +138,43 @@ export const ca = {
     pspvAlt: "Partit Socialista del País Valencià (PSPV-PSOE)",
   },
 
+  onEstem: {
+    crumb: "On estem",
+    title: "On estem",
+    subtitle:
+      "JSPV és present a les tres províncies del País Valencià a través de les seues federacions provincials i seccions locals actives arreu del territori.",
+    statFederacions: "federacions provincials",
+    statSeccions: "seccions locals actives",
+    statProvinces: "províncies",
+    ctaTitle: "Crea una nova secció local",
+    ctaDesc:
+      "Si al teu municipi no hi ha secció local i vols organitzar-te, posa't en contacte amb la Secretaria d'Organització de JSPV.",
+  },
+
+  transparencia: {
+    crumb: "Transparència",
+    title: "Transparència",
+    subtitle:
+      "JSPV es compromet amb la transparència democràtica posant a l'abast de la militància i la ciutadania tots els documents orgànics i resolucions de l'organització.",
+    contactTitle: "No trobes el document que cerques?",
+    contactDesc:
+      "Posa't en contacte amb la Secretaria d'Organització i t'ajudarem a localitzar qualsevol document.",
+    contactCta: "Contacta amb Organització",
+  },
+
+  aliats: {
+    eyebrow: "Formem part de",
+    title: "La xarxa socialista",
+    subtitle:
+      "JSPV és la federació valenciana de les Joventuts Socialistes d'Espanya i treballa en estreta coordinació amb el PSPV-PSOE i el moviment progressista.",
+    jse: "Joventuts Socialistes d'Espanya",
+    jseDesc: "L'organització juvenil del socialisme espanyol, de la qual JSPV és federació autònoma.",
+    pspv: "PSPV-PSOE",
+    pspvDesc: "El Partit Socialista del País Valencià, organització germana i referent del socialisme democràtic.",
+    fpi: "Fundació Pablo Iglesias",
+    fpiDesc: "Fundació d'estudis progressistes vinculada al socialisme espanyol.",
+  },
+
   notFound: {
     title: "Pàgina no trobada",
     desc: "La pàgina que cerques no existeix o s'ha mogut. Torna a l'inici per a seguir navegant.",
@@ -241,6 +280,16 @@ export const ca = {
       title: "Idees i Valors · JSPV",
       description:
         "Els set principis ideològics de JSPV: socialdemocràcia, republicanisme, progressisme, feminisme, federalisme, europeisme i valencianisme.",
+    },
+    onEstem: {
+      title: "On estem · JSPV",
+      description:
+        "Federacions provincials i seccions locals de Joves Socialistes del País Valencià: present a tot el territori.",
+    },
+    transparencia: {
+      title: "Transparència · JSPV",
+      description:
+        "Documents orgànics, resolucions del XIV Congrés i informes de gestió de Joves Socialistes del País Valencià.",
     },
   },
 
