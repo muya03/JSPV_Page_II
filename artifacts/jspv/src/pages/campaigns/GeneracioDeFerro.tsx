@@ -418,14 +418,16 @@ export default function GeneracioDeFerro() {
                   : "No demanem més sacrifici. Demanem que les institucions facen la seua feina. Uneix-te a JSPV i suma la teua veu a la campanya."}
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link
-                  href="/afiliat"
+                <a
+                  href="https://www.jse.org/afiliacion-online-jse/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 text-white font-bold px-8 py-4 text-sm uppercase tracking-wider transition-opacity hover:opacity-90"
                   style={{ backgroundColor: ACCENT }}
                 >
                   {lang === "es" ? "Afíliate" : "Afilia't"}
                   <ArrowRight size={15} />
-                </Link>
+                </a>
                 <Link
                   href="/campanyes"
                   className="inline-flex items-center justify-center gap-2 font-bold px-8 py-4 text-sm uppercase tracking-wider border border-white/20 text-white/60 hover:text-white hover:border-white/50 transition-colors"

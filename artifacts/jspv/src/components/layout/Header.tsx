@@ -258,13 +258,15 @@ export function Header() {
 
           <div className="flex items-center gap-3 ml-1">
             <LangSwitcher />
-            <Link
-              href="/afiliat"
+            <a
+              href="https://www.jse.org/afiliacion-online-jse/"
+              target="_blank"
+              rel="noopener noreferrer"
               data-testid="button-nav-afiliate"
               className="inline-flex items-center justify-center h-11 px-6 rounded-md bg-primary text-primary-foreground font-display font-bold text-base tracking-tight hover:bg-primary/90 transition-colors"
             >
               {t.nav.afiliat}
-            </Link>
+            </a>
           </div>
         </nav>
 
@@ -408,12 +410,14 @@ export function Header() {
 
             <li className="mt-4 flex flex-col gap-3">
               <LangSwitcher mobile />
-              <Link
-                href="/afiliat"
+              <a
+                href="https://www.jse.org/afiliacion-online-jse/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex w-full items-center justify-center h-12 rounded-md bg-primary text-primary-foreground font-display font-bold"
               >
                 {t.nav.afiliat}
-              </Link>
+              </a>
             </li>
           </ul>
         </nav>

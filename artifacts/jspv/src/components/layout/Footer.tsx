@@ -50,9 +50,9 @@ export function Footer() {
                 </li>
               ))}
               <li>
-                <Link href="/afiliat" className="text-white/80 hover:text-white transition-colors">
+                <a href="https://www.jse.org/afiliacion-online-jse/" target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-colors">
                   {t.nav.afiliat}
-                </Link>
+                </a>
               </li>
               <li>
                 <Link href="/contacte" className="text-white/80 hover:text-white transition-colors">

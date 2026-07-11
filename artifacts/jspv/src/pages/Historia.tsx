@@ -194,12 +194,14 @@ export default function Historia() {
                 {t.historia.ctaText}
               </p>
             </div>
-            <Link
-              href="/afiliat"
+            <a
+              href="https://www.jse.org/afiliacion-online-jse/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 h-13 px-7 py-3.5 rounded-md bg-primary text-primary-foreground font-display font-bold text-base hover:bg-primary/90 transition-colors shrink-0"
             >
               {t.historia.ctaButton} <ArrowRight size={18} aria-hidden="true" />
-            </Link>
+            </a>
           </Reveal>
         </div>
       </section>

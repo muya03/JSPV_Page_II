@@ -510,13 +510,15 @@ export default function Habitatge() {
               </h2>
             </Reveal>
             <Reveal delay={80} className="flex flex-col sm:flex-row gap-3 shrink-0">
-              <Link
-                href="/afiliat"
+              <a
+                href="https://www.jse.org/afiliacion-online-jse/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center font-bold px-8 py-4 rounded-full text-white transition-opacity hover:opacity-90"
                 style={{ backgroundColor: "#C0202D" }}
               >
                 {isEs ? "Afíliate a JSPV" : "Afilia't a JSPV"}
-              </Link>
+              </a>
               <Link
                 href="/campanyes"
                 className="inline-flex items-center justify-center font-bold px-8 py-4 rounded-full border-2 border-white/20 text-white/70 hover:border-white hover:text-white transition-colors"
