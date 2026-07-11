@@ -24,7 +24,7 @@ export const NAV_LINKS: NavLink[] = [
 
 export const CONTACT = {
   email: "info@jspv.es",
-  organitzacio: "organitzacio@jspv.es",
+  organitzacio: "organitzaciojspv@gmail.com",
   premsa: "premsa@jspv.es",
   adreca: "Carrer de Blanqueries, 4 · 46003 València",
   instagram: { handle: "@jovesocialistes", url: "https://instagram.com/jovesocialistes" },

@@ -69,11 +69,6 @@ export function Footer() {
             </h2>
             <ul className="space-y-3 text-sm text-white/80">
               <li>
-                <a href={`mailto:${CONTACT.email}`} className="hover:text-white transition-colors">
-                  {CONTACT.email}
-                </a>
-              </li>
-              <li>
                 <a href={`mailto:${CONTACT.organitzacio}`} className="hover:text-white transition-colors">
                   {CONTACT.organitzacio}
                 </a>
