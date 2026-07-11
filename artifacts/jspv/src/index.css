@@ -68,8 +68,8 @@
   --input: 220 13% 80%;
   --ring: 357 95% 46%;
 
-  --app-font-sans: 'DIN', 'DIN Pro', 'DINPro', 'Barlow', system-ui, sans-serif;
-  --app-font-display: 'DIN Condensed', 'DINCondensed-Bold', 'Barlow Condensed', system-ui, sans-serif;
+  --app-font-sans: 'Barlow', 'DIN', 'DIN Pro', system-ui, sans-serif;
+  --app-font-display: 'Barlow Condensed', 'DIN Condensed', 'DINCondensed-Bold', system-ui, sans-serif;
   --app-font-mono: Menlo, monospace;
   --radius: 0.375rem;
 }

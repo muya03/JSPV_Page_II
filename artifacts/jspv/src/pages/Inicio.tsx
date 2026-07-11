@@ -210,7 +210,7 @@ export default function Inicio() {
                         <h3 className="mt-3 font-display font-bold text-lg leading-snug text-foreground group-hover:text-primary transition-colors">
                           {item.title}
                         </h3>
-                        <p className="mt-3 text-sm text-muted-foreground leading-relaxed line-clamp-3">
+                        <p className="mt-3 text-sm text-muted-foreground leading-relaxed line-clamp-3 font-light">
                           {item.excerpt}
                         </p>
                         <span className="mt-5 inline-flex items-center gap-1.5 font-display font-semibold text-sm text-primary">

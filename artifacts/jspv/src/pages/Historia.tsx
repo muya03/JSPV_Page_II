@@ -55,7 +55,7 @@ export default function Historia() {
             <h1 className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl leading-[1.05] max-w-3xl">
               {t.historia.title}
             </h1>
-            <p className="mt-5 text-white/75 text-lg leading-relaxed max-w-2xl">
+            <p className="mt-5 text-white/75 text-lg leading-relaxed max-w-2xl font-light italic">
               {t.historia.subtitle}
             </p>
           </Reveal>
@@ -72,7 +72,7 @@ export default function Historia() {
               </h2>
               <span className="block w-16 h-1.5 bg-primary mt-5" aria-hidden="true" />
             </div>
-            <p className="text-lg text-muted-foreground leading-relaxed">
+            <p className="text-lg text-muted-foreground leading-relaxed font-light italic">
               {t.historia.introText}
             </p>
           </Reveal>
@@ -137,11 +137,11 @@ export default function Historia() {
                           <h3 className="font-display font-bold text-xl text-foreground mb-3">
                             {item.title}
                           </h3>
-                          <p className="text-muted-foreground leading-relaxed text-sm mb-4">
+                          <p className="text-muted-foreground leading-relaxed text-sm mb-4 font-light">
                             {item.desc}
                           </p>
                           {extended[i] && (
-                            <p className="text-foreground/70 text-sm leading-relaxed border-t border-border pt-4">
+                            <p className="text-foreground/70 text-sm leading-relaxed border-t border-border pt-4 font-light">
                               {extended[i]}
                             </p>
                           )}
@@ -190,7 +190,7 @@ export default function Historia() {
               <h2 className="font-display font-extrabold text-3xl sm:text-4xl leading-tight">
                 {t.historia.ctaTitle}
               </h2>
-              <p className="mt-4 text-white/70 text-lg leading-relaxed">
+              <p className="mt-4 text-white/70 text-lg leading-relaxed font-light italic">
                 {t.historia.ctaText}
               </p>
             </div>

@@ -28,7 +28,7 @@ export function SectionHeading({
         {title}
       </Title>
       {intro && (
-        <p className="mt-4 text-lg text-muted-foreground leading-relaxed">{intro}</p>
+        <p className="mt-4 text-lg text-muted-foreground leading-relaxed font-light italic">{intro}</p>
       )}
     </Reveal>
   );
@@ -60,7 +60,7 @@ export function PageHero({
               {title}
             </h1>
             {subtitle && (
-              <p className="mt-4 text-lg md:text-xl text-white/80 leading-relaxed max-w-2xl drop-shadow">
+              <p className="mt-4 text-lg md:text-xl text-white/80 leading-relaxed max-w-2xl drop-shadow font-light italic">
                 {subtitle}
               </p>
             )}
@@ -78,7 +78,7 @@ export function PageHero({
             {title}
           </h1>
           {subtitle && (
-            <p className="mt-5 text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl">
+            <p className="mt-5 text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl font-light italic">
               {subtitle}
             </p>
           )}

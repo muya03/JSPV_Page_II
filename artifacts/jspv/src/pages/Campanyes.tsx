@@ -89,7 +89,7 @@ export default function Campanyes() {
                 ? "Nuestras campañas políticas"
                 : "Les nostres campanyes polítiques"}
             </h1>
-            <p className="mt-6 text-white/60 text-lg max-w-xl leading-relaxed">
+            <p className="mt-6 text-white/60 text-lg max-w-xl leading-relaxed font-light italic">
               {lang === "es"
                 ? "Cada campaña es una apuesta política concreta. Aquí puedes conocer qué defendemos y por qué luchamos."
                 : "Cada campanya és una aposta política concreta. Ací pots conèixer què defensem i per què lluitem."}

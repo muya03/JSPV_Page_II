@@ -73,7 +73,7 @@ export default function Partit() {
             <h1 className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl leading-[1.05] max-w-3xl">
               {t.partit.title}
             </h1>
-            <p className="mt-5 text-white/70 text-lg leading-relaxed max-w-2xl">
+            <p className="mt-5 text-white/70 text-lg leading-relaxed max-w-2xl font-light italic">
               {t.partit.subtitle}
             </p>
           </Reveal>
@@ -114,7 +114,7 @@ export default function Partit() {
                   </div>
                   {/* Card body */}
                   <div className="flex flex-col flex-1 px-7 py-6">
-                    <p className="text-muted-foreground text-sm leading-relaxed flex-1">
+                    <p className="text-muted-foreground text-sm leading-relaxed flex-1 font-light">
                       {s.desc}
                     </p>
                     <span className="mt-6 inline-flex items-center gap-2 font-display font-bold text-sm text-primary group-hover:gap-3 transition-all">
@@ -139,7 +139,7 @@ export default function Partit() {
                 {t.partit.historiaTitle}
               </h2>
             </div>
-            <p className="text-lg text-muted-foreground leading-relaxed">
+            <p className="text-lg text-muted-foreground leading-relaxed font-light italic">
               {t.partit.historiaIntro}
             </p>
           </Reveal>

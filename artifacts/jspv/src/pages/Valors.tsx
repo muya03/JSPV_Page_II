@@ -55,7 +55,7 @@ export default function Valors() {
             <h1 className="font-display font-extrabold text-4xl sm:text-5xl md:text-6xl leading-[1.05] max-w-3xl">
               {t.valors.title}
             </h1>
-            <p className="mt-5 text-white/75 text-lg leading-relaxed max-w-2xl">
+            <p className="mt-5 text-white/75 text-lg leading-relaxed max-w-2xl font-light italic">
               {t.valors.subtitle}
             </p>
           </Reveal>
@@ -72,7 +72,7 @@ export default function Valors() {
               </h2>
               <span className="block w-16 h-1.5 bg-primary mt-5" aria-hidden="true" />
             </div>
-            <p className="text-lg text-muted-foreground leading-relaxed">
+            <p className="text-lg text-muted-foreground leading-relaxed font-light italic">
               {t.valors.introText}
             </p>
           </Reveal>
@@ -108,7 +108,7 @@ export default function Valors() {
                     <p className="font-semibold text-foreground/90 text-sm leading-relaxed mb-4">
                       {v.desc}
                     </p>
-                    <p className="text-muted-foreground text-sm leading-relaxed flex-1">
+                    <p className="text-muted-foreground text-sm leading-relaxed flex-1 font-light">
                       {extended[i]}
                     </p>
                   </div>

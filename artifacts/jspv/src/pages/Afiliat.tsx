@@ -87,7 +87,7 @@ export default function Afiliat() {
                 {t.afiliat.title}{" "}
                 <span className="text-primary">{t.afiliat.titleHighlight}</span>
               </h1>
-              <p className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-xl">
+              <p className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-xl font-light italic">
                 {t.afiliat.desc}
               </p>
               <span className="hidden lg:block w-24 h-1.5 bg-primary mt-8" aria-hidden="true" />
