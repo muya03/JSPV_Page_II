@@ -174,4 +174,13 @@ html {
   .tweet-ticker-track:hover {
     animation-play-state: paused;
   }
+
+  /* Instagram ticker marquee */
+  .ig-ticker-track {
+    animation: tweet-marquee 35s linear infinite;
+    width: max-content;
+  }
+  .ig-ticker-track:hover {
+    animation-play-state: paused;
+  }
 }
