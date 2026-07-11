@@ -4,6 +4,7 @@ import { Reveal } from "@/components/Reveal";
 import { PageHero } from "@/components/SectionHeading";
 import { useSEO } from "@/lib/seo";
 import { useT } from "@/i18n/context";
+import { ValenciaMap } from "@/components/ValenciaMap";
 
 const FEDERACIONS = [
   {
@@ -98,55 +99,77 @@ export default function OnEstem() {
         </div>
       </section>
 
-      {/* ── Federations ──────────────────────────────────────── */}
+      {/* ── Interactive map ──────────────────────────────────── */}
       <section className="bg-white">
         <div className="container-page py-16 md:py-24">
-          <div className="space-y-10">
+          <Reveal>
+            <div className="mb-10">
+              <p className="font-display font-bold text-xs uppercase tracking-[0.2em] text-primary mb-2">
+                {lang === "es" ? "Estructura territorial" : "Estructura territorial"}
+              </p>
+              <h2 className="font-display font-extrabold text-2xl sm:text-3xl leading-tight text-foreground">
+                {lang === "es"
+                  ? "Les nostres federacions i seccions"
+                  : "Les nostres federacions i seccions"}
+              </h2>
+              <p className="mt-3 text-muted-foreground font-light text-base max-w-xl">
+                {lang === "es"
+                  ? "JSPV s'organitza en tres federacions provincials que coordinen les seccions locals de tota la Comunitat Valenciana."
+                  : "JSPV s'organitza en tres federacions provincials que coordinen les seccions locals de tota la Comunitat Valenciana."}
+              </p>
+            </div>
+            <ValenciaMap lang={lang} />
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ── Full directory ───────────────────────────────────── */}
+      <section className="bg-[hsl(var(--surface))] border-t border-border">
+        <div className="container-page py-14 md:py-20">
+          <Reveal>
+            <p className="font-display font-bold text-xs uppercase tracking-[0.2em] text-primary mb-6">
+              {lang === "es" ? "Directori complet" : "Directori complet"}
+            </p>
+          </Reveal>
+          <div className="space-y-8">
             {FEDERACIONS.map((fed, fi) => (
-              <Reveal key={fed.id} delay={fi * 80}>
+              <Reveal key={fed.id} delay={fi * 70}>
                 <div className="rounded-2xl overflow-hidden border border-border">
-                  {/* Province header */}
                   <div
-                    className="px-8 py-7 flex items-center justify-between"
+                    className="px-7 py-5 flex items-center justify-between"
                     style={{ backgroundColor: fed.color }}
                   >
                     <div>
-                      <p className="font-display font-bold text-[11px] uppercase tracking-[0.22em] text-white/60 mb-1">
+                      <p className="font-display font-bold text-[10px] uppercase tracking-[0.22em] text-white/60 mb-0.5">
                         {fed.codi}
                       </p>
-                      <h2 className="font-display font-extrabold text-2xl md:text-3xl text-white leading-tight">
+                      <h3 className="font-display font-extrabold text-xl md:text-2xl text-white leading-tight">
                         {lang === "es" ? fed.nomEs : fed.nom}
-                      </h2>
+                      </h3>
                     </div>
                     <div className="text-right hidden sm:block">
-                      <p className="font-display font-extrabold text-4xl text-white/90 leading-none">
+                      <p className="font-display font-extrabold text-3xl text-white/90 leading-none">
                         {fed.seccions.length}
                       </p>
-                      <p className="text-xs text-white/60 font-light mt-1">
+                      <p className="text-xs text-white/60 font-light mt-0.5">
                         {lang === "es" ? "secciones" : "seccions"}
                       </p>
                     </div>
                   </div>
-
-                  {/* Local sections grid */}
-                  <div className="bg-[hsl(var(--surface))] p-6">
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+                  <div className="bg-white p-5">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2.5">
                       {fed.seccions.map((s) => (
                         <div
                           key={s.nom}
-                          className="group bg-white rounded-xl border border-border p-4 hover:border-primary/40 hover:shadow-sm transition-all"
+                          className="group bg-[hsl(var(--surface))] rounded-xl border border-border p-3.5 hover:border-primary/40 hover:shadow-sm transition-all"
                         >
                           <div className="flex items-start gap-2">
-                            <MapPin
-                              size={12}
-                              className="shrink-0 mt-0.5 text-primary"
-                              aria-hidden="true"
-                            />
+                            <MapPin size={11} className="shrink-0 mt-0.5 text-primary" aria-hidden="true" />
                             <div>
-                              <p className="font-display font-bold text-sm text-foreground leading-tight group-hover:text-primary transition-colors">
+                              <p className="font-display font-bold text-[13px] text-foreground leading-tight group-hover:text-primary transition-colors">
                                 {s.nom}
                               </p>
-                              <p className="mt-0.5 text-[11px] text-muted-foreground font-light">
+                              <p className="mt-0.5 text-[10px] text-muted-foreground font-light">
                                 {s.comarca}
                               </p>
                             </div>
