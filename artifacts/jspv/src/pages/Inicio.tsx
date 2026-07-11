@@ -429,7 +429,7 @@ export default function Inicio() {
           </Reveal>
 
           <Reveal>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
               {/* JSE */}
               <a
                 href="https://jse.org"
@@ -467,6 +467,26 @@ export default function Inicio() {
                 </p>
                 <p className="mt-1.5 text-xs text-muted-foreground font-light leading-relaxed">
                   {t.aliats.pspvDesc}
+                </p>
+              </a>
+
+              {/* PSOE */}
+              <a
+                href="https://psoe.es"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group bg-white rounded-2xl border border-border p-6 hover:border-primary/40 hover:shadow-sm transition-all text-center"
+              >
+                <div className="h-12 flex items-center justify-center mx-auto mb-4">
+                  <span className="font-display font-extrabold text-2xl tracking-tight text-primary leading-none">
+                    PSOE
+                  </span>
+                </div>
+                <p className="font-display font-bold text-sm text-foreground group-hover:text-primary transition-colors">
+                  {t.aliats.psoe}
+                </p>
+                <p className="mt-1.5 text-xs text-muted-foreground font-light leading-relaxed">
+                  {t.aliats.psoeDesc}
                 </p>
               </a>
 

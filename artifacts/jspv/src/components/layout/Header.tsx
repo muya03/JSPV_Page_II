@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "wouter";
-import { Menu, X, ChevronDown, Users, Clock, Lightbulb, MapPin } from "lucide-react";
+import { Menu, X, ChevronDown, Users, Clock, Lightbulb, MapPin, Newspaper, Megaphone } from "lucide-react";
 import { useT } from "@/i18n/context";
 import jspvLogo from "@assets/logo-jspv-removebg-preview_1781812576061.png";
 
@@ -17,21 +17,32 @@ const NOSALTRES_SUB = (nav: { equip: string; historia: string; valors: string; o
   { href: "/on-estem", label: nav.onEstem, Icon: MapPin },
 ];
 
+const ACTUALITAT_SUB = (nav: { actualitat: string; comunicats: string }) => [
+  { href: "/actualitat", label: nav.actualitat, Icon: Newspaper },
+  { href: "/comunicats", label: nav.comunicats, Icon: Megaphone },
+];
+
 export function Header() {
   const [location] = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileNosaltres, setMobileNosaltres] = useState(false);
+  const [mobileActualitat, setMobileActualitat] = useState(false);
   const [desktopDropdown, setDesktopDropdown] = useState(false);
+  const [desktopActualitatDropdown, setDesktopActualitatDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const actualitatRef = useRef<HTMLDivElement>(null);
   const { t, lang, setLang } = useT();
 
   useEffect(() => {
     setMobileOpen(false);
     setMobileNosaltres(false);
+    setMobileActualitat(false);
   }, [location]);
 
   const subLinks = NOSALTRES_SUB(t.nav);
+  const actualitatSubLinks = ACTUALITAT_SUB(t.nav);
   const nosaltresActive = isActive(location, "/partit") || isActive(location, "/on-estem");
+  const actualitatActive = isActive(location, "/actualitat") || isActive(location, "/comunicats");
 
   const LangSwitcher = ({ mobile = false }: { mobile?: boolean }) => (
     <div
@@ -160,12 +171,68 @@ export function Header() {
             </div>
           </div>
 
+          {/* Actualitat dropdown */}
+          <div
+            ref={actualitatRef}
+            className="relative"
+            onMouseEnter={() => setDesktopActualitatDropdown(true)}
+            onMouseLeave={() => setDesktopActualitatDropdown(false)}
+          >
+            <Link
+              href="/actualitat"
+              aria-current={actualitatActive ? "page" : undefined}
+              aria-haspopup="true"
+              aria-expanded={desktopActualitatDropdown}
+              className={`relative inline-flex items-center gap-1 font-display text-[0.95rem] font-semibold tracking-tight transition-colors py-1 ${
+                actualitatActive ? "text-primary" : "text-foreground hover:text-primary"
+              }`}
+            >
+              {t.nav.actualitat}
+              <ChevronDown
+                size={14}
+                aria-hidden="true"
+                className={`transition-transform duration-200 ${desktopActualitatDropdown ? "rotate-180" : ""}`}
+              />
+              <span
+                aria-hidden="true"
+                className={`absolute left-0 -bottom-0.5 h-0.5 bg-primary transition-all duration-200 ${
+                  actualitatActive ? "w-full" : "w-0"
+                }`}
+              />
+            </Link>
+            <div
+              className={`absolute top-full left-1/2 -translate-x-1/2 pt-3 w-52 transition-all duration-150 ${
+                desktopActualitatDropdown
+                  ? "opacity-100 translate-y-0 pointer-events-auto"
+                  : "opacity-0 -translate-y-1 pointer-events-none"
+              }`}
+              role="menu"
+              aria-label={t.nav.actualitat}
+            >
+              <div className="bg-white rounded-xl border border-border shadow-xl overflow-hidden">
+                {actualitatSubLinks.map(({ href, label, Icon }) => (
+                  <Link
+                    key={href}
+                    href={href}
+                    role="menuitem"
+                    className="flex items-center gap-3 px-4 py-3 hover:bg-[hsl(var(--surface))] transition-colors group last:pb-4"
+                  >
+                    <Icon size={16} aria-hidden="true" className="text-primary shrink-0" />
+                    <span className="font-display font-semibold text-sm text-foreground group-hover:text-primary transition-colors">
+                      {label}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+
           {/* Other nav links */}
           {(
             [
-              { label: t.nav.actualitat, href: "/actualitat" },
               { label: t.nav.institucions, href: "/institucions" },
               { label: t.nav.campanyes, href: "/campanyes" },
+              { label: t.nav.transparencia, href: "/transparencia" },
             ] as const
           ).map((link) => {
             const active = isActive(location, link.href);
@@ -269,12 +336,58 @@ export function Header() {
               )}
             </li>
 
+            {/* Actualitat accordion */}
+            <li>
+              <div className="flex items-center border-b border-border">
+                <Link
+                  href="/actualitat"
+                  aria-current={actualitatActive ? "page" : undefined}
+                  className={`flex-1 block py-3 font-display font-semibold ${
+                    actualitatActive ? "text-primary" : "text-foreground"
+                  }`}
+                >
+                  {t.nav.actualitat}
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => setMobileActualitat((v) => !v)}
+                  aria-expanded={mobileActualitat}
+                  className="p-3 text-muted-foreground"
+                  aria-label="Desplegar submenú"
+                >
+                  <ChevronDown
+                    size={18}
+                    aria-hidden="true"
+                    className={`transition-transform duration-200 ${mobileActualitat ? "rotate-180" : ""}`}
+                  />
+                </button>
+              </div>
+              {mobileActualitat && (
+                <ul className="bg-[hsl(var(--surface))] border-b border-border">
+                  {actualitatSubLinks.map(({ href, label, Icon }) => (
+                    <li key={href}>
+                      <Link
+                        href={href}
+                        aria-current={isActive(location, href) ? "page" : undefined}
+                        className={`flex items-center gap-3 pl-6 pr-4 py-3 font-display font-semibold text-sm border-b border-border/50 last:border-0 ${
+                          isActive(location, href) ? "text-primary" : "text-foreground"
+                        }`}
+                      >
+                        <Icon size={15} aria-hidden="true" className="text-primary shrink-0" />
+                        {label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+
             {/* Other links */}
             {(
               [
-                { label: t.nav.actualitat, href: "/actualitat" },
                 { label: t.nav.institucions, href: "/institucions" },
                 { label: t.nav.campanyes, href: "/campanyes" },
+                { label: t.nav.transparencia, href: "/transparencia" },
               ] as const
             ).map((link) => {
               const active = isActive(location, link.href);

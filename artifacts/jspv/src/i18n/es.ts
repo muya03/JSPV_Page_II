@@ -21,6 +21,7 @@ export const es: Translations = {
     valors: "Ideas y Valores",
     onEstem: "Dónde estamos",
     transparencia: "Transparencia",
+    comunicats: "Comunicados",
   },
 
   common: {
@@ -141,6 +142,13 @@ export const es: Translations = {
       "Si en tu municipio no hay sección local y quieres organizarte, contacta con la Secretaría de Organización de JSPV.",
   },
 
+  comunicats: {
+    crumb: "Comunicados",
+    title: "Comunicados",
+    subtitle:
+      "Posicionamientos y comunicados oficiales de Joves Socialistes del País Valencià sobre la política valenciana y nacional.",
+  },
+
   transparencia: {
     crumb: "Transparencia",
     title: "Transparencia",
@@ -162,6 +170,8 @@ export const es: Translations = {
     pspv: "PSPV-PSOE",
     pspvDesc: "El Partido Socialista del País Valenciano, organización hermana y referente del socialismo democrático.",
     fpi: "Fundación Pablo Iglesias",
+    psoe: "PSOE",
+    psoeDesc: "El Partido Socialista Obrero Español, referente nacional del socialismo democrático.",
     fpiDesc: "Fundación de estudios progresistas vinculada al socialismo español.",
   },
 
@@ -283,6 +293,11 @@ export const es: Translations = {
       description:
         "Los siete principios ideológicos de JSPV: socialdemocracia, republicanismo, progresismo, feminismo, federalismo, europeísmo y valencianismo.",
     },
+    comunicats: {
+      title: "Comunicados · JSPV",
+      description:
+        "Posicionamientos y comunicados oficiales de Joves Socialistes del País Valencià sobre la política valenciana.",
+    },
     onEstem: {
       title: "Dónde estamos · JSPV",
       description:
@@ -305,6 +320,7 @@ export const es: Translations = {
       Memòria: "Memoria",
       Joventut: "Juventud",
       Igualtat: "Igualdad",
+      Comunicat: "Comunicado",
     },
 
     filterAll: "Todas",
@@ -400,6 +416,42 @@ export const es: Translations = {
           "El Periódico recoge la elección de Marcos Durà como nuevo secretario general de Joves Socialistes del País Valencià en el XIV Congreso de Alcoy.",
         imageAlt: "Participantes en el XIV Congreso Nacional de JSPV en Alcoy",
         body: [],
+      },
+      {
+        title: "JSPV exige una financiación autonómica justa para el País Valenciano",
+        category: "Comunicado",
+        date: "17 de junio de 2026",
+        excerpt:
+          "La financiación actual discrimina sistemáticamente al País Valenciano. Exigimos un sistema que garantice la igualdad entre territorios.",
+        imageAlt: "Sala plenaria durante un debate sobre financiación autonómica",
+        body: [
+          "Joves Socialistes del País Valencià exige al Gobierno central que dé una solución justa y definitiva al problema de la financiación autonómica valenciana. La discriminación actual es insostenible y vulnera el principio de igualdad entre los ciudadanos de todos los territorios.",
+          "Reclamamos un nuevo sistema de financiación que tenga en cuenta la población real del País Valenciano y que corrija el déficit crónico que sufre nuestra Comunitat.",
+        ],
+      },
+      {
+        title: "Comunicado: JSPV ante la emergencia habitacional que afecta a la juventud",
+        category: "Comunicado",
+        date: "5 de junio de 2026",
+        excerpt:
+          "El acceso a la vivienda es un derecho constitucional vulnerado. Pedimos medidas urgentes para garantizar la emancipación de los jóvenes valencianos.",
+        imageAlt: "Fachadas de edificios residenciales en un barrio valenciano",
+        body: [
+          "Joves Socialistes del País Valencià hace pública su preocupación por la emergencia habitacional que afecta especialmente a la juventud valenciana. Los precios del alquiler han aumentado un 40% en los últimos cinco años mientras los salarios se han estancado.",
+          "Exigimos al Gobierno Autonómico que active el fondo de vivienda protegida y que implemente medidas urgentes para regular los precios del alquiler en las áreas metropolitanas de Valencia, Alicante y Castellón.",
+        ],
+      },
+      {
+        title: "Comunicado de JSPV por la Igualdad Salarial: ninguna discriminación por razón de género",
+        category: "Comunicado",
+        date: "25 de mayo de 2026",
+        excerpt:
+          "La brecha salarial de género es una injusticia estructural. JSPV exige políticas efectivas para la igualdad salarial real.",
+        imageAlt: "Manifestación por la igualdad salarial con pancartas",
+        body: [
+          "La brecha salarial entre mujeres y hombres sigue siendo una realidad en el País Valenciano. Los datos muestran que las trabajadoras ganan de media un 18% menos que sus compañeros en tareas equivalentes.",
+          "JSPV exige la aprobación urgente de planes de igualdad salarial en todas las empresas, públicas y privadas, y la creación de un observatorio de la brecha salarial para monitorizar su impacto real.",
+        ],
       },
     ],
 

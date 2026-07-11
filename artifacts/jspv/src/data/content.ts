@@ -34,7 +34,7 @@ export const CONTACT = {
 export interface NewsItem {
   slug: string;
   title: string;
-  category: "Habitatge" | "Educació" | "Emergències" | "Organització" | "Feminisme" | "Memòria";
+  category: "Habitatge" | "Educació" | "Emergències" | "Organització" | "Feminisme" | "Memòria" | "Comunicat";
   date: string;
   iso: string;
   excerpt: string;
@@ -166,6 +166,51 @@ export const NEWS: NewsItem[] = [
     body: [],
     externalUrl: "https://www.elperiodic.com/marcos-dura-asume-secretaria-general-joves-socialistes-pais-valencia-congreso-nacional-celebrado-alcoi_1078784",
     source: "El Periòdic",
+  },
+  {
+    slug: "comunicat-financement-autonomic",
+    title: "JSPV exigeix un finançament autonòmic just per al País Valencià",
+    category: "Comunicat",
+    date: "17 de juny de 2026",
+    iso: "2026-06-17",
+    excerpt:
+      "El finançament actual discrimina sistemàticament el País Valencià. Exigim un sistema que garantisca la igualtat entre territoris.",
+    image: congresImg,
+    imageAlt: "Sala plenària durant un debat sobre finançament autonòmic",
+    body: [
+      "Joves Socialistes del País Valencià exigeix al Govern central que done una solució justa i definitiva al problema del finançament autonòmic valencià. La discriminació actual és insostenible i vulnera el principi d'igualtat entre els ciutadans de tots els territoris.",
+      "Reclamem un nou sistema de finançament que tinga en compte la població real del País Valencià i que corregisca el dèficit crònic que patix la nostra Comunitat.",
+    ],
+  },
+  {
+    slug: "comunicat-emergencia-habitacional",
+    title: "Comunicat: JSPV davant l'emergència habitacional que afecta la joventut",
+    category: "Comunicat",
+    date: "5 de juny de 2026",
+    iso: "2026-06-05",
+    excerpt:
+      "L'accés a l'habitatge és un dret constitucional vulnerat. Demanem mesures urgents per garantir l'emancipació dels joves valencians.",
+    image: habitatgeImg,
+    imageAlt: "Façanes d'edificis residencials en un barri valencià",
+    body: [
+      "Joves Socialistes del País Valencià fa pública la seua preocupació per l'emergència habitacional que afecta especialment la joventut valenciana. Els preus del lloguer han augmentat un 40% en els últims cinc anys mentre els salaris s'han estancat.",
+      "Exigim al Govern Autonòmic que active el fons d'habitatge protegit i que implemente mesures urgents per regular els preus del lloguer en les àrees metropolitanes de València, Alacant i Castelló.",
+    ],
+  },
+  {
+    slug: "comunicat-igualtat-salarial",
+    title: "Comunicat de JSPV per la Igualtat Salarial: cap discriminació per raó de gènere",
+    category: "Comunicat",
+    date: "25 de maig de 2026",
+    iso: "2026-05-25",
+    excerpt:
+      "La bretxa salarial de gènere és una injustícia estructural. JSPV exigeix polítiques efectives per a la igualtat salarial real.",
+    image: feminismeImg,
+    imageAlt: "Manifestació per la igualtat salarial amb pancartes",
+    body: [
+      "La bretxa salarial entre dones i homes continua sent una realitat al País Valencià. Les dades mostren que les treballadores guanyen de mitjana un 18% menys que els seus companys en tasques equivalents.",
+      "JSPV exigeix l'aprovació urgent de plans d'igualtat salarial en totes les empreses, públiques i privades, i la creació d'un observatori de la bretxa salarial per monitorar el seu impacte real.",
+    ],
   },
 ];
 

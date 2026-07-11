@@ -19,6 +19,7 @@ import Afiliat from "@/pages/Afiliat";
 import Contacte from "@/pages/Contacte";
 import OnEstem from "@/pages/OnEstem";
 import Transparencia from "@/pages/Transparencia";
+import Comunicats from "@/pages/Comunicats";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +35,7 @@ function Router() {
       <Route path="/transparencia" component={Transparencia} />
       <Route path="/actualitat" component={Actualitat} />
       <Route path="/actualitat/:slug" component={NewsDetail} />
+      <Route path="/comunicats" component={Comunicats} />
       <Route path="/campanyes" component={Campanyes} />
       <Route path="/campanyes/habitatge-es-un-dret" component={Habitatge} />
       <Route path="/campanyes/generacio-de-ferro" component={GeneracioDeFerro} />
