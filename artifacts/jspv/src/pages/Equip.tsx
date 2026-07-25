@@ -8,11 +8,13 @@ import heroBg from "@assets/6e828fcbfebe4e0645c4602230b2dc6d_1781816545714.jpg";
 import photoMarcos from "@assets/MarcosDura_1782063504964.jpeg";
 import photoItziar from "@assets/itziar-lafita_xl_1782063504964.jpg";
 import photoFrancisco from "@assets/Francisco_Jose_Hidalgo_2023_1782063504963.jpg";
+import photoMohamed from "@assets/mohamed-al-howaidi.jpg";
 
 const PHOTOS: Record<string, string> = {
   "Marcos Durà Gimeno": photoMarcos,
   "Itziar Lafita Balaguer": photoItziar,
   "Francisco José Hidalgo Vidal": photoFrancisco,
+  "Mohamed Al Howaidi Nasralla": photoMohamed,
 };
 
 /**

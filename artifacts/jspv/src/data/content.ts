@@ -481,6 +481,7 @@ export const EXECUTIVE_PROFILES: Record<string, ExecutiveProfile> = {
   "Abel Ortega Gastaldo": { edad: 26, comarca: "València Ciutat", frase: "En este món que ens aboca a ser independents, forts i freds, la tendresa és tot un acte de rebel·lia." },
   "Pau de la Resurrección Pérez": { edad: 26, comarca: "Ribera Alta", frase: "Entenc l'europeisme com el millor llegat de llibertat, concòrdia i oportunitats que tenim el deure d'assegurar per a les futures generacions." },
   "Adrián Campos Campillo": { edad: 24, comarca: "La Plana Alta", frase: "El que no es mostra, no existeix. El que no existeix, mor. Ser visibles no és una opció, és una obligació." },
+  "Mohamed Al Howaidi Nasralla": { edad: 22, comarca: "Castelló de la Plana (La Plana Alta)", frase: "No siempre verás el fruto de lo que haces, pero el mundo sería distinto si no lo hubieras hecho." },
 };
 
 /**
