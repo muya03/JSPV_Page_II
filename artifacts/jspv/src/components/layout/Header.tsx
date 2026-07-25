@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "wouter";
-import { Menu, X, ChevronDown, Users, Clock, Lightbulb, MapPin, Newspaper, Megaphone } from "lucide-react";
+import { Menu, X, ChevronDown, Users, Clock, Lightbulb, MapPin, Newspaper, Megaphone, Landmark } from "lucide-react";
 import { useT } from "@/i18n/context";
 import jspvLogo from "@assets/logo-jspv-removebg-preview_1781812576061.png";
 
@@ -22,27 +22,38 @@ const ACTUALITAT_SUB = (nav: { actualitat: string; comunicats: string }) => [
   { href: "/comunicats", label: nav.comunicats, Icon: Megaphone },
 ];
 
+const INSTITUCIONS_SUB = (nav: { institucionsDirectori: string; institucionsSobre: string }) => [
+  { href: "/institucions", label: nav.institucionsDirectori, Icon: Users },
+  { href: "/institucions/valencianes", label: nav.institucionsSobre, Icon: Landmark },
+];
+
 export function Header() {
   const [location] = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileNosaltres, setMobileNosaltres] = useState(false);
   const [mobileActualitat, setMobileActualitat] = useState(false);
+  const [mobileInstitucions, setMobileInstitucions] = useState(false);
   const [desktopDropdown, setDesktopDropdown] = useState(false);
   const [desktopActualitatDropdown, setDesktopActualitatDropdown] = useState(false);
+  const [desktopInstitucionsDropdown, setDesktopInstitucionsDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const actualitatRef = useRef<HTMLDivElement>(null);
+  const institucionsRef = useRef<HTMLDivElement>(null);
   const { t, lang, setLang } = useT();
 
   useEffect(() => {
     setMobileOpen(false);
     setMobileNosaltres(false);
     setMobileActualitat(false);
+    setMobileInstitucions(false);
   }, [location]);
 
   const subLinks = NOSALTRES_SUB(t.nav);
   const actualitatSubLinks = ACTUALITAT_SUB(t.nav);
+  const institucionsSubLinks = INSTITUCIONS_SUB(t.nav);
   const nosaltresActive = isActive(location, "/partit") || isActive(location, "/on-estem");
   const actualitatActive = isActive(location, "/actualitat") || isActive(location, "/comunicats");
+  const institucionsActive = isActive(location, "/institucions");
 
   const LangSwitcher = ({ mobile = false }: { mobile?: boolean }) => (
     <div
@@ -227,10 +238,65 @@ export function Header() {
             </div>
           </div>
 
+          {/* Institucions dropdown */}
+          <div
+            ref={institucionsRef}
+            className="relative"
+            onMouseEnter={() => setDesktopInstitucionsDropdown(true)}
+            onMouseLeave={() => setDesktopInstitucionsDropdown(false)}
+          >
+            <Link
+              href="/institucions"
+              aria-current={institucionsActive ? "page" : undefined}
+              aria-haspopup="true"
+              aria-expanded={desktopInstitucionsDropdown}
+              className={`relative inline-flex items-center gap-1 font-display text-lg font-semibold tracking-tight transition-colors py-1 ${
+                institucionsActive ? "text-primary" : "text-foreground hover:text-primary"
+              }`}
+            >
+              {t.nav.institucions}
+              <ChevronDown
+                size={14}
+                aria-hidden="true"
+                className={`transition-transform duration-200 ${desktopInstitucionsDropdown ? "rotate-180" : ""}`}
+              />
+              <span
+                aria-hidden="true"
+                className={`absolute left-0 -bottom-0.5 h-0.5 bg-primary transition-all duration-200 ${
+                  institucionsActive ? "w-full" : "w-0"
+                }`}
+              />
+            </Link>
+            <div
+              className={`absolute top-full left-1/2 -translate-x-1/2 pt-3 w-64 transition-all duration-150 ${
+                desktopInstitucionsDropdown
+                  ? "opacity-100 translate-y-0 pointer-events-auto"
+                  : "opacity-0 -translate-y-1 pointer-events-none"
+              }`}
+              role="menu"
+              aria-label={t.nav.institucions}
+            >
+              <div className="bg-white rounded-xl border border-border shadow-xl overflow-hidden">
+                {institucionsSubLinks.map(({ href, label, Icon }) => (
+                  <Link
+                    key={href}
+                    href={href}
+                    role="menuitem"
+                    className="flex items-center gap-3 px-4 py-3 hover:bg-[hsl(var(--surface))] transition-colors group last:pb-4"
+                  >
+                    <Icon size={16} aria-hidden="true" className="text-primary shrink-0" />
+                    <span className="font-display font-semibold text-sm text-foreground group-hover:text-primary transition-colors">
+                      {label}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+
           {/* Other nav links */}
           {(
             [
-              { label: t.nav.institucions, href: "/institucions" },
               { label: t.nav.campanyes, href: "/campanyes" },
               { label: t.nav.transparencia, href: "/transparencia" },
             ] as const
@@ -384,10 +450,55 @@ export function Header() {
               )}
             </li>
 
+            {/* Institucions accordion */}
+            <li>
+              <div className="flex items-center border-b border-border">
+                <Link
+                  href="/institucions"
+                  aria-current={institucionsActive ? "page" : undefined}
+                  className={`flex-1 block py-3 font-display font-semibold ${
+                    institucionsActive ? "text-primary" : "text-foreground"
+                  }`}
+                >
+                  {t.nav.institucions}
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => setMobileInstitucions((v) => !v)}
+                  aria-expanded={mobileInstitucions}
+                  className="p-3 text-muted-foreground"
+                  aria-label="Desplegar submenú"
+                >
+                  <ChevronDown
+                    size={18}
+                    aria-hidden="true"
+                    className={`transition-transform duration-200 ${mobileInstitucions ? "rotate-180" : ""}`}
+                  />
+                </button>
+              </div>
+              {mobileInstitucions && (
+                <ul className="bg-[hsl(var(--surface))] border-b border-border">
+                  {institucionsSubLinks.map(({ href, label, Icon }) => (
+                    <li key={href}>
+                      <Link
+                        href={href}
+                        aria-current={isActive(location, href) ? "page" : undefined}
+                        className={`flex items-center gap-3 pl-6 pr-4 py-3 font-display font-semibold text-sm border-b border-border/50 last:border-0 ${
+                          isActive(location, href) ? "text-primary" : "text-foreground"
+                        }`}
+                      >
+                        <Icon size={15} aria-hidden="true" className="text-primary shrink-0" />
+                        {label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+
             {/* Other links */}
             {(
               [
-                { label: t.nav.institucions, href: "/institucions" },
                 { label: t.nav.campanyes, href: "/campanyes" },
                 { label: t.nav.transparencia, href: "/transparencia" },
               ] as const

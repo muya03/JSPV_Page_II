@@ -20,6 +20,8 @@ export const ca = {
     onEstem: "On estem",
     transparencia: "Transparència",
     comunicats: "Comunicats",
+    institucionsDirectori: "Qui ens representa",
+    institucionsSobre: "Les institucions valencianes",
   },
 
   common: {
@@ -59,6 +61,34 @@ export const ca = {
     representant: "representant",
     representants: "representants",
     capResultat: "Cap representant per a aquesta selecció.",
+    saberMesTitle: "Coneixes les institucions valencianes?",
+    saberMesText:
+      "Més enllà de qui ocupa cada càrrec, descobrix quines institucions polítiques hi ha a la Comunitat Valenciana, quines funcions tenen i per què és tan important que la veu de la joventut hi estiga present.",
+    saberMesCta: "Les institucions valencianes",
+  },
+
+  institucionsValencianes: {
+    crumb: "Institucions valencianes",
+    title: "Les institucions valencianes",
+    subtitle:
+      "Quines institucions polítiques hi ha a la Comunitat Valenciana, quines funcions tenen i per què és fonamental que la veu de la joventut hi siga present.",
+    introTitle: "L'autogovern del País Valencià",
+    introText:
+      "La Comunitat Valenciana s'autogoverna a través de la Generalitat, el conjunt d'institucions reconegudes per l'Estatut d'Autonomia. Estes institucions elaboren les lleis, gestionen els serveis públics i controlen l'acció de govern que afecta la vida quotidiana de milions de valencianes i valencians. Conéixer com funcionen és el primer pas per a participar-hi i transformar-les.",
+    institucionsEyebrow: "Com ens organitzem",
+    institucionsTitle: "Les institucions que ens governen",
+    institucionsIntro:
+      "De les Corts al teu ajuntament, estes són les principals institucions polítiques valencianes i les funcions que exercixen.",
+    funcionsLabel: "Funcions principals",
+    jovesEyebrow: "La veu jove",
+    jovesTitle: "Per què la joventut ha d'estar en les institucions",
+    jovesIntro:
+      "Les decisions que es prenen hui en les Corts, el Consell i els ajuntaments determinen l'habitatge, l'ocupació, l'educació i el clima que heretarem. Massa sovint, però, es prenen sense la joventut a la taula. Que hi haja una opinió jove a les institucions no és un caprici generacional: és una qüestió de justícia democràtica.",
+    ctaTitle: "De conéixer les institucions a transformar-les",
+    ctaText:
+      "Descobrix qui et representa hui i, si vols que la teua generació tinga veu, dona el pas i implica-t'hi.",
+    ctaDirectori: "Veure qui ens representa",
+    ctaAfiliat: "Afilia't",
   },
 
   partit: {
@@ -262,6 +292,11 @@ export const ca = {
       title: "En les Institucions · JSPV",
       description:
         "Directori de càrrecs públics de JSPV a les institucions valencianes: Les Corts, ajuntaments i diputacions.",
+    },
+    institucionsValencianes: {
+      title: "Les institucions valencianes · JSPV",
+      description:
+        "Quines institucions polítiques hi ha a la Comunitat Valenciana, quines funcions tenen i per què és clau la veu jove: Les Corts, el Consell, el Síndic de Greuges, diputacions i ajuntaments.",
     },
     afiliat: {
       title: "Afilia't · JSPV",
