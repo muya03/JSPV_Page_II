@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { Reveal } from "@/components/Reveal";
 import { useSEO } from "@/lib/seo";
-import { EXECUTIVE_FULL, type ExecutiveMember } from "@/data/content";
+import { EXECUTIVE_FULL, EXECUTIVE_PROFILES, type ExecutiveMember, type ExecutiveProfile } from "@/data/content";
 import { useT } from "@/i18n/context";
 import heroBg from "@assets/6e828fcbfebe4e0645c4602230b2dc6d_1781816545714.jpg";
 import photoMarcos from "@assets/MarcosDura_1782063504964.jpeg";
@@ -29,11 +29,14 @@ function SecGenFeature({
   member,
   lang,
   photo,
+  profile,
 }: {
   member: ExecutiveMember;
   lang: string;
   photo?: string;
+  profile?: ExecutiveProfile;
 }) {
+  const isEs = lang === "es";
   return (
     <Reveal>
       <div className="relative bg-white rounded-3xl shadow-[0_20px_60px_-20px_rgba(227,6,19,0.35)] overflow-hidden grid md:grid-cols-[300px_1fr]">
@@ -76,6 +79,22 @@ function SecGenFeature({
           <p className="text-base text-muted-foreground leading-relaxed max-w-2xl">
             {member.bio}
           </p>
+
+          {profile && (
+            <div className="mt-6">
+              <blockquote className="border-l-4 border-primary pl-4 italic text-foreground/80 text-base leading-relaxed max-w-2xl">
+                «{profile.frase}»
+              </blockquote>
+              <div className="mt-5 flex flex-wrap gap-2">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[hsl(var(--surface-strong))] text-foreground/70 text-xs font-semibold">
+                  {isEs ? "Edad" : "Edat"}: {profile.edad} {isEs ? "años" : "anys"}
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[hsl(var(--surface-strong))] text-foreground/70 text-xs font-semibold">
+                  Comarca: {profile.comarca}
+                </span>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </Reveal>
@@ -90,13 +109,16 @@ function MemberTile({
   onToggle,
   lang,
   photo,
+  profile,
 }: {
   member: ExecutiveMember;
   isActive: boolean;
   onToggle: () => void;
   lang: string;
   photo?: string;
+  profile?: ExecutiveProfile;
 }) {
+  const isEs = lang === "es";
   return (
     <div
       className={`group relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer select-none transition-all duration-300 bg-white ${
@@ -181,9 +203,28 @@ function MemberTile({
         <p className="font-display font-extrabold text-[15px] leading-tight mb-2.5">
           {member.name}
         </p>
-        <p className="text-[11px] leading-relaxed text-white/90 overflow-y-auto pr-1 flex-1 min-h-0">
-          {member.bio}
-        </p>
+
+        {profile ? (
+          <>
+            <blockquote className="text-[11px] leading-relaxed text-white/95 italic overflow-y-auto pr-1 flex-1 min-h-0">
+              «{profile.frase}»
+            </blockquote>
+            <div className="shrink-0 mt-2.5 pt-2.5 border-t border-white/20 space-y-1">
+              <p className="text-[10px] leading-tight text-white/90">
+                <span className="uppercase tracking-[0.12em] text-white/60">{isEs ? "Edad" : "Edat"}</span>{" "}
+                {profile.edad} {isEs ? "años" : "anys"}
+              </p>
+              <p className="text-[10px] leading-tight text-white/90">
+                <span className="uppercase tracking-[0.12em] text-white/60">Comarca</span>{" "}
+                {profile.comarca}
+              </p>
+            </div>
+          </>
+        ) : (
+          <p className="text-[11px] leading-relaxed text-white/90 overflow-y-auto pr-1 flex-1 min-h-0">
+            {member.bio}
+          </p>
+        )}
       </div>
     </div>
   );
@@ -266,7 +307,14 @@ export default function Equip() {
       <section className="bg-[hsl(var(--surface))]">
         <div className="container-page py-12 md:py-16 space-y-14">
           {/* Featured Secretary General */}
-          {secGen && <SecGenFeature member={secGen} lang={lang} photo={PHOTOS[secGen.name]} />}
+          {secGen && (
+            <SecGenFeature
+              member={secGen}
+              lang={lang}
+              photo={EXECUTIVE_PROFILES[secGen.name]?.photo ?? PHOTOS[secGen.name]}
+              profile={EXECUTIVE_PROFILES[secGen.name]}
+            />
+          )}
 
           {/* Collective grid */}
           <div>
@@ -298,7 +346,8 @@ export default function Equip() {
                     member={m}
                     isActive={activeName === m.name}
                     onToggle={() => toggle(m.name)}
-                    photo={PHOTOS[m.name]}
+                    photo={EXECUTIVE_PROFILES[m.name]?.photo ?? PHOTOS[m.name]}
+                    profile={EXECUTIVE_PROFILES[m.name]}
                     lang={lang}
                   />
                 </Reveal>

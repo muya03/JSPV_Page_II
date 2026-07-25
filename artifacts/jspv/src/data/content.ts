@@ -443,6 +443,46 @@ export const EXECUTIVE_FULL: ExecutiveMember[] = [
   },
 ];
 
+export interface ExecutiveProfile {
+  /** Age in years, as reported by the member. */
+  edad: number;
+  /** Comarca / territory the member is from. */
+  comarca: string;
+  /** Personal quote, shown on the member's card. Kept verbatim (ca or es). */
+  frase: string;
+  /** Optional portrait — an imported asset path or an absolute URL. */
+  photo?: string;
+}
+
+/**
+ * Extra profile data for the executive members who filled in the internal
+ * form: age, comarca and a personal quote. Keyed by the member's `name` in
+ * EXECUTIVE_FULL. Members not listed here fall back to their bio.
+ */
+export const EXECUTIVE_PROFILES: Record<string, ExecutiveProfile> = {
+  "Marcos Durà Gimeno": { edad: 26, comarca: "València Ciutat", frase: "Treballem hui per garantir més oportunitats a la joventut de demà" },
+  "Francisco José Hidalgo Vidal": { edad: 29, comarca: "Horta Sud", frase: "La fuerza de los/as jóvenes es imparable." },
+  "Leire Juan Checa": { edad: 20, comarca: "Camp del Túria", frase: "Assumiras la veu d’un poble" },
+  "Iván López Sánchez": { edad: 26, comarca: "Alacantí", frase: "La vivienda no puede seguir siendo el negocio de unos pocos y la preocupación diaria de toda una generación." },
+  "Héctor Giner González": { edad: 25, comarca: "La Safor - Valldigna", frase: "La política solo merece la pena si mejora la vida de alguien" },
+  "José Luis Bravo Josemaría": { edad: 26, comarca: "La Ribera del Xúquer", frase: "Amb vocació de servei públic i il·lusió per construir oportunitats per a totes i tots." },
+  "Pedro Sabaté Roca": { edad: 27, comarca: "Valencia Ciudad", frase: "Los impuestos son el precio de una sociedad civilizada" },
+  "María Márquez Bonmatí": { edad: 24, comarca: "El Baix Vinalopó", frase: "La igualdad es el alma de la libertad" },
+  "Alejandro Ruiz Cortés": { edad: 26, comarca: "L’Alt i el Mitjà Vinalopó", frase: "Creo en un futuro donde nadie tenga que pedir permiso para ser quien es. Mientras ese día llega, seguiremos trabajando para que el orgullo se convierta en igualdad cotidiana." },
+  "Ariadna López Martínez": { edad: 26, comarca: "València", frase: "Crec en un poble que celebra, comparteix i fa de les seues festes un espai per a tots i totes" },
+  "Andrea Cantos Martínez": { edad: 24, comarca: "La Ribera del Xúquer", frase: "Un poble que reconeix la seua memòria és un poble que defensa la seua democràcia." },
+  "Irene Martínez Romero": { edad: 28, comarca: "Horta Nord", frase: "Tota política que no fem nosaltres, serà feta contra nosaltres" },
+  "Mari Carmen Deltell": { edad: 26, comarca: "Alto y Medio Vinalopó", frase: "Recordar es defender la libertad y la democracia" },
+  "M. Carmen Marqueño Moreno": { edad: 29, comarca: "Marina Baixa", frase: "Una sociedad más justa, empieza por una juventud comprometida." },
+  "José Alejandro Bernabeu Martínez": { edad: 25, comarca: "La Muntanya", frase: "S'ha de defensar una sanitat pública forta i una salut mental digna, perquè una societat que cuida les persones és una societat amb futur" },
+  "Tarek Berrakkad Lasri": { edad: 27, comarca: "Marina Baixa", frase: "Construyendo puentes, derribando barreras." },
+  "Marc Tormo Varoch": { edad: 25, comarca: "Marina Baixa", frase: "No hi ha transformació sense formació, ni futur sense una militància compromesa." },
+  "Claudia Garcia Llopis": { edad: 22, comarca: "Ribera del Xúquer", frase: "Defensar els drets laborals i fomentar un emprenedoria digna i inclusiva són dos pilars fonamentals per a construir un futur millor." },
+  "Abel Ortega Gastaldo": { edad: 26, comarca: "València Ciutat", frase: "En este món que ens aboca a ser independents, forts i freds, la tendresa és tot un acte de rebel·lia." },
+  "Pau de la Resurrección Pérez": { edad: 26, comarca: "Ribera Alta", frase: "Entenc l'europeisme com el millor llegat de llibertat, concòrdia i oportunitats que tenim el deure d'assegurar per a les futures generacions." },
+  "Adrián Campos Campillo": { edad: 24, comarca: "La Plana Alta", frase: "El que no es mostra, no existeix. El que no existeix, mor. Ser visibles no és una opció, és una obligació." },
+};
+
 export interface ValueItem {
   title: string;
   desc: string;
