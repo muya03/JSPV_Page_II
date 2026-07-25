@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Link } from "wouter";
+import { ArrowRight, Landmark } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { Reveal } from "@/components/Reveal";
 import { PageHero } from "@/components/SectionHeading";
@@ -133,6 +135,36 @@ export default function Institucions() {
               )}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ── Saber-ne més: les institucions valencianes ──────────── */}
+      <section className="bg-white border-t border-border">
+        <div className="container-page py-14 md:py-20">
+          <Reveal className="relative overflow-hidden rounded-2xl bg-[#1A1A1A] text-white">
+            <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8 p-8 md:p-12">
+              <div className="max-w-2xl">
+                <span
+                  className="inline-flex w-12 h-12 items-center justify-center rounded-lg bg-primary/15 text-primary mb-5"
+                  aria-hidden="true"
+                >
+                  <Landmark size={24} />
+                </span>
+                <h2 className="font-display font-extrabold text-2xl sm:text-3xl md:text-4xl leading-tight">
+                  {t.institucions.saberMesTitle}
+                </h2>
+                <p className="mt-4 text-white/70 text-base md:text-lg leading-relaxed font-light italic">
+                  {t.institucions.saberMesText}
+                </p>
+              </div>
+              <Link
+                href="/institucions/valencianes"
+                className="inline-flex items-center gap-2 h-13 px-7 py-3.5 rounded-md bg-primary text-primary-foreground font-display font-bold text-base hover:bg-primary/90 transition-colors shrink-0"
+              >
+                {t.institucions.saberMesCta} <ArrowRight size={18} aria-hidden="true" />
+              </Link>
+            </div>
+          </Reveal>
         </div>
       </section>
     </Layout>

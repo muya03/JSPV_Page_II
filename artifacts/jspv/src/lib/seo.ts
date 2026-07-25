@@ -60,6 +60,12 @@ export const ROUTE_META: RouteMeta[] = [
       "Directori de càrrecs públics de JSPV a les institucions valencianes: Les Corts, ajuntaments i diputacions.",
   },
   {
+    path: "/institucions/valencianes",
+    title: "Les institucions valencianes" + TITLE_SUFFIX,
+    description:
+      "Quines institucions polítiques hi ha a la Comunitat Valenciana, quines funcions tenen i per què és clau la veu jove: Les Corts, el Consell, el Síndic de Greuges, diputacions i ajuntaments.",
+  },
+  {
     path: "/afiliat",
     title: "Afilia't" + TITLE_SUFFIX,
     description:

@@ -15,6 +15,7 @@ import Campanyes from "@/pages/Campanyes";
 import Habitatge from "@/pages/campaigns/Habitatge";
 import GeneracioDeFerro from "@/pages/campaigns/GeneracioDeFerro";
 import Institucions from "@/pages/Institucions";
+import InstitucionsValencianes from "@/pages/InstitucionsValencianes";
 import Afiliat from "@/pages/Afiliat";
 import Contacte from "@/pages/Contacte";
 import OnEstem from "@/pages/OnEstem";
@@ -39,6 +40,7 @@ function Router() {
       <Route path="/campanyes" component={Campanyes} />
       <Route path="/campanyes/habitatge-es-un-dret" component={Habitatge} />
       <Route path="/campanyes/generacio-de-ferro" component={GeneracioDeFerro} />
+      <Route path="/institucions/valencianes" component={InstitucionsValencianes} />
       <Route path="/institucions" component={Institucions} />
       <Route path="/afiliat" component={Afiliat} />
       <Route path="/contacte" component={Contacte} />
