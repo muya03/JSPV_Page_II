@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { Reveal } from "@/components/Reveal";
 import { useSEO } from "@/lib/seo";
-import { EXECUTIVE_FULL, EXECUTIVE_PROFILES, type ExecutiveMember, type ExecutiveProfile } from "@/data/content";
+import { EXECUTIVE_FULL, EXECUTIVE_PROFILES, EXECUTIVE_PHOTO_DRIVE_IDS, drivePhotoUrl, type ExecutiveMember, type ExecutiveProfile } from "@/data/content";
 import { useT } from "@/i18n/context";
 import heroBg from "@assets/6e828fcbfebe4e0645c4602230b2dc6d_1781816545714.jpg";
 import photoMarcos from "@assets/MarcosDura_1782063504964.jpeg";
@@ -14,6 +14,16 @@ const PHOTOS: Record<string, string> = {
   "Itziar Lafita Balaguer": photoItziar,
   "Francisco José Hidalgo Vidal": photoFrancisco,
 };
+
+/**
+ * Local bundled photo if we have one, otherwise the member's public Google
+ * Drive portrait (form upload), otherwise undefined (→ initials fallback).
+ */
+function resolvePhoto(name: string): string | undefined {
+  if (PHOTOS[name]) return PHOTOS[name];
+  const driveId = EXECUTIVE_PHOTO_DRIVE_IDS[name];
+  return driveId ? drivePhotoUrl(driveId) : undefined;
+}
 
 function initials(name: string) {
   const parts = name.split(" ").filter(Boolean);
@@ -37,6 +47,7 @@ function SecGenFeature({
   profile?: ExecutiveProfile;
 }) {
   const isEs = lang === "es";
+  const [imgError, setImgError] = useState(false);
   return (
     <Reveal>
       <div className="relative bg-white rounded-3xl shadow-[0_20px_60px_-20px_rgba(227,6,19,0.35)] overflow-hidden grid md:grid-cols-[300px_1fr]">
@@ -51,8 +62,13 @@ function SecGenFeature({
           </span>
 
           <div className="relative w-36 h-36 rounded-full bg-white text-primary flex items-center justify-center font-display font-extrabold text-5xl shadow-xl ring-8 ring-white/20 overflow-hidden">
-            {photo ? (
-              <img src={photo} alt={member.name} className="w-full h-full object-cover object-top" />
+            {photo && !imgError ? (
+              <img
+                src={photo}
+                alt={member.name}
+                className="w-full h-full object-cover object-top"
+                onError={() => setImgError(true)}
+              />
             ) : (
               initials(member.name)
             )}
@@ -119,6 +135,7 @@ function MemberTile({
   profile?: ExecutiveProfile;
 }) {
   const isEs = lang === "es";
+  const [imgError, setImgError] = useState(false);
   return (
     <div
       className={`group relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer select-none transition-all duration-300 bg-white ${
@@ -142,8 +159,13 @@ function MemberTile({
       <div className="absolute inset-0 flex flex-col">
         {/* Photo — fills top ~75% */}
         <div className="flex-1 overflow-hidden bg-[hsl(var(--surface))]">
-          {photo ? (
-            <img src={photo} alt={member.name} className="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105" />
+          {photo && !imgError ? (
+            <img
+              src={photo}
+              alt={member.name}
+              className="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
+              onError={() => setImgError(true)}
+            />
           ) : (
             <div className={`w-full h-full flex items-center justify-center font-display font-extrabold text-4xl text-white transition-colors duration-300 bg-[#1A1A1A] group-hover:bg-primary`}>
               {initials(member.name)}
@@ -311,7 +333,7 @@ export default function Equip() {
             <SecGenFeature
               member={secGen}
               lang={lang}
-              photo={EXECUTIVE_PROFILES[secGen.name]?.photo ?? PHOTOS[secGen.name]}
+              photo={resolvePhoto(secGen.name)}
               profile={EXECUTIVE_PROFILES[secGen.name]}
             />
           )}
@@ -346,7 +368,7 @@ export default function Equip() {
                     member={m}
                     isActive={activeName === m.name}
                     onToggle={() => toggle(m.name)}
-                    photo={EXECUTIVE_PROFILES[m.name]?.photo ?? PHOTOS[m.name]}
+                    photo={resolvePhoto(m.name)}
                     profile={EXECUTIVE_PROFILES[m.name]}
                     lang={lang}
                   />
