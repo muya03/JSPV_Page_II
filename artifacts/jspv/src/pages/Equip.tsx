@@ -35,6 +35,45 @@ function initials(name: string) {
 const secGen = EXECUTIVE_FULL.find((m) => m.role === "Secretaria General");
 const members = EXECUTIVE_FULL.filter((m) => m.role !== "Secretaria General");
 
+// ── Other statutory bodies — simple name lists (role + name, no photos) ───────
+
+interface BodyMember {
+  ca: string;
+  es: string;
+  name: string;
+}
+
+interface GovernanceBody {
+  ca: string;
+  es: string;
+  members: BodyMember[];
+}
+
+const GOVERNANCE_BODIES: GovernanceBody[] = [
+  {
+    ca: "Comissió de Garanties Estatutàries i Revisió de Comptes",
+    es: "Comisión de Garantías Estatutarias y Revisión de Cuentas",
+    members: [
+      { ca: "Presidència", es: "Presidencia", name: "Andrea Martínez Villena" },
+      { ca: "Vicepresidència primera", es: "Vicepresidencia primera", name: "Claudia Cabrero Ronda" },
+      { ca: "Secretaria primera", es: "Secretaría primera", name: "Diego García Vizcaíno" },
+      { ca: "Secretaria segona", es: "Secretaría segunda", name: "Jordi Benavent Piera" },
+      { ca: "Vocal", es: "Vocal", name: "Manuel Verdú Henares" },
+    ],
+  },
+  {
+    ca: "Mesa del Comité Nacional",
+    es: "Mesa del Comité Nacional",
+    members: [
+      { ca: "Presidència", es: "Presidencia", name: "Pablo Peris Gandia" },
+      { ca: "Vicepresidència primera", es: "Vicepresidencia primera", name: "Celia Salvador Macián" },
+      { ca: "Vicepresidència segona", es: "Vicepresidencia segunda", name: "Vera Muñoz Mojica" },
+      { ca: "Secretaria primera", es: "Secretaría primera", name: "Sergi Romaguera" },
+      { ca: "Secretaria segona", es: "Secretaría segunda", name: "Rubén Olmos Pérez" },
+    ],
+  },
+];
+
 // ── Secretary General — featured block ───────────────────────────────────────
 
 function SecGenFeature({
@@ -374,6 +413,45 @@ export default function Equip() {
                     profile={EXECUTIVE_PROFILES[m.name]}
                     lang={lang}
                   />
+                </Reveal>
+              ))}
+            </div>
+          </div>
+
+          {/* Other statutory bodies — simple name lists */}
+          <div>
+            <Reveal>
+              <div className="flex items-center gap-3 mb-7">
+                <span className="block w-1 h-6 bg-primary shrink-0" aria-hidden="true" />
+                <h2 className="font-display font-extrabold text-lg text-foreground">
+                  {lang === "es" ? "Otros órganos" : "Altres òrgans"}
+                </h2>
+              </div>
+            </Reveal>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+              {GOVERNANCE_BODIES.map((body, bi) => (
+                <Reveal key={body.ca} delay={bi * 70}>
+                  <div className="h-full bg-white border border-border rounded-xl overflow-hidden">
+                    <div className="bg-[hsl(var(--surface))] px-6 py-4 border-b border-border flex items-start gap-3">
+                      <span className="shrink-0 mt-1 block w-1.5 h-6 bg-primary rounded-full" aria-hidden="true" />
+                      <h3 className="font-display font-bold text-base md:text-lg text-foreground leading-tight">
+                        {lang === "es" ? body.es : body.ca}
+                      </h3>
+                    </div>
+                    <ul className="divide-y divide-border">
+                      {body.members.map((m) => (
+                        <li key={m.name} className="px-6 py-3.5">
+                          <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-primary mb-0.5">
+                            {lang === "es" ? m.es : m.ca}
+                          </p>
+                          <p className="font-display font-semibold text-[15px] text-foreground leading-snug">
+                            {m.name}
+                          </p>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </Reveal>
               ))}
             </div>
