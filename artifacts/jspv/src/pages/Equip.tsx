@@ -2,29 +2,66 @@ import { useState, useCallback } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { Reveal } from "@/components/Reveal";
 import { useSEO } from "@/lib/seo";
-import { EXECUTIVE_FULL, EXECUTIVE_PROFILES, EXECUTIVE_PHOTO_DRIVE_IDS, drivePhotoUrl, type ExecutiveMember, type ExecutiveProfile } from "@/data/content";
+import { EXECUTIVE_FULL, EXECUTIVE_PROFILES, type ExecutiveMember, type ExecutiveProfile } from "@/data/content";
 import { useT } from "@/i18n/context";
 import heroBg from "@assets/6e828fcbfebe4e0645c4602230b2dc6d_1781816545714.jpg";
-import photoMarcos from "@assets/MarcosDura_1782063504964.jpeg";
 import photoItziar from "@assets/itziar-lafita_xl_1782063504964.jpg";
-import photoFrancisco from "@assets/Francisco_Jose_Hidalgo_2023_1782063504963.jpg";
 import photoMohamed from "@assets/mohamed-al-howaidi.jpg";
+import ph_abel_ortega from "@assets/team/abel-ortega.jpg";
+import ph_adrian_campos from "@assets/team/adrian-campos.jpg";
+import ph_alejandro_bernabeu from "@assets/team/alejandro-bernabeu.jpg";
+import ph_alejandro_ruiz from "@assets/team/alejandro-ruiz.jpg";
+import ph_andrea_cantos from "@assets/team/andrea-cantos.jpg";
+import ph_ariadna_lopez from "@assets/team/ariadna-lopez.jpg";
+import ph_carmen_deltell from "@assets/team/carmen-deltell.jpg";
+import ph_carmen_marqueno from "@assets/team/carmen-marqueno.jpg";
+import ph_carolina_lucena from "@assets/team/carolina-lucena.jpg";
+import ph_claudia_garcia from "@assets/team/claudia-garcia.jpg";
+import ph_francisco_hidalgo from "@assets/team/francisco-hidalgo.jpg";
+import ph_hector_giner from "@assets/team/hector-giner.jpg";
+import ph_irene_martinez from "@assets/team/irene-martinez.jpg";
+import ph_ivan_lopez from "@assets/team/ivan-lopez.jpg";
+import ph_jose_luis_bravo from "@assets/team/jose-luis-bravo.jpg";
+import ph_leire_juan from "@assets/team/leire-juan.jpg";
+import ph_marc_tormo from "@assets/team/marc-tormo.jpg";
+import ph_marcos_dura from "@assets/team/marcos-dura.jpg";
+import ph_maria_arastey from "@assets/team/maria-arastey.jpg";
+import ph_maria_marquez from "@assets/team/maria-marquez.jpg";
+import ph_pau_resurreccion from "@assets/team/pau-resurreccion.jpg";
+import ph_pedro_sabate from "@assets/team/pedro-sabate.jpg";
+import ph_tarek_berrakkad from "@assets/team/tarek-berrakkad.jpg";
 
 const PHOTOS: Record<string, string> = {
-  "Marcos Durà Gimeno": photoMarcos,
   "Itziar Lafita Balaguer": photoItziar,
-  "Francisco José Hidalgo Vidal": photoFrancisco,
   "Mohamed Al Howaidi Nasralla": photoMohamed,
+  "Abel Ortega Gastaldo": ph_abel_ortega,
+  "Adrián Campos Campillo": ph_adrian_campos,
+  "Alejandro Ruiz Cortés": ph_alejandro_ruiz,
+  "Andrea Cantos Martínez": ph_andrea_cantos,
+  "Ariadna López Martínez": ph_ariadna_lopez,
+  "Carolina Lucena García": ph_carolina_lucena,
+  "Claudia Garcia Llopis": ph_claudia_garcia,
+  "Francisco José Hidalgo Vidal": ph_francisco_hidalgo,
+  "Héctor Giner González": ph_hector_giner,
+  "Irene Martínez Romero": ph_irene_martinez,
+  "Iván López Sánchez": ph_ivan_lopez,
+  "José Alejandro Bernabeu Martínez": ph_alejandro_bernabeu,
+  "José Luis Bravo Josemaría": ph_jose_luis_bravo,
+  "Leire Juan Checa": ph_leire_juan,
+  "M. Carmen Marqueño Moreno": ph_carmen_marqueno,
+  "Marc Tormo Varoch": ph_marc_tormo,
+  "Marcos Durà Gimeno": ph_marcos_dura,
+  "Mari Carmen Deltell": ph_carmen_deltell,
+  "Maria Arastey Sanmartín": ph_maria_arastey,
+  "María Márquez Bonmatí": ph_maria_marquez,
+  "Pau de la Resurrección Pérez": ph_pau_resurreccion,
+  "Pedro Sabaté Roca": ph_pedro_sabate,
+  "Tarek Berrakkad Lasri": ph_tarek_berrakkad,
 };
 
-/**
- * Local bundled photo if we have one, otherwise the member's public Google
- * Drive portrait (form upload), otherwise undefined (→ initials fallback).
- */
+/** Locally-hosted portrait for a member, or undefined (→ initials fallback). */
 function resolvePhoto(name: string): string | undefined {
-  if (PHOTOS[name]) return PHOTOS[name];
-  const driveId = EXECUTIVE_PHOTO_DRIVE_IDS[name];
-  return driveId ? drivePhotoUrl(driveId) : undefined;
+  return PHOTOS[name];
 }
 
 function initials(name: string) {

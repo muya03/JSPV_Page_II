@@ -484,41 +484,6 @@ export const EXECUTIVE_PROFILES: Record<string, ExecutiveProfile> = {
   "Mohamed Al Howaidi Nasralla": { edad: 22, comarca: "Castelló de la Plana (La Plana Alta)", frase: "No siempre verás el fruto de lo que haces, pero el mundo sería distinto si no lo hubieras hecho." },
 };
 
-/**
- * Google Drive file IDs for member portraits uploaded through the internal
- * form, keyed by the member's `name`. Turned into embeddable image URLs with
- * `drivePhotoUrl()`. The files must be shared publicly ("anyone with the
- * link") for the images to load; otherwise the card falls back to initials.
- */
-export const EXECUTIVE_PHOTO_DRIVE_IDS: Record<string, string> = {
-  "Marcos Durà Gimeno": "1MLUkZN5vGs9x6WD1p5kYWCIQa2jzBFQW",
-  "Francisco José Hidalgo Vidal": "1KFtKul7lacsphWxC_WxkGG0AbrJ2RgZn",
-  "Leire Juan Checa": "1puLwyoZB06o_nAEjbvgmEF-vnycw83Mz",
-  "Iván López Sánchez": "1U7swcwimqPVdO2996NAMmMAaT9BBgCy7",
-  "Héctor Giner González": "18mSt1O_tYNsxkKVIWGPX92ROcY7AVnRG",
-  "José Luis Bravo Josemaría": "16itsQ7aynfzj4nxVQMJAQNNf7C_VWc-A",
-  "Pedro Sabaté Roca": "1UzMu704TS2Vqev2uNw1yEyrIVetj7dvo",
-  "María Márquez Bonmatí": "1Y-OKEPLghTx9GjOf9MBMPRoFmcpIG3De",
-  "Alejandro Ruiz Cortés": "1ovRse7myVYZHNe4ifeliFQJc66A67rj0",
-  "Ariadna López Martínez": "12tpTKzy99BONaqt9VCE-7z_p1xSv3OL4",
-  "Andrea Cantos Martínez": "1bcOdEhbPRwyEAeG-Lt7eVKVQEOmz1KyD",
-  "Irene Martínez Romero": "1r_Ja5gAFd7TreFO0a2El9PBuKXoEiewx",
-  "Mari Carmen Deltell": "1SvNHayeDGNpSG8HtJu1qL6R_4OFipJXL",
-  "M. Carmen Marqueño Moreno": "13W5329iErgxsLktkLjppVFL53g5CWNIt",
-  "José Alejandro Bernabeu Martínez": "1OpM2alBtL9Njzt1qWTEi6bSkQohEAE-x",
-  "Tarek Berrakkad Lasri": "1p-xUI39rPzSsMnzisKYecl5iniOUptFZ",
-  "Marc Tormo Varoch": "1gOXbE16VmEyPl9AphluvKKQQBd6TxlGJ",
-  "Claudia Garcia Llopis": "1I3W97IjRHUjqRh663Rik1hvi0kb4bLij",
-  "Abel Ortega Gastaldo": "1AsIeXqLtKAqElwqwAZ8fvpg7vvtp-aPa",
-  "Pau de la Resurrección Pérez": "1i9n73obZWASpgWUp10rgeAEbe7sC-Fv2",
-  "Adrián Campos Campillo": "1tvrvq2DjeMQ9TSwtMWedHJKexmEbHat2",
-};
-
-/** Build an `<img>`-embeddable URL for a public Google Drive image file id. */
-export function drivePhotoUrl(id: string): string {
-  return `https://drive.google.com/thumbnail?id=${id}&sz=w1000`;
-}
-
 export interface ValueItem {
   title: string;
   desc: string;
