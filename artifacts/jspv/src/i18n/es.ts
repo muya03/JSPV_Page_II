@@ -22,6 +22,8 @@ export const es: Translations = {
     onEstem: "Dónde estamos",
     transparencia: "Transparencia",
     comunicats: "Comunicados",
+    institucionsDirectori: "Quién nos representa",
+    institucionsSobre: "Las instituciones valencianas",
   },
 
   common: {

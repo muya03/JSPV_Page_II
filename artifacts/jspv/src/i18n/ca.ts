@@ -20,6 +20,8 @@ export const ca = {
     onEstem: "On estem",
     transparencia: "Transparència",
     comunicats: "Comunicats",
+    institucionsDirectori: "Qui ens representa",
+    institucionsSobre: "Les institucions valencianes",
   },
 
   common: {
