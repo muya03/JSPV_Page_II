@@ -77,6 +77,54 @@ export const ROUTE_META: RouteMeta[] = [
     description:
       "Contacta amb Joves Socialistes del País Valencià: correus d'organització, premsa i xarxes socials oficials.",
   },
+  {
+    path: "/partit/equip",
+    title: "El nostre equip" + TITLE_SUFFIX,
+    description:
+      "Comissió Executiva Nacional elegida al XIV Congrés d'Alcoi: una direcció col·legiada, jove i compromesa amb el País Valencià.",
+  },
+  {
+    path: "/partit/historia",
+    title: "La nostra Història" + TITLE_SUFFIX,
+    description:
+      "Des de la fundació el 1903 fins al XIV Congrés d'Alcoi 2026: la història de Joves Socialistes del País Valencià.",
+  },
+  {
+    path: "/partit/valors",
+    title: "Idees i Valors" + TITLE_SUFFIX,
+    description:
+      "Els set principis ideològics de JSPV: socialdemocràcia, republicanisme, progressisme, feminisme, federalisme, europeisme i valencianisme.",
+  },
+  {
+    path: "/on-estem",
+    title: "On estem" + TITLE_SUFFIX,
+    description:
+      "Federacions provincials i seccions locals de Joves Socialistes del País Valencià: present a tot el territori.",
+  },
+  {
+    path: "/transparencia",
+    title: "Transparència" + TITLE_SUFFIX,
+    description:
+      "Documents orgànics, resolucions del XIV Congrés i informes de gestió de Joves Socialistes del País Valencià.",
+  },
+  {
+    path: "/comunicats",
+    title: "Comunicats" + TITLE_SUFFIX,
+    description:
+      "Posicionaments i comunicats oficials de Joves Socialistes del País Valencià sobre la política valenciana.",
+  },
+  {
+    path: "/campanyes/habitatge-es-un-dret",
+    title: "L'habitatge és un dret" + TITLE_SUFFIX,
+    description:
+      "Campanya de JSPV per l'emancipació juvenil: parc públic de lloguer assequible i regulació dels preus en zones tensionades.",
+  },
+  {
+    path: "/campanyes/generacio-de-ferro",
+    title: "Generació de ferro" + TITLE_SUFFIX,
+    description:
+      "La generació que es va emplenar de fang exigeix salut mental, feina digna i reconeixement enfront dels qui la criminalitzen.",
+  },
 ];
 
 export const NOT_FOUND_META: RouteMeta = {

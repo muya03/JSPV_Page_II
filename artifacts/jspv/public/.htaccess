@@ -1,0 +1,57 @@
+# ============================================================================
+# JSPV — configuración Apache para hosting estático (IONOS y similares)
+# Este archivo se copia dentro de dist/public al hacer el build y debe subirse
+# junto al resto de archivos a la raíz del dominio.
+# ============================================================================
+
+# --- Enrutado SPA (single page app) ----------------------------------------
+# Las páginas ya vienen pre-generadas como carpetas con su index.html, así que
+# Apache las sirve directamente. Para cualquier otra ruta, se devuelve el
+# index.html raíz y es el propio sitio (JavaScript) quien muestra la página.
+Options -MultiViews
+DirectoryIndex index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # No reescribir archivos ni carpetas que existen de verdad
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Todo lo demás -> entrada de la SPA
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# --- Página 404 ------------------------------------------------------------
+ErrorDocument 404 /404/index.html
+
+# --- Compresión (más velocidad) --------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css application/javascript application/json image/svg+xml application/xml
+</IfModule>
+
+# --- Caché de recursos estáticos -------------------------------------------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  # Los assets con hash (/assets/*.js, *.css, imágenes) no cambian nunca:
+  # se pueden cachear durante un año.
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 6 months"
+  ExpiresByType image/png "access plus 6 months"
+  ExpiresByType image/webp "access plus 6 months"
+  ExpiresByType image/svg+xml "access plus 6 months"
+  # El HTML sí puede cambiar en cada despliegue: no cachear.
+  ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|css|jpg|jpeg|png|webp|svg|woff2?)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
