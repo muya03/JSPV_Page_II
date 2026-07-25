@@ -52,7 +52,7 @@ function SecGenFeature({
   const [imgError, setImgError] = useState(false);
   return (
     <Reveal>
-      <div className="relative bg-white rounded-3xl shadow-[0_20px_60px_-20px_rgba(227,6,19,0.35)] overflow-hidden grid md:grid-cols-[300px_1fr]">
+      <div className="relative bg-white rounded-3xl shadow-[0_20px_60px_-20px_rgba(227,6,19,0.35)] overflow-hidden grid md:grid-cols-[360px_1fr]">
         {/* Left — red panel with oversized avatar */}
         <div className="relative bg-primary text-white flex flex-col items-center justify-center py-12 px-8 overflow-hidden">
           {/* Decorative oversized star watermark */}
@@ -63,7 +63,7 @@ function SecGenFeature({
             ★
           </span>
 
-          <div className="relative w-36 h-36 rounded-full bg-white text-primary flex items-center justify-center font-display font-extrabold text-5xl shadow-xl ring-8 ring-white/20 overflow-hidden">
+          <div className="relative w-56 h-56 md:w-64 md:h-64 rounded-full bg-white text-primary flex items-center justify-center font-display font-extrabold text-6xl shadow-xl ring-8 ring-white/20 overflow-hidden">
             {photo && !imgError ? (
               <img
                 src={photo}
